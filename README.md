@@ -124,9 +124,9 @@ The main goal of this project is to generate sales, it is important to keep it a
   * [PT Sans](https://fonts.google.com/specimen/PT+Sans) is used for normal text through the website. The text hiery is determined by the use of color and boldness.
   
 #### Wireframes
-* Wireframes for mobile: 
-* Wireframes for desktop: 
-
+* Wireframes for mobile: [View here](readme-assets/wireframes-mobile.png)
+* Wireframes for desktop: [View here](readme-assets/wireframes-desktop.png)
+Tablet design will be similar to desktop design with minor differences in order to fit better with the screen property of a tablet such as columns or padding, etc.
 #### Design changes
 
 ## Features
