@@ -1,0 +1,16 @@
+# ide/editor default files/directories
+.vscode
+.DS_Store
+.idea/
+
+# misc
+*.pem
+venv/
+.venv/
+__pycache__/
+*.sqlite3
+*.pyc
+
+# local env files
+.env
+env.py
