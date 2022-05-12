@@ -1,15 +1,85 @@
+:root {
+    --color-salmon: #ff7e6b;
+    --color-avocado: #44b5aa;
+}
+
 body {
     font-family: "PT Sans", sans-serif;
     font-size: 16px;
     line-height: 1.5;
     color: #333;
     background-color: #fff;
+    position: relative;
 }
 
-.nav-brand {
-    font-family: "Caveat Brush", sans-serif;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #333;
+/* ----- navbar and header ----- */
+.navbar-light .navbar-brand {
+    font-family: "Caveat Brush", cursive;
+    font-size: 2.25em;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--color-salmon);
     margin-right: 1em;
+}
+
+.navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--color-avocado);
+}
+.navbar-light .navbar-nav .nav-link {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.navbar-light .navbar-toggler {
+    border: 1.5px solid var(--color-salmon);
+    background-color: transparent;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-salmon);
+    font-size: 1em;
+}
+
+.navbar-light .navbar-toggler:hover,
+.navbar-light .navbar-toggler:focus,
+.navbar-light .navbar-toggler:active {
+    color: var(--color-avocado);
+    border-color: var(--color-avocado) ;
+}
+
+.navbar-light .navbar-toggler:hover .navbar-toggler-icon,
+.navbar-light .navbar-toggler:focus .navbar-toggler-icon,
+.navbar-light .navbar-toggler:active .navbar-toggler-icon{
+    color: var(--color-avocado);
+}
+
+/* ----- utilities ----- */
+.btn-primary {
+    background-color: var(--color-salmon);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-avocado);
+    color: #fff;
+}
+
+.btn-secondary {
+    background-color: var(--color-avocado);
+    color: #fff;
+    border: none;
+    font-weight: 700;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-salmon);
+    color: #fff;
 }

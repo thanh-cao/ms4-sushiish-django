@@ -2,43 +2,52 @@
 {% load static %}
 
 {% block page_header %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sushiish</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+        <a class="navbar-brand ms-5" href="{% url 'home' %}">Sushiish</a>
+        <button class="btn btn-primary d-block d-lg-none ms-auto me-3">Order Now</button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
+            aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">
+                <i class="fa-solid fa-bars"></i>
+            </span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="collapse navbar-collapse" id="sushiish-navbar">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#catering">Catering</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact Us</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                        Account
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
+                        {% if request.user.is_authenticated %}
+                        <li class="dropdown-item">
+                            <a href="">Profile</a>
                         </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li class="dropdown-item">
+                            <a href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'account_login' %}">Log In</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
-                </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <button class="btn btn-primary d-none d-lg-block">Order Now</button>
         </div>
     </div>
 </nav>
@@ -46,4 +55,13 @@
 
 {% block content %}
 <h1>Hello from index</h1>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+        target: '#about',
+    })
+</script>
 {% endblock %}
