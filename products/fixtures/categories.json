@@ -1,0 +1,64 @@
+[
+    {
+        "pk": 1,
+        "model": "products.category",
+        "fields": {
+            "name": "starters",
+            "friendly_name": "Starters",
+            "description": "Finger foods and salats."
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.category",
+        "fields": {
+            "name": "classic_maki",
+            "friendly_name": "Classic Maki",
+            "description": "Maki roll in 8 bites. Served with pickled ginger, wasabi, soya sauce."
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.category",
+        "fields": {
+            "name": "futo_maki",
+            "friendly_name": "Futo Maki",
+            "description": "Maki roll in 6 bites. Served with pickled ginger, wasabi, soya sauce."
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.category",
+        "fields": {
+            "name": "special_maki",
+            "friendly_name": "Special Maki",
+            "description": "Our Sushiish's special makis. Served with pickled ginger, wasabi, soya sauce."
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.category",
+        "fields": {
+            "name": "sashimi_nigiri",
+            "friendly_name": "Sashimi & Nigiri",
+            "description": "Sashimi and nigiri.Served with pickled ginger, wasabi, soya sauce (nigiri) or ponzu sauce (sashimi)."
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.category",
+        "fields": {
+            "name": "sushi_combo",
+            "friendly_name": "Sushi Combo Menu",
+            "description": "Sushi combo menu with nigiri and maki. Served with pickled ginger, wasabi, soya sauce."
+        }
+    },
+    {
+        "pk": 7,
+        "model": "products.category",
+        "fields": {
+            "name": "extra",
+            "friendly_name": "Extras"
+        }
+    }
+]

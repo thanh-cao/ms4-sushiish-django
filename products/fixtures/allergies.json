@@ -1,0 +1,72 @@
+[
+    {
+        "pk": 1,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Gluten"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Milk"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Eggs"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Peanuts"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Nuts"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Shellfish"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Wheat"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Soy"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Fish"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "products.allergy",
+        "fields": {
+            "name": "Sesame"
+        }
+    }
+]
