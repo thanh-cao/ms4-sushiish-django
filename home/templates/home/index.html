@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block page_header %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand ms-md-5" href="{% url 'home' %}">Sushiish</a>
         <!-- TODO: add link to order now -->
-        <a class="btn btn-primary d-block d-lg-none ms-auto me-3" role="button">Order Now</a>
+        <a class="btn btn-primary d-block d-md-none ms-auto me-3" role="button">Order Now</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
             aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -32,7 +32,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Account
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu text-end text-md-start" aria-labelledby="navbarDropdown">
                         {% if request.user.is_authenticated %}
                         <li class="dropdown-item">
                             <a href="">Profile</a>
@@ -51,7 +51,7 @@
                     </ul>
                 </li>
             </ul>
-            <a class="btn btn-primary d-none d-lg-block" role="button">Order Now</a>
+            <a class="btn btn-primary d-none d-md-block" role="button">Order Now</a>
         </div>
     </div>
 </nav>
@@ -60,42 +60,51 @@
 {% block content %}
 <main>
     <section class="container-fluid g-0">
-        <div class="jumbotron bg-secondary">
-            <h1 class="hero-text">Welcome to Sushiish</h1>
-            <button class="btn btn-primary btn-lg" href="#about">Learn More</button>
+        <div class="jumbotron">
+            <div class="container d-flex flex-column align-items-center align-items-md-start">
+                <div class="text-center">
+                    <h1 class="hero-text text-center">Sushiish<br>be<br>rolling</h1>
+                    <a class="btn btn-primary btn-lg" href="#about" role="button">Learn More</a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <section id="about" class="container-fluid g-0">
-        <div class="row">
-            <div class="col-12 col-lg-5">
-                <h2 id="about">Delish & fresh fish guaranteed</h2>
-                <p>
-                    Sushiish is a restaurant that serves sushi and other Japanese cuisine.
-                    We offer a wide range of sushi and other Japanese cuisine.
-                    We are a family-owned business that specializes in sushi and other Japanese cuisine.
-                </p>
-                <!-- TODO: add link to order now -->
-                <button class="btn btn-primary btn-lg" href="">Order now</button>
-            </div>
-            <div class="col-12 col-lg-7">
-                <img src="{{ MEDIA_URL }}homepage-sushi-plates.jpg" alt="About" class="img-fluid">
+    <section id="about" class="container-fluid g-0 px-3">
+        <div class="wave-overlay"></div>
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-12 col-md-5 text-center text-md-start">
+                    <h2 class="display-4 fw-bolder">Delish & fresh fish guaranteed</h2>
+                    <p class="text-white">
+                        Sushiish is a restaurant that serves sushi and other Japanese cuisine.
+                        We offer a wide range of sushi and other Japanese cuisine.
+                        We are a family-owned business that specializes in sushi and other Japanese cuisine.
+                    </p>
+                    <!-- TODO: add link to order now -->
+                    <a class="btn btn-primary btn-lg" href="">Order now</a>
+                </div>
+                <div class="col-12 col-md-6 offset-md-1 d-none d-md-block">
+                    <img src="{{ MEDIA_URL }}homepage-sushi-plates.jpg" alt="a photo og 6 different types of makis"
+                        class="img-fluid rounded">
+                </div>
             </div>
         </div>
     </section>
 
     <section id="catering" class="container-fluid g-0">
-        <div class="row justify-content-center">
-            <div class="col-6">
+        <div class="row justify-content-center g-0">
+            <div class="col-10 col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Catering</h2>
-                        <p class="card-text">From sushi bars to cooking stations, we have food for all occasions!
+                        <h2 class="text-center display-4 text-avocado">Catering</h2>
+                        <p class="card-text">From sushi bars to cooking stations of all things Asian, we have food for
+                            all occasions!
                             Catering is an easy & delicious addition to any event. Give us a shout and we shall deliver
                             a tailormade menu for your events.
                         </p>
                         <div class="text-center">
-                            <a class="btn btn-primary" href="#contact">Contact Us</a>
+                            <a class="btn btn-primary px-4" href="#contact">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -103,10 +112,10 @@
         </div>
     </section>
 
-    <section id="contact" class="container-fluid g-0 bg-secondary">
-        <div class="row">
+    <section id="contact" class="container-fluid g-0">
+        <div class="row g-0">
             <div class="col-12 col-md-7 px-5">
-                <h2>Contact Us</h2>
+                <h2 class="display-4 text-white">Contact Us</h2>
                 <form>
                     <div class="mb-3">
                         <input type="text" class="form-control" id="name" aria-label="Full name"
@@ -126,11 +135,11 @@
                         <textarea class="form-control" id="message" rows="5" aria-label="Message"
                             placeholder="Message &#42;" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send</button>
+                    <button type="submit" class="btn btn-lg btn-secondary px-5">Send</button>
                 </form>
             </div>
             <div class="col-md-4 offset-lg-1 d-none d-md-block">
-                <h3 class="mb-3">Contact Info</h3>
+                <h3 class="display-4 mb-3 text-white">Contact Info</h3>
                 <div class="text-white">
                     <p class="font-weight-bold">Sushiish AS</p>
                     <p><u>Phone:</u> 40 50 60 70</p>
@@ -143,31 +152,36 @@
     </section>
 
     <footer>
-        <div class="container text-center w-50">
-            <div class="row justify-content-center">Sushiish AS</div>
+        <div class="container text-center w-75">
+            <h3 class="row justify-content-center">Sushiish AS</h3>
             <div class="row">
-                <div class="col-3"></div>
-                <div class="col-3">
-                    <i class="fa-brands fa-facebook" aria-hidden="true"></i>
-                    <span class="sr-only">Facebook</span>
+                <div class="col-4"></div>
+                <div class="col-2">
+                    <a href="https://www.facebook.com" target="_blank">
+                        <i class="fa-brands fa-facebook fs-2" aria-hidden="true"></i>
+                        <span class="sr-only">Facebook</span>
+                    </a>
                 </div>
-                <div class="col-3">
-                    <i class="fa-brands fa-instagram" aria-hidden="true"></i>
-                    <span class="sr-only">Instagram</span>
+                <div class="col-2">
+                    <a href="https://www.instagram.com" target="_blank">
+                        <i class="fa-brands fa-instagram fs-2" aria-hidden="true"></i>
+                        <span class="sr-only">Instagram</span>
+                    </a>
                 </div>
-                <div class="col-3"></div>
+                <div class="col-4"></div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <p>contact@sushiish.com - 40 50 60 70</p>
+                    <div class="text-avocado">contact@sushiish.com</>
+                        <div class="text-avocado">40 50 60 70</div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <p class="text-white">Copyright &copy; Sushiish AS</p>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="text-salmon">Copyright &copy; Sushiish AS</>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
     </footer>
 
@@ -179,6 +193,15 @@
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: 'about',
-    })
+        offset: 100,
+    });
+    document.querySelectorAll('.navbar-nav>li>a').forEach(navlink => {
+        if (!navlink.classList.contains('dropdown-toggle')) {
+            navlink.addEventListener('click', () => {
+                document.querySelector('.navbar-collapse').classList.remove('show')
+            });
+        }
+    });
+
 </script>
 {% endblock %}

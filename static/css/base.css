@@ -60,6 +60,14 @@ body {
 }
 
 /* ----- headings, buttons ----- */
+h1,
+h2,
+h3 {
+    font-family: "Caveat Brush", cursive;
+    font-weight: 700;
+    color: var(--color-salmon);
+}
+
 .btn-primary {
     background-color: var(--color-salmon);
     color: #fff;
@@ -92,7 +100,29 @@ body {
     box-shadow: 0 0  0 0.25rem #963728;
 }
 
-/* ---- spacing and utilities ----- */
+/* ---- spacing, colors, and utilities ----- */
 main {
     margin-top: 80px;
+}
+
+.text-salmon {
+    color: var(--color-salmon);
+}
+
+.text-avocado {
+    color: var(--color-avocado);
+}
+
+svg {
+    color: var(--color-salmon);
+}
+
+svg:hover {
+    color: var(--color-avocado);
+}
+
+.card {
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    box-shadow: var(--color-salmon) 0px 14px 28px, var(--color-salmon) 0px 10px 10px;
 }
