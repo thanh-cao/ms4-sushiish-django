@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
 
 {% block page_header %}
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand ms-5" href="{% url 'home' %}">Sushiish</a>
-        <button class="btn btn-primary d-block d-lg-none ms-auto me-3">Order Now</button>
+        <a class="navbar-brand ms-md-5" href="{% url 'home' %}">Sushiish</a>
+        <!-- TODO: add link to order now -->
+        <a class="btn btn-primary d-block d-lg-none ms-auto me-3" role="button">Order Now</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
             aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -47,21 +51,134 @@
                     </ul>
                 </li>
             </ul>
-            <button class="btn btn-primary d-none d-lg-block">Order Now</button>
+            <a class="btn btn-primary d-none d-lg-block" role="button">Order Now</a>
         </div>
     </div>
 </nav>
 {% endblock %}
 
 {% block content %}
-<h1>Hello from index</h1>
+<main>
+    <section class="container-fluid g-0">
+        <div class="jumbotron bg-secondary">
+            <h1 class="hero-text">Welcome to Sushiish</h1>
+            <button class="btn btn-primary btn-lg" href="#about">Learn More</button>
+        </div>
+    </section>
+
+    <section id="about" class="container-fluid g-0">
+        <div class="row">
+            <div class="col-12 col-lg-5">
+                <h2 id="about">Delish & fresh fish guaranteed</h2>
+                <p>
+                    Sushiish is a restaurant that serves sushi and other Japanese cuisine.
+                    We offer a wide range of sushi and other Japanese cuisine.
+                    We are a family-owned business that specializes in sushi and other Japanese cuisine.
+                </p>
+                <!-- TODO: add link to order now -->
+                <button class="btn btn-primary btn-lg" href="">Order now</button>
+            </div>
+            <div class="col-12 col-lg-7">
+                <img src="{{ MEDIA_URL }}homepage-sushi-plates.jpg" alt="About" class="img-fluid">
+            </div>
+        </div>
+    </section>
+
+    <section id="catering" class="container-fluid g-0">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Catering</h2>
+                        <p class="card-text">From sushi bars to cooking stations, we have food for all occasions!
+                            Catering is an easy & delicious addition to any event. Give us a shout and we shall deliver
+                            a tailormade menu for your events.
+                        </p>
+                        <div class="text-center">
+                            <a class="btn btn-primary" href="#contact">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="container-fluid g-0 bg-secondary">
+        <div class="row">
+            <div class="col-12 col-md-7 px-5">
+                <h2>Contact Us</h2>
+                <form>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="name" aria-label="Full name"
+                            placeholder="Name &#42;" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="phone" class="form-control" id="phone" aria-label="Phone number"
+                            placeholder="Phone &#42;" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            aria-label="Email address" placeholder="Email &#42;" required>
+                        <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="message" rows="5" aria-label="Message"
+                            placeholder="Message &#42;" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+            <div class="col-md-4 offset-lg-1 d-none d-md-block">
+                <h3 class="mb-3">Contact Info</h3>
+                <div class="text-white">
+                    <p class="font-weight-bold">Sushiish AS</p>
+                    <p><u>Phone:</u> 40 50 60 70</p>
+                    <p><u>Email:</u> contact@sushiish.com</p>
+                    <p><u>Address:</u> Rolling Road 26, 3030 Oslo</p>
+                    <p><u>Pickup hours:</u> 13:00 - 21:00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center w-50">
+            <div class="row justify-content-center">Sushiish AS</div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-3">
+                    <i class="fa-brands fa-facebook" aria-hidden="true"></i>
+                    <span class="sr-only">Facebook</span>
+                </div>
+                <div class="col-3">
+                    <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                    <span class="sr-only">Instagram</span>
+                </div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p>contact@sushiish.com - 40 50 60 70</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-white">Copyright &copy; Sushiish AS</p>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</main>
 {% endblock %}
 
 
 {% block extra_js %}
 <script>
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {
-        target: '#about',
+        target: 'about',
     })
 </script>
 {% endblock %}
