@@ -1,0 +1,553 @@
+[
+    {
+        "pk": 1,
+        "model": "products.product",
+        "fields": {
+            "name": "Edamame beans",
+            "description": "Edamame beans with sea salt and chili flakes.",
+            "price": "5.69",
+            "category": 1,
+            "allergies": [
+                8
+            ],
+            "image": "products/1-edamame.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 2,
+        "model": "products.product",
+        "fields": {
+            "name": "Chicken gyoza",
+            "description": "5 steamed dumplings stuffed with chicken and vegetables, served with spicy ponzu sauce.",
+            "price": "5.69",
+            "category": 1,
+            "allergies": [
+                1,
+                10
+            ],
+            "image": "products/1-gyoza-chicken.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 3,
+        "model": "products.product",
+        "fields": {
+            "name": "Five fingers",
+            "description": "5 pieces fried scampi, served with sweet chili sauce.",
+            "price": "6.69",
+            "category": 1,
+            "allergies": [
+                1,
+                6
+            ],
+            "image": "products/1-five-fingers.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 4,
+        "model": "products.product",
+        "fields": {
+            "name": "Tempura salad",
+            "description": "Fried scampi, tobiko roe, avocado, cucumber, salad mix, sesame seeds, spring onion, salmon roe, teriyaki sauce and chilimayo.",
+            "price": "12.99",
+            "category": 1,
+            "allergies": [
+                1,
+                3,
+                6,
+                8,
+                9,
+                10
+            ],
+            "image": "products/1-tempura-salat.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 5,
+        "model": "products.product",
+        "fields": {
+            "name": "Poke salad",
+            "description": "Raw salmon and tuna, sushi rice, cucumber, avocado, radish, wakame seaweed, spring onion, salmon roe, sesame mayonnaise, ponzu sauce.",
+            "price": "13.99",
+            "category": 1,
+            "allergies": [
+                1,
+                6
+            ],
+            "image": "products/1-pokesalat.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 6,
+        "model": "products.product",
+        "fields": {
+            "name": "Tofu kimchi (Vegetarian)",
+            "description": "Marinated tofu with avocado, cucumber, radish, teriyaki sauce.",
+            "price": "12.99",
+            "category": 2,
+            "allergies": [
+                8,
+                1,
+                10
+            ],
+            "image": "products/2-tofu-kimchi.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 7,
+        "model": "products.product",
+        "fields": {
+            "name": "Salmon avocado",
+            "description": "Classic roll with salmon and avocado.",
+            "price": "7.99",
+            "category": 2,
+            "allergies": [
+                9,
+                10
+            ],
+            "image": "products/2-salmon-avocado.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 8,
+        "model": "products.product",
+        "fields": {
+            "name": "Salmon Philadelphia",
+            "description": "Salmon with Philadelphia cream cheese, avocado, cucumber, spring onion.",
+            "price": "8.99",
+            "category": 2,
+            "allergies": [
+                9,
+                2,
+                10
+            ],
+            "image": "products/2-salmon-philadelphia.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 9,
+        "model": "products.product",
+        "fields": {
+            "name": "Tempura scampi",
+            "description": "Fried scampi with avocado.",
+            "price": "8.99",
+            "category": 2,
+            "allergies": [
+                6,
+                10,
+                1
+            ],
+            "image": "products/2-tempura-scampi.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 10,
+        "model": "products.product",
+        "fields": {
+            "name": "Spicy salmon",
+            "description": "Raw salmon bites, avocado, spring onion, chilimayo.",
+            "price": "8.99",
+            "category": 2,
+            "allergies": [
+                9,
+                10,
+                3
+            ],
+            "image": "products/2-spicy-salmon.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 11,
+        "model": "products.product",
+        "fields": {
+            "name": "Spicy tuna",
+            "description": "Raw tuna bites, avocado, spring onion, chilimayo.",
+            "price": "8.99",
+            "category": 2,
+            "allergies": [
+                9,
+                10,
+                3
+            ],
+            "image": "products/2-spicy-tuna.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 12,
+        "model": "products.product",
+        "fields": {
+            "name": "Spicy scallops",
+            "description": "Raw scallops, cucumber, avocado, spring onion, chilimayo, tobiko roe.",
+            "price": "9.99",
+            "category": 2,
+            "allergies": [
+                9,
+                10,
+                3
+            ],
+            "image": "products/2-spicy-scallops.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 13,
+        "model": "products.product",
+        "fields": {
+            "name": "Crunchy spicy tuna",
+            "description": "Deep fried whole maki with avocado, cucumber, topped with chilimayo raw tuna, spring onion, teriyaki sauce.",
+            "price": "10.99",
+            "category": 2,
+            "allergies": [
+                9,
+                10,
+                3,
+                1,
+                8
+            ],
+            "image": "products/2-crunchy-spicy-tuna.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 14,
+        "model": "products.product",
+        "fields": {
+            "name": "Chicken teriyaki futo",
+            "description": "Fried chicken, avocado, chilimayo, teriyaki sauce.",
+            "price": "7.99",
+            "category": 3,
+            "allergies": [
+                10,
+                3,
+                1,
+                8
+            ],
+            "image": "products/3-chicken-teriyaki.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 15,
+        "model": "products.product",
+        "fields": {
+            "name": "Crunchy salmon futo",
+            "description": "Deep fried whole maki with raw salmon, avocado, spring onion, teriyaki sauce and spicy kimchi sauce.",
+            "price": "10.99",
+            "category": 3,
+            "allergies": [
+                10,
+                1,
+                8,
+                10,
+                9
+            ],
+            "image": "products/3-crunchy-salmon-futo.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 16,
+        "model": "products.product",
+        "fields": {
+            "name": "Spicy scampi futo",
+            "description": "Deep fried whole maki with scampi, avocado, spring onion, chilimayo.",
+            "price": "10.99",
+            "category": 3,
+            "allergies": [
+                10,
+                1,
+                10,
+                8,
+                6
+            ],
+            "image": "products/3-crunchy-scampi-futo.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 17,
+        "model": "products.product",
+        "fields": {
+            "name": "Tempura softshell crab teriyaki",
+            "description": "Fried softshell crab, cucumber, avocado, tobiko roe, wasabi cream, teriyaki sauce.",
+            "price": "10.99",
+            "category": 3,
+            "allergies": [
+                10,
+                1,
+                8,
+                6
+            ],
+            "image": "products/3-softshell-crab-teriyaki.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 18,
+        "model": "products.product",
+        "fields": {
+            "name": "Vegetarian heaven",
+            "description": "Avocado, cucumber, radish, Philadelphia cream cheese with mango sauce.",
+            "price": "10.99",
+            "category": 3,
+            "allergies": [
+                2
+            ],
+            "image": "products/3-vegetarian-heaven.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 19,
+        "model": "products.product",
+        "fields": {
+            "name": "Strawberry salmon",
+            "description": "Raw salmon with strawberry, Philadelphia cream cheese, strawberry sauce.",
+            "price": "9.99",
+            "category": 4,
+            "allergies": [
+                9,
+                2
+            ],
+            "image": "products/4-strawberry-salmon.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 20,
+        "model": "products.product",
+        "fields": {
+            "name": "Springroll maki",
+            "description": "Spring roll wrap instead of nori (seaweed wrap), raw salmon, cream cheese, leeks, spring onions, teriyaki sauce. Whole maki fried.",
+            "price": "10.99",
+            "category": 4,
+            "allergies": [
+                9,
+                2,
+                1,
+                10,
+                8
+            ],
+            "image": "products/4-springroll-maki.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 21,
+        "model": "products.product",
+        "fields": {
+            "name": "Mango salmon",
+            "description": "Fried salmon, cream cheese, cucumber, mango, topped with flambé salmon, alfalfa sprouts, teriyaki sauce, mango sauce.",
+            "price": "11.99",
+            "category": 4,
+            "allergies": [
+                9,
+                2,
+                1,
+                8,
+                10
+            ],
+            "image": "products/4-mango-salmon.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 22,
+        "model": "products.product",
+        "fields": {
+            "name": "Dragon roll",
+            "description": "Fried scampi, Philadephia cream cheese, cucumber, avocado topped with flambé salmon, alfalfa sprouts, teriyaki sauce, chilimayo, tobiko roe.",
+            "price": "10.99",
+            "category": 4,
+            "allergies": [
+                6,
+                9,
+                2,
+                3,
+                1,
+                8,
+                10
+            ],
+            "image": "products/4-spicy-salmon.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 23,
+        "model": "products.product",
+        "fields": {
+            "name": "Nigiri mix 6 bites",
+            "description": "2 salmon, 1 tuna, 1 halibut, 1 scampi, 1 scallop.",
+            "price": "10.99",
+            "category": 5,
+            "allergies": [
+                9,
+                6
+            ],
+            "image": "products/5-nigiri-6.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 24,
+        "model": "products.product",
+        "fields": {
+            "name": "Nigiri mix 10 bites",
+            "description": "2 salmon, 2 tuna, 2 halibut, 2 scampi, 2 scallop.",
+            "price": "15.99",
+            "category": 5,
+            "allergies": [
+                9,
+                6
+            ],
+            "image": "products/5-nigiri-10.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 25,
+        "model": "products.product",
+        "fields": {
+            "name": "Sashimi mix 12 bites",
+            "description": "4 salmon, 2 tuna, 2 halibut, 2 scampi, 2 scallop.",
+            "price": "12.99",
+            "category": 5,
+            "allergies": [
+                9,
+                6
+            ],
+            "image": "products/5-sashimi-12.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 26,
+        "model": "products.product",
+        "fields": {
+            "name": "Sashimi mix 20 bites",
+            "description": "10 salmon, 3 tuna, 3 halibut, 2 scampi, 2 scallop.",
+            "price": "20.99",
+            "category": 5,
+            "allergies": [
+                9,
+                6
+            ],
+            "image": "products/5-sashimi-20.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 27,
+        "model": "products.product",
+        "fields": {
+            "name": "Combo menu 16 bites",
+            "description": "8 nigiri bites (4 salmon, 1 tuna, 1 halibut, 1 scampi, 1 scallop) and 8 maki bites with salmon and cucumber.",
+            "price": "14.99",
+            "category": 6,
+            "allergies": [
+                9,
+                6,
+                10
+            ],
+            "image": "products/6-combo-16.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 28,
+        "model": "products.product",
+        "fields": {
+            "name": "Combo menu 20 bites",
+            "description": "12 nigiri bites (6 salmon, 1 tuna, 2 halibut, 2 scampi, 1 scallop) and 8 maki bites with salmon and cucumber.",
+            "price": "19.99",
+            "category": 6,
+            "allergies": [
+                9,
+                6,
+                10
+            ],
+            "image": "products/6-combo-20.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 29,
+        "model": "products.product",
+        "fields": {
+            "name": "Extra: soya sauce",
+            "description": "Soya sauce.",
+            "price": "0.99",
+            "category": 7,
+            "allergies": [
+                8
+            ],
+            "image": "products/7-soya.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 30,
+        "model": "products.product",
+        "fields": {
+            "name": "Extra: ponzu sauce",
+            "description": "Ponzu sauce.",
+            "price": "0.99",
+            "category": 7,
+            "allergies": [
+                10
+            ],
+            "image": "products/7-ponzu.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 31,
+        "model": "products.product",
+        "fields": {
+            "name": "Extra: pickled ginger",
+            "description": "Pickled ginger.",
+            "price": "0.99",
+            "category": 7,
+            "image": "products/7-ginger.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 32,
+        "model": "products.product",
+        "fields": {
+            "name": "Extra: wasabi",
+            "description": "Wasabi.",
+            "price": "0.99",
+            "category": 7,
+            "image": "products/7-wasabi.jpg",
+            "available": true
+        }
+    },
+    {
+        "pk": 33,
+        "model": "products.product",
+        "fields": {
+            "name": "Extra: chilimayo",
+            "description": "Chilimayo.",
+            "price": "0.99",
+            "category": 7,
+            "allergies": [
+                3
+            ],
+            "image": "products/7-chilimayo.jpg",
+            "available": true
+        }
+    }
+]
