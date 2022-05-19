@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}- all delish sushi menu{% endblock %}
+
+{% block page_header %}
+<nav class="navbar navbar-light bg-light fixed-top py-1 justify-content-around align-items-start">
+    <div>
+        <a class="navbar-brand" href="{% url 'home' %}">Sushiish</a>
+    </div>
+    <div>
+        <ul class="navbar-nav flex-row align-items-start">
+            <li class="nav-item dropdown list-inline-item me-3">
+                <a class="nav-link text-center" href="#" id="account-dropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-user fa-lg" aria-hidden="true"></i>
+                    <div class="dropdown-toggle">Account</div>
+                </a>
+                <ul class="dropdown-menu position-absolute end-0 text-end" aria-labelledby="account-dropdown">
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown-item">
+                        <a href="">Profile</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="{% url 'account_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_login' %}">Log In</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="nav-item list-inline-item">
+                <a class="nav-link text-center" href="#">
+                    <i class="fa-solid fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                    <span class="visually-hidden">Shopping Cart</span>
+                    <p class="mb-0">
+                        {% if grand_total %}
+                        ${{ grand_total|floatformat:2 }}
+                        {% else %}
+                        $0.00
+                        {% endif %}
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<main>
+    <section class="container-fluid product-listing-hero d-flex justify-content-center align-items-center">
+        <div class="card address-card">
+            <div class="card-body">
+                <div class="brand-text">Sushiish</div>
+                <div class="display-inline">
+                    <i class="fa-solid fa-phone me-2"></i>
+                    <span class="visually-hidden">Phone number</span>
+                    <span>+47 46 50 88 88</span>
+                </div>
+                <div class="display-inline">
+                    <i class="fa-solid fa-location-dot me-2"></i>
+                    <span class="visually-hidden">Address</span>
+                    <span>Rolling Road 26, 0580 Oslo</span>
+                </div>
+                <div class="display-inline">
+                    <i class="fa-solid fa-clock me-2"></i>
+                    <span class="visually-hidden">Opening hours</span>
+                    <span>13:00 - 21:00</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <!-- <div id="row category-nav"> -->
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">All</a>
+            </li>
+            {% for category in categories %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ category.friendly_name }}</a>
+            </li>
+            {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-circle-chevron-right"></i>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <section class="container-fluid product-listing">
+        <div class="row">
+            <div class="col-12">
+                {% for category in categories %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="display-6 fw-bold text-avocado">{{ category.friendly_name }}</>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for product in products %}
+
+                        {% if product.category.id == category.id %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card product-card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-7">
+                                            <p class="card-title fs-5 text-salmon fw-bold">{{ product.name }}</p>
+                                            <p class="card-text">{{ product.description }}</p>
+                                            <span class="price">
+                                                ${{ product.price|floatformat:2 }}
+                                            </span>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="row">
+                                                <img class="card-img-top rounded" src="{{ product.image.url }}"
+                                                    alt="{{ product.name }}">
+                                            </div>
+                                            <div class="row">
+                                                {% if product.allergies.length > 0 %}
+                                                <div class="col-12">
+                                                    <div class="allergies">
+                                                        <i class="fa-solid fa-exclamation-triangle"></i>
+                                                        <span class="visually-hidden">Allergies</span>
+                                                        <span>
+                                                            {% for allergy in product.allergies %}
+                                                            {{ allergy.name }}
+                                                            {% endfor %}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                                    <div class="col-12">
+                                        <a href="" class="btn btn-primary">
+                                            <i class="fa-solid fa-plus-circle"></i>
+                                            <span class="visually-hidden">Add to cart</span>
+                                        </a>
+                                    </div>
+                                </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+    </section>
+</main>
+{% endblock %}
