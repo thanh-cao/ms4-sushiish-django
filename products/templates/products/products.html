@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
-
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/products.css' %}">
+{% endblock %}
 {% block title %}- all delish sushi menu{% endblock %}
 
 {% block page_header %}
@@ -77,30 +79,31 @@
         </div>
     </section>
 
-    <div class="container-fluid">
-        <!-- <div id="row category-nav"> -->
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-circle-chevron-left"></i>
-                    <span class="visually-hidden">Previous</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="#">All</a>
-            </li>
-            {% for category in categories %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">{{ category.friendly_name }}</a>
-            </li>
-            {% endfor %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fa-solid fa-circle-chevron-right"></i>
-                    <span class="visually-hidden">Next</span>
-                </a>
-            </li>
-        </ul>
+    <div class="container-fluid category-nav-wrapper">
+        <div id="categoryNav" class="category-nav">
+            <ul id="categoryNavContents" class="category-nav_contents list-inline nav nav-pills nav-fill d-block mb-0">
+                <li class="nav-item list-inline-item">
+                    <a class="nav-link active text-center" href="#">All</a>
+                </li>
+                {% for category in categories %}
+                <li class="nav-item list-inline-item">
+                    <a class="nav-link" href="#">{{ category.friendly_name }}</a>
+                </li>
+                {% endfor %}
+                <span id="pnIndicator" class="category-nav_Indicator"></span>
+
+            </ul>
+        </div>
+
+        <div id="prevBtn" class="nav-item previous-btn">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+            <span class="visually-hidden">Previous</span>
+        </div>
+
+        <div id="nextBtn" class="nav-item next-btn">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+            <span class="visually-hidden">Next</span>
+        </div>
     </div>
 
     <section class="container-fluid product-listing">
@@ -169,4 +172,8 @@
             </div>
     </section>
 </main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'products/js/categoryNav.js' %}"></script>
 {% endblock %}

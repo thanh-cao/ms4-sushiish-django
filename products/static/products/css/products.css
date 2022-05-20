@@ -1,0 +1,82 @@
+.category-nav-wrapper {
+  position: relative;
+  margin: 1em auto;
+  padding: 0 1em;
+  height: 100%;
+  overflow: hidden;
+}
+
+.category-nav {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.category-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.category-nav .nav-item .nav-link {
+  padding: 0.5em 1em;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+}
+
+.category-nav .nav-item .nav-link:hover:not(.active),
+.category-nav .nav-item .nav-link:focus:not(.active),
+.category-nav .nav-item .nav-link:active:not(.active) {
+  border: 1px solid var(--color-avocado);
+  color: var(--color-avocado);
+  transition: border-color 0.2s ease-in-out;
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--color-avocado);
+  color: white;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.previous-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5%;
+  font-size: 1.5rem;
+}
+
+.next-btn {
+  display: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 5%;
+  font-size: 1.5rem;
+}
+
+.previous-btn:hover,
+.next-btn:hover {
+  cursor: pointer;
+  color: var(--color-avocado);
+}
+
+.category-nav_contents {
+  float: left;
+  transition: transform 0.2s ease-in-out;
+  position: relative;
+}
+
+.category-nav_contents-no-transition {
+  transition: none;
+}
