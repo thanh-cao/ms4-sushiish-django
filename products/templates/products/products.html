@@ -56,22 +56,22 @@
 
 {% block content %}
 <main>
-    <section class="container-fluid product-listing-hero d-flex justify-content-center align-items-center">
+    <section class="container-fluid product-listing-hero d-flex justify-content-center align-items-center overflow-hidden">
         <div class="card address-card">
-            <div class="card-body">
-                <div class="brand-text">Sushiish</div>
+            <div class="card-body text-white">
+                <div class="brand-text text-center mb-2">Sushiish</div>
                 <div class="display-inline">
-                    <i class="fa-solid fa-phone me-2"></i>
+                    <i class="fa-solid fa-phone text-avocado me-2"></i>
                     <span class="visually-hidden">Phone number</span>
                     <span>+47 46 50 88 88</span>
                 </div>
-                <div class="display-inline">
-                    <i class="fa-solid fa-location-dot me-2"></i>
+                <div class="display-inline my-2">
+                    <i class="fa-solid fa-location-dot text-avocado me-2"></i>
                     <span class="visually-hidden">Address</span>
                     <span>Rolling Road 26, 0580 Oslo</span>
                 </div>
                 <div class="display-inline">
-                    <i class="fa-solid fa-clock me-2"></i>
+                    <i class="fa-solid fa-clock text-avocado me-2"></i>
                     <span class="visually-hidden">Opening hours</span>
                     <span>13:00 - 21:00</span>
                 </div>
@@ -106,70 +106,45 @@
         </div>
     </div>
 
-    <section class="container-fluid product-listing">
+    <section class="container product-listing position-relative top-0">
+        {% for category in categories %}
         <div class="row">
-            <div class="col-12">
-                {% for category in categories %}
-                <div class="row">
-                    <div class="col-12">
-                        <div class="display-6 fw-bold text-avocado">{{ category.friendly_name }}</>
-                        </div>
-                    </div>
-                    <div class="row">
-                        {% for product in products %}
-
-                        {% if product.category.id == category.id %}
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="card product-card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <p class="card-title fs-5 text-salmon fw-bold">{{ product.name }}</p>
-                                            <p class="card-text">{{ product.description }}</p>
-                                            <span class="price">
-                                                ${{ product.price|floatformat:2 }}
-                                            </span>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="row">
-                                                <img class="card-img-top rounded" src="{{ product.image.url }}"
-                                                    alt="{{ product.name }}">
-                                            </div>
-                                            <div class="row">
-                                                {% if product.allergies.length > 0 %}
-                                                <div class="col-12">
-                                                    <div class="allergies">
-                                                        <i class="fa-solid fa-exclamation-triangle"></i>
-                                                        <span class="visually-hidden">Allergies</span>
-                                                        <span>
-                                                            {% for allergy in product.allergies %}
-                                                            {{ allergy.name }}
-                                                            {% endfor %}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="row">
-                                    <div class="col-12">
-                                        <a href="" class="btn btn-primary">
-                                            <i class="fa-solid fa-plus-circle"></i>
-                                            <span class="visually-hidden">Add to cart</span>
-                                        </a>
-                                    </div>
-                                </div> -->
-                                </div>
-                            </div>
+            <div class="display-6 fw-bold text-avocado">
+                {{ category.friendly_name }}</>
+            </div>
+            <div class="text-muted mb-3">
+                {% if category.description %}
+                {{ category.description }}
+                {% endif %}
+            </div>
+            {% for product in products %}
+            {% if product.category.id == category.id %}
+            <div class="col-12 col-md-6">
+                <div class="card product-card">
+                    <div class="card-body">
+                        <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
+                        {% if product.allergies.all|length > 0 %}
+                        <div class="product-allergies my-2">
+                            {% for allergy in product.allergies.all %}
+                            <span class="allergy-tag">{{ allergy.name }}</span>
+                            {% endfor %}
                         </div>
                         {% endif %}
-                        {% endfor %}
+                        <div class="product-text">{{ product.description }}</div>
+                        <div class="price fw-bold">
+                            ${{ product.price|floatformat:2 }}
+                        </div>
                     </div>
-                    {% endfor %}
+                    <div class="product-img-container">
+                        <div class="product-img" style="background-image: url('{{ product.image.url }}')">
+                        </div>
+                    </div>
                 </div>
-
             </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
     </section>
 </main>
 {% endblock %}
