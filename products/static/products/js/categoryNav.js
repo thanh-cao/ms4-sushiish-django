@@ -1,10 +1,12 @@
+// Horizontally scroll category nav contents on arrow click is adapted from: 
+// https://benfrain.com/a-horizontal-scrolling-navigation-pattern-for-touch-and-mouse-with-moving-current-indicator/
+
 const SETTINGS = {
 	navBarTravelling: false,
 	navBarTravelDirection: "",
 	navBarTravelDistance: 150
 }
 
-// Out advancer buttons
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const categoryNav = document.getElementById("categoryNav");
@@ -16,6 +18,23 @@ categoryNav.setAttribute("data-overflowing", determineOverflow(categoryNavConten
 // Handle the scroll of the horizontal container
 let last_known_scroll_position = 0;
 let ticking = false;
+
+// set category navbar to sticky after scrolling passed the bottom of hero section
+document.addEventListener('DOMContentLoaded', function () {
+	window.addEventListener("scroll", function () {
+		const productHeroSection = document.querySelector('section.product-listing-hero');
+		const productHeroSectionBottom = productHeroSection.offsetHeight + productHeroSection.offsetTop;
+		const categoryNavWrapper = document.querySelector('.category-nav-wrapper');
+		const scrollPosition = window.scrollY;
+
+		if (scrollPosition > productHeroSectionBottom) {
+			categoryNavWrapper.classList.add('category-nav-fixed');
+		} else {
+			categoryNavWrapper.classList.remove('category-nav-fixed');
+		}
+	});
+});
+
 
 function doSomething(scroll_pos) {
 	categoryNav.setAttribute("data-overflowing", determineOverflow(categoryNavContents, categoryNav));

@@ -5,10 +5,11 @@ body {
 /* ----- category navigation ----- */
 .category-nav-wrapper {
   position: relative;
-  margin: 1em auto;
-  padding: 0 1em;
+  padding: 0.5rem 1rem;
   height: 100%;
   overflow: hidden;
+  border-bottom: 2px solid var(--color-avocado);
+  background-color: #fff;
 }
 
 .category-nav {
@@ -84,6 +85,14 @@ body {
 
 .category-nav_contents-no-transition {
   transition: none;
+}
+
+.category-nav-fixed {
+  top: 65px;
+  z-index: 100;
+  position: fixed;
+  width: 100%;
+  height: auto;
 }
 
 /* ----- hero banner ----- */
