@@ -83,11 +83,11 @@
         <div id="categoryNav" class="category-nav">
             <ul id="categoryNavContents" class="category-nav_contents list-inline nav nav-pills nav-fill d-block mb-0">
                 <li class="nav-item list-inline-item">
-                    <a class="nav-link active text-center" href="#">All</a>
+                    <a class="nav-link active text-center" href="#all">All</a>
                 </li>
                 {% for category in categories %}
                 <li class="nav-item list-inline-item">
-                    <a class="nav-link" href="#">{{ category.friendly_name }}</a>
+                    <a class="nav-link" href="#category-{{ category.id }}">{{ category.friendly_name }}</a>
                 </li>
                 {% endfor %}
                 <span id="pnIndicator" class="category-nav_Indicator"></span>
@@ -106,9 +106,9 @@
         </div>
     </div>
 
-    <section class="container product-listing position-relative top-0">
+    <section class="container product-listing position-relative top-0 mt-3">
         {% for category in categories %}
-        <div class="row">
+        <div id="category-{{ category.id }}" class="row category-section">
             <div class="display-6 fw-bold text-avocado">
                 {{ category.friendly_name }}</>
             </div>

@@ -129,11 +129,24 @@ categoryNavContents.addEventListener(
 
 // Handle setting the currently active link
 categoryNavContents.addEventListener("click", function (e) {
+	e.preventDefault();
+	console.log('clicked');
+	console.log(e.target);
 	let links = [].slice.call(document.querySelectorAll(".category-nav .nav-link"));
 	links.forEach(function (item) {
 		item.classList.remove("active");
 	})
 	e.target.classList.add("active");
+	const categoryId = e.target.getAttribute("href").split("#")[1];
+	document.querySelectorAll('.category-section').forEach((section) => {
+		if (section.getAttribute('id') === categoryId) {
+			section.style.display = 'flex';
+		} else if (categoryId === 'all') {
+			section.style.display = 'flex';
+		} else {
+			section.style.display = 'none';
+		}
+	})
 });
 
 function determineOverflow(content, container) {
