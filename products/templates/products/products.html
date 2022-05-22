@@ -120,32 +120,35 @@
             {% for product in products %}
             {% if product.category.id == category.id %}
             <div class="col-12 col-md-6">
-                <div class="card product-card">
-                    <div class="card-body">
-                        <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
-                        {% if product.allergies.all|length > 0 %}
-                        <div class="product-allergies my-2">
-                            {% for allergy in product.allergies.all %}
-                            <span class="allergy-tag">{{ allergy.name }}</span>
-                            {% endfor %}
+                <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black" data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
+                    <div class="card product-card">
+                        <div class="card-body">
+                            <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
+                            {% if product.allergies.all|length > 0 %}
+                            <div class="product-allergies my-2">
+                                {% for allergy in product.allergies.all %}
+                                <span class="allergy-tag">{{ allergy.name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="product-text">{{ product.description }}</div>
+                            <div class="price fw-bold">
+                                ${{ product.price|floatformat:2 }}
+                            </div>
                         </div>
-                        {% endif %}
-                        <div class="product-text">{{ product.description }}</div>
-                        <div class="price fw-bold">
-                            ${{ product.price|floatformat:2 }}
+                        <div class="product-img-container">
+                            <div class="product-img" style="background-image: url('{{ product.image.url }}')">
+                            </div>
                         </div>
                     </div>
-                    <div class="product-img-container">
-                        <div class="product-img" style="background-image: url('{{ product.image.url }}')">
-                        </div>
-                    </div>
-                </div>
+                </a>
             </div>
             {% endif %}
             {% endfor %}
         </div>
         {% endfor %}
     </section>
+    {% include 'products/product_offcanvas.html' %}
 </main>
 {% endblock %}
 

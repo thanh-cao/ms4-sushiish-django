@@ -149,6 +149,7 @@ section.product-listing-hero {
 .price {
   margin-top: auto;
 }
+
 .product-img-container {
   width: 45%;
   padding: 0;
@@ -172,4 +173,31 @@ section.product-listing-hero {
   padding: 0.1rem 0.5rem;
   border-radius: 10px;
   font-size: 0.65rem;
+}
+
+/* ----- product detail offcanvas ----- */
+.offcanvas-footer {
+  height: 20%;
+  border-top: var(--color-salmon) 1px solid;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0px -2px 8px var(--color-salmon);
+}
+
+input[type="text"].input-number {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0;
+  flex-grow: 0;
+  background-color: var(--color-avocado);
+  color: #fff;
+}
+
+.input-group
+  > :not(:first-child):not(:last-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip) {
+  border: 1px solid var(--color-avocado);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
 }
