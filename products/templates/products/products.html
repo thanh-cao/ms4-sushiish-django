@@ -11,7 +11,44 @@
         <a class="navbar-brand" href="{% url 'home' %}">Sushiish</a>
     </div>
     <div>
-        <ul class="navbar-nav flex-row align-items-start">
+        <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item list-inline-item me-3">
+                <form class="form" method="GET" action="{% url 'products' %}" class="d-none d-lg-block">
+                    <div class="input-group w-100">
+                        <input class="form-control border border-black" type="text" name="search"
+                            placeholder="Search dish names or ingredients">
+                        <div class="input-group-append">
+                            <button class="form-control form-control btn btn-black border border-black" type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <a class="nav-link text-center d-block d-lg-none" href="#" id="search-dropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-search fa-lg" aria-hidden="true"></i>
+                    <div>Search</div>
+                </a>
+                <div class="dropdown-menu border-0 w-100 p-3 my-0 position-absolute end-0"
+                    aria-labelledby="search-dropdown">
+                    <form class="form" method="GET" action="{% url 'products' %}">
+                        <div class="input-group w-100">
+                            <input class="form-control border border-black" type="text" name="search"
+                                placeholder="Search dish names or ingredients">
+                            <div class="input-group-append">
+                                <button class="form-control form-control btn btn-black border border-black"
+                                    type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
             <li class="nav-item dropdown list-inline-item me-3">
                 <a class="nav-link text-center" href="#" id="account-dropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -56,7 +93,8 @@
 
 {% block content %}
 <main>
-    <section class="container-fluid product-listing-hero d-flex justify-content-center align-items-center overflow-hidden">
+    <section
+        class="container-fluid product-listing-hero d-flex justify-content-center align-items-center overflow-hidden">
         <div class="card address-card">
             <div class="card-body text-white">
                 <div class="brand-text text-center mb-2">Sushiish</div>
@@ -107,6 +145,52 @@
     </div>
 
     <section class="container product-listing position-relative top-0 mt-3">
+        {% if search_query %}
+        {% if products|length == 0 %}
+        <div class="container-fluid text-center">
+            <div class="d-inline-block mb-3">
+                <span>No search results found for: {{ search_query }} | </span>
+                <span><a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a></span>
+            </div>
+        </div>
+        {% else %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="d-inline-block mb-3">
+                    <span>Search results for: {{ search_query }} | </span>
+                    <span><a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a></span>
+                </div>
+                {% for product in products %}
+                <div class="col-12 col-md-6">
+                    <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black"
+                        data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
+                                {% if product.allergies.all|length > 0 %}
+                                <div class="product-allergies my-2">
+                                    {% for allergy in product.allergies.all %}
+                                    <span class="allergy-tag">{{ allergy.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                <div class="product-text">{{ product.description }}</div>
+                                <div class="price fw-bold">
+                                    ${{ product.price|floatformat:2 }}
+                                </div>
+                            </div>
+                            <div class="product-img-container">
+                                <div class="product-img" style="background-image: url('{{ product.image.url }}')">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
         {% for category in categories %}
         <div id="category-{{ category.id }}" class="row category-section">
             <div class="display-6 fw-bold text-avocado">
@@ -120,7 +204,8 @@
             {% for product in products %}
             {% if product.category.id == category.id %}
             <div class="col-12 col-md-6">
-                <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black" data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
+                <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black"
+                    data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
                     <div class="card product-card">
                         <div class="card-body">
                             <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
@@ -147,6 +232,7 @@
             {% endfor %}
         </div>
         {% endfor %}
+        {% endif %}
     </section>
     {% include 'products/product_offcanvas.html' %}
 </main>

@@ -173,6 +173,7 @@ section.product-listing-hero {
   padding: 0.1rem 0.5rem;
   border-radius: 10px;
   font-size: 0.65rem;
+  line-height: 2;
 }
 
 /* ----- product detail offcanvas ----- */

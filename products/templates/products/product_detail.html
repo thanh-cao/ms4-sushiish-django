@@ -5,7 +5,7 @@
         <div class="price fw-bold mb-3 fs-6">
             ${{ product.price|floatformat:2 }}
         </div>
-        <div class="product-text mb-3 fs-5">{{ product.description }}</div>
+        <div class="mb-3 fs-6">{{ product.description }}</div>
         {% if product.allergies.all|length > 0 %}
         <div class="product-allergies my-2">
             {% for allergy in product.allergies.all %}

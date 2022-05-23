@@ -9,24 +9,20 @@
 
 {% block extra_js %}
 <script>
-
     document.addEventListener('DOMContentLoaded', async (e) => {
         document.querySelectorAll('[data-bs-toggle="offcanvas"]').forEach((card) => {
             card.addEventListener('click', async (e) => {
                 e.preventDefault();
                 let url = card.getAttribute('data-product-url');
-                let url2 = '/products/1/'
                 let offCanvas = new bootstrap.Offcanvas(document.getElementById('product-offcanvas'));
                 let offCanvasBody = document.querySelector('.offcanvas-body');
-                const productDetailHtml = await fetch(url2).then(res => res.text());
+                const productDetailHtml = await fetch(url).then(res => res.text());
                 offCanvasBody.innerHTML = productDetailHtml;
                 offCanvas.show();
 
                 activateQuantityChange();
             });
         });
-
-
     });
 
     const activateQuantityChange = () => {
@@ -52,7 +48,7 @@
             }
             changeQtyAddToCart('custom');
         });
-    }
+    };
 
     const changeQtyAddToCart = (type) => {
         let input = document.querySelector('input.input-number');
@@ -67,12 +63,12 @@
             }
         }
         calculateTotal(parseInt(input.value));
-    }
+    };
 
     const calculateTotal = (quantity) => {
         let total = document.querySelector('.add-total');
         let price = parseFloat(document.querySelector('.price').innerText.split('$')[1]);
         total.innerText = (price * quantity).toFixed(2);
-    }
+    };
 </script>
 {% endblock %}
