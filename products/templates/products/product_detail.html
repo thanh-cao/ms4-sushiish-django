@@ -1,0 +1,53 @@
+<div class="container-fluid g-0 flex-grow-1">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid rounded">
+    <div class="px-4 mt-3">
+        <div class="product-title fs-4 text-avocado fw-bold">{{ product.name }}</div>
+        <div class="price fw-bold mb-3 fs-6">
+            ${{ product.price|floatformat:2 }}
+        </div>
+        <div class="mb-3 fs-6">{{ product.description }}</div>
+        {% if product.allergies.all|length > 0 %}
+        <div class="product-allergies my-2">
+            {% for allergy in product.allergies.all %}
+            <span class="allergy-tag fs-6">{{ allergy.name }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="offcanvas-footer h-25 mt-auto">
+    <form>
+        <div class="px-4 pt-3 mb-4 row g-0 align-items-center">
+            <div class="text-salmon fs-2 fw-bold col-6">
+                Quantity
+            </div>
+            <div class="col-6">
+                <div class="input-group align-items-center justify-content-end">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-quantity" type="button" data-type="minus"
+                            data-field="quantity">
+                            <i class="fa-solid fa-minus fs-3"></i>
+                            <span class="visually-hidden">Decrease quantity</span>
+                        </button>
+                    </div>
+
+                    <input type="text" name="quantity" class="form-control input-number" value="1" min="1" max="30">
+
+                    <div class="input-group-append">
+                        <button class="btn btn-quantity" type="button" data-type="plus"
+                            data-field="quantity">
+                            <i class="fa-solid fa-plus fs-3"></i>
+                            <span class="visually-hidden">Increase quantity</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 pt-3 row g-0">
+            <button class="btn btn-primary btn-block fs-5" type="submit">
+                <i class="fa-solid fa-shopping-cart text-white"></i>
+                Add to cart ($<span class="add-total">{{ product.price|floatformat:2 }}</span>)
+            </button>
+        </div>
+    </form>
+</div>

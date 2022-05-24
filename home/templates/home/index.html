@@ -9,7 +9,7 @@
     <div class="container-fluid">
         <a class="navbar-brand ms-md-5" href="{% url 'home' %}">Sushiish</a>
         <!-- TODO: add link to order now -->
-        <a class="btn btn-primary d-block d-md-none ms-auto me-3" role="button">Order Now</a>
+        <a href="{% url 'products' %}" class="btn btn-primary d-block d-md-none ms-auto me-3" role="button">Order Now</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
             aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -51,7 +51,7 @@
                     </ul>
                 </li>
             </ul>
-            <a class="btn btn-primary d-none d-md-block" role="button">Order Now</a>
+            <a href="{% url 'products' %}" class="btn btn-primary d-none d-md-block" role="button">Order Now</a>
         </div>
     </div>
 </nav>
