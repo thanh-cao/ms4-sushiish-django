@@ -145,22 +145,92 @@
     </div>
 
     <section class="container product-listing position-relative top-0 mt-3">
-        {% if search_query %}
-        {% if products|length == 0 %}
-        <div class="container-fluid text-center">
-            <div class="d-inline-block mb-3">
-                <span>No search results found for: {{ search_query }} | </span>
-                <span><a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a></span>
+        <div class="container-fluid allergy-filter mb-3">
+            <div class="row">
+                <div class="fs-5 text-salmon">
+                    <span>Filter by allergies | </span>
+                    <span>
+                        <a href="{% url 'products' %}" class="text-muted fs-6 text-decoration-none">Clear filters</a>
+                    </span>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        {% for allergy in allergies %}
+                        <div class="form-check col-3 col-md-2">
+                            <input class="form-check-input allergy-checkbox" type="checkbox" value="{{ allergy.name }}"
+                                id="{{ allergy.name|lower }}">
+                            <label class="form-check-label" for="{{ allergy.name|lower }}">
+                                {{ allergy.name }}
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-        {% else %}
-        <div class="container-fluid">
-            <div class="row">
+        {% if search_query %}
+            {% if products|length == 0 %}
+            <div class="container-fluid text-center">
                 <div class="d-inline-block mb-3">
-                    <span>Search results for: {{ search_query }} | </span>
-                    <span><a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a></span>
+                    <span>No search results found for: {{ search_query }} | </span>
+                    <span>
+                        <a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a>
+                    </span>
+                </div>
+            </div>
+            {% else %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="d-inline-block mb-3">
+                        <span>Search results for: {{ search_query }} | </span>
+                        <span>
+                            <a href="{% url 'products' %}" class="text-avocado text-decoration-none">Clear search</a>
+                        </span>
+                    </div>
+                    {% for product in products %}
+                    <div class="col-12 col-md-6">
+                        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black"
+                            data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
+                            <div class="card product-card">
+                                <div class="card-body">
+                                    <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
+                                    {% if product.allergies.all|length > 0 %}
+                                    <div class="product-allergies my-2">
+                                        {% for allergy in product.allergies.all %}
+                                        <span class="allergy-tag">{{ allergy.name }}</span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                    <div class="product-text">{{ product.description }}</div>
+                                    <div class="price fw-bold">
+                                        ${{ product.price|floatformat:2 }}
+                                    </div>
+                                </div>
+                                <div class="product-img-container">
+                                    <div class="product-img" style="background-image: url('{{ product.image.url }}')">
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        {% else %}
+        <div class="row product-listing-container">
+        {% for category in categories %}
+            <div id="category-{{ category.id }}" class="row category-section">
+                <div class="display-6 fw-bold text-avocado">
+                    {{ category.friendly_name }}</>
+                </div>
+                <div class="text-muted mb-3">
+                    {% if category.description %}
+                    {{ category.description }}
+                    {% endif %}
                 </div>
                 {% for product in products %}
+                {% if product.category.id == category.id %}
                 <div class="col-12 col-md-6">
                     <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black"
                         data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
@@ -186,52 +256,11 @@
                         </div>
                     </a>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
-        </div>
-        {% endif %}
-        {% else %}
-        {% for category in categories %}
-        <div id="category-{{ category.id }}" class="row category-section">
-            <div class="display-6 fw-bold text-avocado">
-                {{ category.friendly_name }}</>
-            </div>
-            <div class="text-muted mb-3">
-                {% if category.description %}
-                {{ category.description }}
-                {% endif %}
-            </div>
-            {% for product in products %}
-            {% if product.category.id == category.id %}
-            <div class="col-12 col-md-6">
-                <a href="{% url 'product_detail' product.id %}" class="text-decoration-none text-black"
-                    data-bs-toggle="offcanvas" data-product-url="{% url 'product_detail' product.id %}">
-                    <div class="card product-card">
-                        <div class="card-body">
-                            <div class="product-title fs-5 text-salmon fw-bold">{{ product.name }}</div>
-                            {% if product.allergies.all|length > 0 %}
-                            <div class="product-allergies my-2">
-                                {% for allergy in product.allergies.all %}
-                                <span class="allergy-tag">{{ allergy.name }}</span>
-                                {% endfor %}
-                            </div>
-                            {% endif %}
-                            <div class="product-text">{{ product.description }}</div>
-                            <div class="price fw-bold">
-                                ${{ product.price|floatformat:2 }}
-                            </div>
-                        </div>
-                        <div class="product-img-container">
-                            <div class="product-img" style="background-image: url('{{ product.image.url }}')">
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% endif %}
             {% endfor %}
         </div>
-        {% endfor %}
         {% endif %}
     </section>
     {% include 'products/product_offcanvas.html' %}
@@ -240,4 +269,61 @@
 
 {% block extra_js %}
 <script src="{% static 'products/js/categoryNav.js' %}"></script>
+<script>
+    // Filter by allergy
+    function filterProducts(productList, allergy) {
+        console.log(`allergy ${allergy}`);
+        let filteredProducts = productList.filter(product => {
+            let productAllergies = product.fields.allergies;
+            return !productAllergies.includes(allergy);
+        });
+        return filteredProducts;
+    }
+    document.querySelectorAll('.allergy-checkbox').forEach(async checkbox => {
+        const productList = await fetch('{% url "get_products_json" %}').then(res => res.json());
+        checkbox.addEventListener('change', async () => {
+            let filteredProducts;
+            if (checkbox.checked) {
+                filteredProducts = filterProducts(productList, checkbox.value);
+            } else {
+                filteredProducts = productList;
+            }
+            const productListingContainer = document.querySelector('.product-listing-container');
+            productListingContainer.innerHTML = '';
+            filteredProducts.forEach(product => {
+                const productId = product.pk;
+                product = product.fields;
+                let productCard = document.createElement('div');
+                productCard.classList.add('col-12', 'col-md-6');
+                
+                const productAllergiesHtml = product.allergies.length > 0 ? product.allergies.map(allergy => {
+                    return `<span class="allergy-tag">${allergy}</span>`;
+                }).join('') : null;
+
+                productCard.innerHTML = `              
+                    <a href="/products/${productId}" class="text-decoration-none text-black"
+                        data-bs-toggle="offcanvas" data-product-url="/products/${productId}">
+                        <div class="card product-card">
+                            <div class="card-body">
+                                <div class="product-title fs-5 text-salmon fw-bold">${product.name}</div>                            
+                                <div class="product-allergies my-2">
+                                    ${productAllergiesHtml ? productAllergiesHtml : ''}
+                                </div>                               
+                                <div class="product-text">${product.description}</div>
+                                <div class="price fw-bold">
+                                    $${parseFloat(product.price).toFixed(2)}
+                                </div>
+                            </div>
+                            <div class="product-img-container">
+                                <div class="product-img" style="background-image: url('{{MEDIA_URL}}/${product.image}')">
+                                </div>
+                            </div>
+                        </div>
+                    </a>         
+                `;
+                productListingContainer.appendChild(productCard);
+            });
+        });
+    });
+</script>
 {% endblock %}
