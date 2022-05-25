@@ -1,0 +1,83 @@
+<nav class="navbar navbar-light bg-light fixed-top py-1 justify-content-around align-items-start">
+    <div>
+        <a class="navbar-brand" href="{% url 'home' %}">Sushiish</a>
+    </div>
+    <div>
+        <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item list-inline-item me-3">
+                <form class="form" method="GET" action="{% url 'products' %}" class="d-none d-lg-block">
+                    <div class="input-group w-100">
+                        <input class="form-control border border-black" type="text" name="search"
+                            placeholder="Search dish names or ingredients">
+                        <div class="input-group-append">
+                            <button class="form-control form-control btn btn-black border border-black" type="submit">
+                                <span class="icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <a class="nav-link text-center d-block d-lg-none" href="#" id="search-dropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-search fa-lg" aria-hidden="true"></i>
+                    <div>Search</div>
+                </a>
+                <div class="dropdown-menu border-0 w-100 p-3 my-0 position-absolute end-0"
+                    aria-labelledby="search-dropdown">
+                    <form class="form" method="GET" action="{% url 'products' %}">
+                        <div class="input-group w-100">
+                            <input class="form-control border border-black" type="text" name="search"
+                                placeholder="Search dish names or ingredients">
+                            <div class="input-group-append">
+                                <button class="form-control form-control btn btn-black border border-black"
+                                    type="submit">
+                                    <span class="icon">
+                                        <i class="fas fa-search"></i>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            <li class="nav-item dropdown list-inline-item me-3">
+                <a class="nav-link text-center" href="#" id="account-dropdown" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-user fa-lg" aria-hidden="true"></i>
+                    <div class="dropdown-toggle">Account</div>
+                </a>
+                <ul class="dropdown-menu position-absolute end-0 text-end" aria-labelledby="account-dropdown">
+                    {% if request.user.is_authenticated %}
+                    <li class="dropdown-item">
+                        <a href="">Profile</a>
+                    </li>
+                    <li class="dropdown-item">
+                        <a href="{% url 'account_logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_login' %}">Log In</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="nav-item list-inline-item">
+                <a class="nav-link text-center" href="#">
+                    <i class="fa-solid fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                    <span class="visually-hidden">Shopping Cart</span>
+                    <p class="mb-0">
+                        {% if grand_total %}
+                        ${{ grand_total|floatformat:2 }}
+                        {% else %}
+                        $0.00
+                        {% endif %}
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

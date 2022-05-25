@@ -1,0 +1,23 @@
+<div class="container-fluid allergy-filter mb-3">
+    <div class="row">
+        <div class="fs-5 text-salmon">
+            <span>Filter by allergies | </span>
+            <span>
+                <a href="{% url 'products' %}" class="text-muted fs-6 text-decoration-none">Clear filters</a>
+            </span>
+        </div>
+        <div class="col-12">
+            <div class="row">
+                {% for allergy in allergies %}
+                <div class="form-check col-3 col-md-2">
+                    <input class="form-check-input allergy-checkbox" type="checkbox" value="{{ allergy.name }}"
+                        id="{{ allergy.name|lower }}">
+                    <label class="form-check-label" for="{{ allergy.name|lower }}">
+                        {{ allergy.name }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
