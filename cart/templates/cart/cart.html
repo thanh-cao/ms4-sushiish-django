@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block extra_css %}
+<link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
 {% endblock %}
 
 {% block extra_title %}- shopping cart{% endblock %}
@@ -10,9 +13,42 @@
 {% endblock %}
 
 {% block content %}
+<main class="mb-5">
+    <section class="container product-listing position-relative top-0 mt-3">
+        <div class="container-fluid">
+            <a class="d-inline-block mb-3 text-decoration-none" href="{% url 'products' %}">
+                <i class="fa-solid fa-circle-chevron-left fs-4"></i>
+                <span class="text-salmon fs-4">Keep shopping</span>
+            </a>
 
+            <div class="row">
+                <div class="col-12 col-md-7">
+                    {% include 'cart/includes/order-info-card-mobile.html' %}
+
+                    {% include 'cart/includes/order-item-card.html' %}
+
+                    <div class="text-end mb-2">
+                        <a href="" class="text-salmon text-decoration-none fw-bold">Clear cart</a>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-5">
+                    {% include 'cart/includes/order-info-card.html' %}
+
+                    {% include 'cart/includes/order-total-card.html' %}
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
 
 {% block extra_js %}
-
+<script src="{% static 'products/js/quantityInput.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        activateQuantityChange();
+    });
+</script>
 {% endblock %}
