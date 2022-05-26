@@ -54,10 +54,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'products/js/quantityInput.js' %}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        activateQuantityChange();
-    });
-</script>
+<script src="{% static 'cart/js/cart.js' %}"></script>
 {% endblock %}
