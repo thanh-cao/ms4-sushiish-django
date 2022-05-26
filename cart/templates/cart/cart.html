@@ -23,27 +23,28 @@
 
             <div class="row">
                 <div class="col-12 col-md-7">
-                    {% include 'cart/includes/order-info-card-mobile.html' %}
-
                     {% if cart_items|length > 0 %}
+                        {% include 'cart/includes/order-info-card-mobile.html' %}
+
                     {% for product in cart_items %}
-                    {% include 'cart/includes/order-item-card.html' %}
+                        {% include 'cart/includes/order-item-card.html' %}
                     {% endfor %}
 
                     <div class="text-end mb-2">
                         <a href="" class="text-salmon text-decoration-none fw-bold">Clear cart</a>
                     </div>
                     {% else %}
-                    <div class="text-center text-salmon fs-5">
+                    <div class="fs-5 mb-3">
                         Your cart is empty.
                     </div>
                     {% endif %}
                 </div>
 
                 <div class="col-12 col-md-5">
-                    {% include 'cart/includes/order-info-card.html' %}
-
-                    {% include 'cart/includes/order-total-card.html' %}
+                    {% if cart_items|length > 0 %}
+                        {% include 'cart/includes/order-info-card.html' %}          
+                        {% include 'cart/includes/order-total-card.html' %}
+                    {% endif %}
 
                 </div>
             </div>

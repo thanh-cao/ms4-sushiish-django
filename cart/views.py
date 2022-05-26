@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from .contexts import cart_contents
 
 # Create your views here.
 
@@ -24,5 +25,7 @@ def add_to_cart(request, product_id):
     else:
         cart[product_id] = quantity
 
+    order_total = cart_contents(request)['order_total']
     request.session['cart'] = cart
-    return JsonResponse({'cart': request.session['cart']})
+    return JsonResponse({'cart': request.session['cart'],
+                         'order_total': order_total})

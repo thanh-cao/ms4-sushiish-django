@@ -28,12 +28,13 @@ function activateAddToCartButton(callback) {
         let url = form.getAttribute('action');
         let method = form.getAttribute('method');
         let data = new FormData(form);
-    
-        await fetch(url, {
+
+        let result = await fetch(url, {
             method: method,
             body: data
         }).then(res => res.json());
-        
+
+        document.querySelector('#order-total').innerHTML = result.order_total;
         callback();
     });
 }
@@ -57,7 +58,7 @@ document.querySelectorAll('.allergy-checkbox').forEach(async checkbox => {
         }
         const productListingContainer = document.querySelector('.product-listing-container');
         productListingContainer.innerHTML = '';
-        
+
         filteredProducts.forEach(product => {
             const productId = product.pk;
             product = product.fields;
