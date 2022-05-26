@@ -1,13 +1,13 @@
 <div class="card product-card mb-2">
     <div class="card-body">
         <div class="row">
-            <div class="product-title fs-5 fw-bold col-9">1. product.name </div>
+            <div class="product-title fs-5 fw-bold col-9">{{forloop.counter }}. {{ product.product.name }}</div>
             <div class="col-3 fs-5 fw-bold text-avocado">
-                $5.69
+               {{ product.order_item_total}}
             </div>
         </div>
 
-        <div class="product-text"> product.description </div>
+        <div class="product-text my-2">{{ product.product.description }}</div>
 
         <form>
             <div class="row g-0 align-items-center">
@@ -20,7 +20,7 @@
                             </button>
                         </div>
 
-                        <input type="text" name="quantity" class="form-control input-number" value="1" min="1" max="30">
+                        <input type="text" name="quantity" class="form-control input-number" value="{{ product.quantity }}" min="1" max="30">
 
                         <div class="input-group-append">
                             <button class="btn btn-quantity" type="button" data-type="plus" data-field="quantity">
