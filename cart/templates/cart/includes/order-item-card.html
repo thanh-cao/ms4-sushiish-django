@@ -1,0 +1,50 @@
+<div class="card product-card mb-2">
+    <div class="card-body">
+        <div class="row">
+            <div class="product-title fs-6 fw-bold col-9">{{forloop.counter }}. {{ product.product.name }}</div>
+            <div class="col-3 fs-6 fw-bold text-avocado">
+                ${{ product.order_item_total}}
+            </div>
+        </div>
+
+        <div class="product-text my-2">{{ product.product.description }}</div>
+
+        <div class="row g-0 align-items-center">
+            <div class="col-5">
+                <form id="update-form-{{ product.id }}" action="{% url 'adjust_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="input-group align-items-center justify-content-start">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-quantity" type="button" data-type="minus"
+                                data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
+                                <i class="fa-solid fa-minus"></i>
+                                <span class="visually-hidden">Decrease quantity</span>
+                            </button>
+                        </div>
+
+                        <input type="text" name="quantity" class="form-control input-number"
+                            value="{{ product.quantity }}" min="1" max="30" data-item_id="{{ product.id }}"
+                            id="id_qty_{{ product.id }}">
+
+                        <div class="input-group-append">
+                            <button class="btn btn-quantity" type="button" data-type="plus"
+                                data-item_id="{{ product.id }}" id="increment-qty_{{ product.id }}">
+                                <i class="fa-solid fa-plus"></i>
+                                <span class="visually-hidden">Increase quantity</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <button class="btn col text-avocado update-quantity-btn" data-form_id="update-form-{{ product.id }}">Update</button>
+
+            <div class="col text-salmon">
+                <form class="remove-from-cart" action="{% url 'remove_from_cart' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn text-salmon remove-btn">Remove</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

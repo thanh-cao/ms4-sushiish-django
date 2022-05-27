@@ -16,7 +16,8 @@
     </div>
 </div>
 <div class="offcanvas-footer h-25 mt-auto">
-    <form>
+    <form class="add-to-cart" action="{% url 'add_to_cart' product.id %}" method="POST">
+        {% csrf_token %}
         <div class="px-4 pt-3 mb-4 row g-0 align-items-center">
             <div class="text-salmon fs-2 fw-bold col-6">
                 Quantity
