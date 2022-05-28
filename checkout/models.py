@@ -10,15 +10,19 @@ from products.models import Product
 
 
 class OrderType(enum.Enum):
-    DELIVERY = "delivery"
-    PICKUP = "pickup"
+    DELIVERY = "Delivery"
+    PICKUP = "Pickup"
+
+    @classmethod
+    def choices(cls):
+        return tuple((i.name, i.value) for i in cls)
 
 
 class Order(models.Model):
     order_number = models.CharField(max_length=32, null=False, editable=False)
     full_name = models.CharField(max_length=50, null=False, blank=False)
-    order_type = models.CharField(max_length=20, choices=[
-                                  (key, key.value) for key in OrderType])
+    order_type = models.CharField(max_length=20, choices=OrderType.choices(),
+                                  default=OrderType.PICKUP)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
@@ -31,7 +35,7 @@ class Order(models.Model):
     order_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     order_discount = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+        max_digits=10, decimal_places=2, null=True, blank=True, default=0)
     grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     create_date = models.DateTimeField(auto_now_add=True)
@@ -40,34 +44,31 @@ class Order(models.Model):
         max_length=254, null=False, blank=False, default='')
 
     def _generate_order_number(self):
-        """
+        '''
         Generate a random, unique order number using UUID
-        """
+        '''
         return uuid.uuid4().hex.upper()
 
     def update_total(self):
-        """
+        '''
         Update grand total each time a line item is added,
         accounting for delivery costs and order discounts.
-        """
+        '''
         self.order_total = self.lineitems.aggregate(Sum('order_item_total'))[
             'order_item_total__sum'] or 0
 
-        if self.order_total > settings.ORDER_DISCOUNT_THRESHOLD:
-            self.order_total = (self.order_total *
-                                settings.ORDER_DISCOUNT_PERCENTAGE / 100)
-        if self.order_type == OrderType.PICKUP.value:
-            self.delivery_charge = 0
-        else:
+        if self.order_total >= settings.ORDER_DISCOUNT_THRESHOLD:
+            self.order_discount = self.order_total * \
+                settings.ORDER_DISCOUNT_PERCENTAGE / 100
+        if self.order_type == OrderType.DELIVERY.name:
             self.delivery_charge = settings.DELIVERY_CHARGE
-
-        self.grand_total = self.order_total + self.delivery_charge
+        self.grand_total = self.order_total + self.delivery_charge - self.order_discount
         self.save()
 
     def save(self, *args, **kwargs):
-        """
+        '''
         Save order with unique order number using UUID
-        """
+        '''
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
@@ -88,12 +89,12 @@ class OrderLineItem(models.Model):
                                            editable=False)
 
     def save(self, *args, **kwargs):
-        """
+        '''
         Override the original save method to set the lineitem total
         and update the order total.
-        """
-        self.lineitem_total = self.product.price * self.quantity
+        '''
+        self.order_item_total = self.product_id.price * self.quantity
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.product.name} from order {self.order.order_number}'
+        return f'{self.product_id.name} from order {self.order_number.order_number}'
