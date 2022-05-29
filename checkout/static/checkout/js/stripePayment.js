@@ -1,5 +1,11 @@
+let stripe;
+let elements;
+
 document.addEventListener('DOMContentLoaded', async () => {
-    await mountStripeElement();
+    const stripeKeys = await getStripeKeys();
+    stripe = Stripe(stripeKeys.publishable_key);
+    await mountStripeElement(stripeKeys);
+    document.querySelector('#payment-form').addEventListener('submit', handlePaymentFormSubmit);
 });
 
 async function getStripeKeys() {
@@ -8,17 +14,18 @@ async function getStripeKeys() {
     return keys;
 }
 
-async function mountStripeElement() {
-    const stripeKeys = await getStripeKeys();
-    const stripe = Stripe(stripeKeys.publishable_key);
+async function mountStripeElement(stripeKeys) {
     const options = {
+        clientSecret: stripeKeys.client_secret,
         appearance: {
-            theme: 'flat',
+            theme: 'stripe',
+            labels: 'floating',
             variables: {
-                colorPrimary: 'var(--color-salmon)',
+                colorPrimary: '#44b5aa',
                 colorBackground: '#ffffff',
-                colorText: 'var(--color-salmon)',
-                colorDanger: '#df1b41',
+                colorText: '#000',
+                colorDanger: '#ff7e6b',
+                colorSuccess: '#44b5aa',
                 fontFamily: 'PT Sans, sans-serif',
                 spacingUnit: '2px',
                 borderRadius: '4px',
@@ -26,9 +33,32 @@ async function mountStripeElement() {
         },
     };
 
-    const elements = stripe.elements(options);
-    const cardElement = elements.create('card');
+    elements = stripe.elements(options);
+    const cardElement = elements.create('payment');
     cardElement.mount('#card-element');
+}
 
-    return cardElement;
+async function handlePaymentFormSubmit(event) {
+    event.preventDefault();
+
+    const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: "checkout/success/",
+        },
+    });
+    if (result.error) {
+        var errorDiv = document.getElementById('card-errors');
+        var errorHtml = `
+            <span class="icon" role="alert">
+            <i class="fas fa-times"></i>
+            </span>
+            <span>${result.error.message}</span>`;
+
+        errorDiv.innerHTML = errorHtml;
+    } else {
+        if (result.paymentIntent.status === 'succeeded') {
+            document.querySelector('#payment-form').submit();
+        }
+    }
 }

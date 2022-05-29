@@ -24,62 +24,62 @@
             <div class="row">
                 <div class="col-12 col-md-7 order-2 order-md-1">
                     <div class="card product-card">
-                        <form class="card-body" action="{% url 'checkout' %}" method="POST">
+                        <form id="payment-form" class="card-body" action="{% url 'checkout' %}" method="POST">
                             {% csrf_token %}
 
-                            <fieldset>
-                                <legend class="fs-5">Details</legend>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.full_name.id_for_label }}">
+                            <fieldset class="mt-3">
+                                <legend class="fs-5 text-salmon">Details</legend>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.full_name }}
+                                    <label for="{{ order_form.full_name.id_for_label }}">
                                         {{ order_form.full_name.label }}
                                     </label>
-                                    {{ order_form.full_name }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.email.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.email }}
+                                    <label for="{{ order_form.email.id_for_label }}">
                                         {{ order_form.email.label }}
                                     </label>
-                                    {{ order_form.email }}
                                 </div>
                             </fieldset>
 
-                            <fieldset>
-                                <legend class="fs-5">Delivery Information</legend>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.street_address1.id_for_label }}">
+                            <fieldset class="mt-3">
+                                <legend class="fs-5 text-salmon">Delivery Information</legend>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.street_address1 }}
+                                    <label for="{{ order_form.street_address1.id_for_label }}">
                                         {{ order_form.street_address1.label }}
                                     </label>
-                                    {{ order_form.street_address1 }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.street_address2.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.street_address2 }}
+                                    <label for="{{ order_form.street_address2.id_for_label }}">
                                         {{ order_form.street_address2.label }}
                                     </label>
-                                    {{ order_form.street_address2 }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.town_or_city.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.town_or_city }}
+                                    <label for="{{ order_form.town_or_city.id_for_label }}">
                                         {{ order_form.town_or_city.label }}
                                     </label>
-                                    {{ order_form.town_or_city }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.postcode.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.postcode }}
+                                    <label for="{{ order_form.postcode.id_for_label }}">
                                         {{ order_form.postcode.label }}
                                     </label>
-                                    {{ order_form.postcode }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.country.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.country }}
+                                    <label for="{{ order_form.country.id_for_label }}">
                                         {{ order_form.country.label }}
                                     </label>
-                                    {{ order_form.country }}
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label class="visually-hidden" for="{{ order_form.phone.id_for_label }}">
+                                <div class="form-floating mb-3">
+                                    {{ order_form.phone }}
+                                    <label for="{{ order_form.phone.id_for_label }}">
                                         {{ order_form.phone.label }}
                                     </label>
-                                    {{ order_form.phone }}
                                 </div>
                                 <div class="text-muted">
                                     {% if user.is_authenticated %}
@@ -98,9 +98,9 @@
                             </fieldset>
 
                             <fieldset>
-                                <legend>Payment</legend>
+                                <legend class="text-salmon mt-3">Payment</legend>
                                 <!-- for stripe card element-->
-                                <div class="mb-3 form-control" id="card-element"></div>
+                                <div class="mb-3 form-control py-4 px-3" id="card-element"></div>
                                 <!-- stripe form error-->
                                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                                 <!-- Pass the client secret to the view so we can get the payment intent id -->
@@ -108,7 +108,7 @@
                             </fieldset>
 
                             <div class="text-end px-3 py-2">
-                                <button class="btn btn-secondary">
+                                <button type="submit" class="btn btn-secondary">
                                     <i class="fa-solid fa-lock text-white mr-2"></i>
                                     Complete order
                                 </button>
