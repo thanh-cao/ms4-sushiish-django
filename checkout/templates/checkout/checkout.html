@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
 {% block extra_title %}- shopping cart{% endblock %}
@@ -97,10 +97,10 @@
                                 </div>
                             </fieldset>
 
-                            <fieldset class="px-3">
+                            <fieldset>
                                 <legend>Payment</legend>
                                 <!-- for stripe card element-->
-                                <div class="mb-3" id="card-element"></div>
+                                <div class="mb-3 form-control" id="card-element"></div>
                                 <!-- stripe form error-->
                                 <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
                                 <!-- Pass the client secret to the view so we can get the payment intent id -->
@@ -142,5 +142,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'cart/js/cart.js' %}"></script>
+<script src="{% static 'checkout/js/stripePayment.js' %}"></script>
 {% endblock %}
