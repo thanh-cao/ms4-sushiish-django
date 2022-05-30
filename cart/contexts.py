@@ -9,13 +9,19 @@ def cart_contents(request):
     This view renders shopping cart
     '''
     cart = request.session.get('cart', {})
-    shipping_method = 'pickup'
+    order_info = request.session.get('order_info')
+    order_type = 'pickup'
+
+    if order_info:
+        order_type = order_info['order_type']
+
     cart_items = []
     order_total = 0
     product_count = 0
-    delivery_charge = settings.DELIVER_CHARGE if (
-        shipping_method == 'delivery') else 0.00
-    grand_total = 0  # delivery_charge + order total
+    order_discount = 0
+    delivery_charge = Decimal(settings.DELIVERY_CHARGE) if (
+        order_type == 'delivery') else 0
+    grand_total = 0  # order_total + delivery_charge - order_discount
 
     for product_id, quantity in cart.items():
         product = get_object_or_404(Product, pk=product_id)
@@ -29,24 +35,19 @@ def cart_contents(request):
             'order_item_total': order_item_total,
         })
 
-    if order_total < settings.ORDER_DISCOUNT_THRESHOLD:
-        if shipping_method == 'delivery':
-            grand_total = order_total + settings.DELIVERY_CHARGE
-        else:
-            grand_total = order_total
-    elif order_total >= settings.ORDER_DISCOUNT_THRESHOLD:
-        if shipping_method == 'delivery':
-            grand_total = order_total + settings.DELIVERY_CHARGE - \
-                (order_total * Decimal(settings.ORDER_DISCOUNT_PERCENTAGE / 100))
-        else:
-            grand_total = order_total - \
-                (order_total * Decimal(settings.ORDER_DISCOUNT_PERCENTAGE / 100))
+    if order_total >= settings.ORDER_DISCOUNT_THRESHOLD:
+        order_discount = order_total * \
+            Decimal(settings.ORDER_DISCOUNT_PERCENTAGE / 100)
+
+    grand_total = order_total + delivery_charge - order_discount
 
     context = {
         'cart_items': cart_items,
         'order_total': order_total,
         'product_count': product_count,
         'delivery_charge': delivery_charge,
+        'order_discount': order_discount,
+        'discount_percentage': settings.ORDER_DISCOUNT_PERCENTAGE,
         'grand_total': grand_total,
     }
     return context

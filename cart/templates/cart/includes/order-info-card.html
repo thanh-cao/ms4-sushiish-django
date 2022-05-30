@@ -1,29 +1,32 @@
 <div class="d-none d-md-block">
     <div class="card shadow-avocado mb-3">
-        <div class="card-body">
+        <form id="order-info-form" class="card-body" action="{% url 'update_order_info' %}" method="POST">
+            {% csrf_token %}
+            <div class="error-message text-salmon mb-2"></div>
+
             <div class="row align-items-center text-center mb-3">
                 <div class="col-5 p-0">
-                    <input type="radio" id="pickup" name="shipping-method">
+                    <input type="radio" id="pickup" name="order-type" value="pickup" required>
                     <label for="pickup" class="shipping-tag">Pick up</label>
                 </div>
 
                 <div class="col-2 p-0">- or -</div>
 
                 <div class="col-5 p-0">
-                    <input type="radio" id="delivery" name="shipping-method">
+                    <input type="radio" id="delivery" name="order-type" value="delivery" required>
                     <label for="delivery" class="shipping-tag">Delivery</label>
                 </div>
             </div>
 
             <div class="row g-0 align-items-center text-center mb-3">
-                <div class="col-4 fw-bold fs-5">Date</div>
+                <label for="expected-done-date" class="col-4 fw-bold fs-5">Date *</label>
                 <div class="col-8">
                     <input type="date" class="form-control" name="expected-done-date">
                 </div>
             </div>
 
             <div class="row g-0 align-items-center text-center mb-3">
-                <div class="col-4 fw-bold fs-5">Time</div>
+                <label for="expected-done-time" class="col-4 fw-bold fs-5">Time *</label>
                 <div class="col-8">
                     <input type="time" class="form-control" name="expected-done-time">
                 </div>
@@ -35,6 +38,6 @@
                     <textarea class="form-control" name="order-note" rows="3"></textarea>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

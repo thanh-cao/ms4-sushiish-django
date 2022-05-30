@@ -2,6 +2,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     activateQuantityChange();
     activateQuantityUpdate();
     activateRemoveFromCartButtons();
+    document.querySelectorAll('input[name="order-type"]').forEach(input => {
+        input.addEventListener('change', handleOrderTypeChange);
+    });
+    document.querySelector('#checkout-btn').addEventListener('click', handleProceesToCheckout);
 });
 
 function activateQuantityChange() {
@@ -80,3 +84,42 @@ function activateQuantityUpdate() {
     });
 };
 
+async function handleOrderTypeChange(event) {
+    event.preventDefault();
+    const value = event.target.value;
+    const data = new FormData();
+    const csfrToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    data.append('order-type', value);
+    data.append('csrfmiddlewaretoken', csfrToken);
+    const url = '/checkout/update_order_type/';
+    
+    const result = await fetch(url, {
+        method: 'POST',
+        body: data,
+    }).then(response => response.json());
+    const orderSummary = result.order_summary;
+    
+    document.querySelector('#order-total').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
+    document.querySelector('#delivery-charge').innerHTML = `$${parseFloat(orderSummary.delivery_charge).toFixed(2)}`;
+    document.querySelector('#grand-total').innerHTML = `$${parseFloat(orderSummary.grand_total).toFixed(2)}`;
+    orderSummary.order_discount > 0 ? document.querySelector('#order-discount').innerHTML = `- $${parseFloat(orderSummary.order_discount).toFixed(2)}` : null;
+}
+
+async function handleProceesToCheckout(event) {
+    event.preventDefault();
+    const form = document.querySelector('#order-info-form');
+    const url = form.getAttribute('action');
+    const method = form.getAttribute('method');
+    const data = new FormData(form);
+
+    const response = await fetch(url, {
+        method: method,
+        body: data
+    });
+    const result = await response.json();
+    if (response.status === 200) {
+        location.href = '/checkout/';
+    } else if (response.status === 400) {
+        document.querySelector('#order-info-form .error-message').innerHTML = result.error;
+    }
+}
