@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block extra_title %}- shopping cart{% endblock %}
+
+{% block page_header %}
+{% include 'includes/main-nav.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="container">
+    <div class="row">
+        <div class="col">
+            <hr>
+            <h2 class="text-avocado display-5 mb-4">
+                <i class="fa-solid fa-heart text-salmon display-6" aria-hidden="true"></i> Thank You <i class="fa-solid fa-heart text-salmon display-6" aria-hidden="true"></i>
+            </h2>
+            <hr>
+            <p class="text-black">Your order information is below. A confirmation email will be sent to<strong>{{ order.email }}</strong>.</p>
+        </div>
+    </div>
+
+    <div class="row">
+       <div class="col-12 col-lg-7"></div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

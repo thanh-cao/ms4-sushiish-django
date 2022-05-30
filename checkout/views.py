@@ -1,10 +1,12 @@
 import stripe
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from cart.contexts import cart_contents
 
 from checkout.forms import OrderForm
+from .models import Order, OrderLineItem
+from products.models import Product
 
 # Create your views here.
 
@@ -80,14 +82,61 @@ def update_order_info(request):
 
 
 def checkout(request):
-    cart = request.session.get('cart', {})
-    if not cart:
-        return redirect('products')
-    else:
-        order_form = OrderForm()
+    '''
+    This view renders the checkout page and handles order form submission
+    after payment with Stripe is successful
+    '''
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        # cart = cart_contents(request)
+        order_info = request.session.get('order_info')
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.order_type = order_info['order_type']
+            order.order_note = order_info['order_note']
+            order.expected_done_date = order_info['expected_done_date']
+            order.expected_done_time = order_info['expected_done_time']
+            # order.save()
 
+            for item in cart_contents(request)['cart_items']:
+                try:
+                    order_line_item = OrderLineItem(
+                        order_number=order,
+                        product_id=item['id'],
+                        quantity=item['quantity'],
+                    )
+                    order_line_item.save()
+                except Product.DoesNotExist:
+                    order.delete()
+                    return redirect(reverse('view_cart'))
+
+            request.session['save_info'] = 'save-info' in request.POST
+            return redirect('checkout-success',
+                            order_number=order.order_number)
+    else:
+        cart = request.session.get('cart', {})
+        if not cart:
+            return redirect('products')
+
+        order_form = OrderForm()
         context = {
-            'cart': cart,
             'order_form': order_form
         }
         return render(request, 'checkout/checkout.html', context)
+
+
+def checkout_success(request, order_number):
+    '''
+    This view renders the checkout success page
+    '''
+    save_info = request.session.get('save_info')
+    order = get_object_or_404(Order, order_number=order_number)
+
+    if 'cart' in request.session:
+        del request.session['cart']
+
+    context = {
+        'order': order,
+        'save_info': save_info,
+    }
+    return render(request, 'checkout/checkout-success.html', context)
