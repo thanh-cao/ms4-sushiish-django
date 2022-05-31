@@ -17,7 +17,8 @@ class OrderAdmin(admin.ModelAdmin):
               'street_address1', 'street_address2', 'town_or_city',
               'postcode', 'country', 'order_type', 'delivery_charge',
               'order_total', 'order_discount', 'grand_total',
-              'create_date', 'expected_delivery_date', 'stripe_pid',)
+              'create_date', 'expected_done_date', 'expected_done_time',
+              'stripe_pid',)
     list_display = ('order_number', 'full_name', 'email', 'phone_number',
                     'order_total', 'order_discount', 'grand_total',
                     'order_type', 'delivery_charge', 'create_date')
@@ -26,7 +27,7 @@ class OrderAdmin(admin.ModelAdmin):
                      'street_address1', 'street_address2', 'town_or_city',
                      'postcode', 'country', 'order_type', 'delivery_charge',
                      'order_total', 'order_discount', 'grand_total',
-                     'create_date', 'expected_delivery_date',)
+                     'create_date', 'expected_done_date', 'expected_done_time')
 
 
 admin.site.register(Order, OrderAdmin)

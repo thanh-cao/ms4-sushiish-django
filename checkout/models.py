@@ -28,7 +28,7 @@ class Order(models.Model):
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
-    postcode = models.CharField(max_length=20, null=False, blank=False)
+    postcode = models.CharField(max_length=10, null=True, blank=False)
     # limit delivery in just a country since this is food delivery
     country = models.CharField(
         max_length=40, null=False, blank=False, default='Norway')
@@ -41,7 +41,8 @@ class Order(models.Model):
     grand_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, default=0)
     create_date = models.DateTimeField(auto_now_add=True)
-    expected_delivery_date = models.DateTimeField(null=True, blank=True)
+    expected_done_date = models.DateField(null=True, blank=False)
+    expected_done_time = models.TimeField(null=True, blank=False)
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default='')
 

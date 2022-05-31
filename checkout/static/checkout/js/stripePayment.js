@@ -43,9 +43,7 @@ async function handlePaymentFormSubmit(event) {
 
     const result = await stripe.confirmPayment({
         elements,
-        confirmParams: {
-          return_url: "checkout/success/",
-        },
+        redirect: 'if_required',
     });
     if (result.error) {
         var errorDiv = document.getElementById('card-errors');

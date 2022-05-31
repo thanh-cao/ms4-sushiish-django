@@ -46,6 +46,12 @@
                             <fieldset class="mt-3">
                                 <legend class="fs-5 text-salmon">Delivery Information</legend>
                                 <div class="form-floating mb-3">
+                                    {{ order_form.phone_number }}
+                                    <label for="{{ order_form.phone.id_for_label }}">
+                                        {{ order_form.phone_number.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
                                     {{ order_form.street_address1 }}
                                     <label for="{{ order_form.street_address1.id_for_label }}">
                                         {{ order_form.street_address1.label }}
@@ -75,12 +81,7 @@
                                         {{ order_form.country.label }}
                                     </label>
                                 </div>
-                                <div class="form-floating mb-3">
-                                    {{ order_form.phone }}
-                                    <label for="{{ order_form.phone.id_for_label }}">
-                                        {{ order_form.phone.label }}
-                                    </label>
-                                </div>
+                        
                                 <div class="text-muted">
                                     {% if user.is_authenticated %}
                                     <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info"

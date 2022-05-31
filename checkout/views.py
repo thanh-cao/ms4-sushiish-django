@@ -62,7 +62,7 @@ def update_order_info(request):
     order_info = request.session.get('order_info', {})
     order_type = request.POST.get('order-type')
     order_note = request.POST.get('order-note')
-    expected_date = request.POST.get('expected-date')
+    expected_date = request.POST.get('expected-done-date')
     expected_time = request.POST.get('expected-done-time')
 
     if order_type is None or expected_date == '' or expected_time == '':
@@ -88,31 +88,30 @@ def checkout(request):
     '''
     if request.method == 'POST':
         form = OrderForm(request.POST)
-        # cart = cart_contents(request)
         order_info = request.session.get('order_info')
+
         if form.is_valid():
             order = form.save(commit=False)
             order.order_type = order_info['order_type']
             order.order_note = order_info['order_note']
             order.expected_done_date = order_info['expected_done_date']
             order.expected_done_time = order_info['expected_done_time']
-            # order.save()
+            order.save()
 
             for item in cart_contents(request)['cart_items']:
                 try:
                     order_line_item = OrderLineItem(
                         order_number=order,
-                        product_id=item['id'],
+                        product_id=item['product'],
                         quantity=item['quantity'],
                     )
                     order_line_item.save()
                 except Product.DoesNotExist:
                     order.delete()
                     return redirect(reverse('view_cart'))
-
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect('checkout-success',
-                            order_number=order.order_number)
+            return redirect(reverse('checkout_success',
+                                    args=[order.order_number]))
     else:
         cart = request.session.get('cart', {})
         if not cart:
