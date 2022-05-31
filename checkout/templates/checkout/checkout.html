@@ -129,9 +129,9 @@
                                 <div class="fw-bold fs-5">Grand total</div>
                             </div>
                             <div class="col-5 text-end">
-                                <div>${{ order_total }}</div>
-                                <div>${{ delivery_charge }}</div>
-                                <div class="fw-bold fs-5">${{ grand_total }}</div>
+                                <div>${{ order_total|floatformat:2 }}</div>
+                                <div>${{ delivery_charge|floatformat:2 }}</div>
+                                <div class="fw-bold fs-5">${{ grand_total|floatformat:2 }}</div>
                             </div>
                         </div>
                     </div>

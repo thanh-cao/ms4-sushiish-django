@@ -153,7 +153,7 @@
                             <p class="mb-0 text-black fw-bold">Subtotal:</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-end">
-                            <p class="mb-0">{{ order.order_total }}</p>
+                            <p class="mb-0">${{ order.order_total }}</p>
                         </div>
 
                         {% if order.order_discount %}
@@ -161,7 +161,7 @@
                             <p class="mb-0 text-black fw-bold">Order discount ({{ discount_percentage }}%):</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-end">
-                            <p class="mb-0">{{ order.order_discount }}</p>
+                            <p class="mb-0">${{ order.order_discount }}</p>
                         </div>
                         {% endif %}
 
@@ -169,14 +169,14 @@
                             <p class="mb-0 text-black fw-bold">Delivery charge:</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-end">
-                            <p class="mb-0">{{ order.delivery_charge }}</p>
+                            <p class="mb-0">${{ order.delivery_charge }}</p>
                         </div>
 
                         <div class="col-12 col-md-4">
                             <p class="mb-0 text-black fw-bold">Grand total:</p>
                         </div>
                         <div class="col-12 col-md-8 text-md-end">
-                            <p class="mb-0">{{ order.grand_total }}</p>
+                            <p class="mb-0">${{ order.grand_total }}</p>
                         </div>
                     </div>
                 </div>

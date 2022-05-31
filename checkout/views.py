@@ -93,9 +93,9 @@ def checkout(request):
         if form.is_valid():
             order = form.save(commit=False)
             if order_info['order_type'] == 'delivery':
-                order.order_type = OrderType.DELIVERY
+                order.order_type = OrderType.DELIVERY.name
             else:
-                order.order_type = OrderType.PICKUP
+                order.order_type = OrderType.PICKUP.name
             # order.order_type = order_info['order_type']
             order.order_note = order_info['order_note']
             order.expected_done_date = order_info['expected_done_date']
@@ -137,6 +137,8 @@ def checkout_success(request, order_number):
 
     if 'cart' in request.session:
         del request.session['cart']
+    if 'order_info' in request.session:
+        del request.session['order_info']
 
     context = {
         'order': order,
