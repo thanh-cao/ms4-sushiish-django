@@ -18,7 +18,7 @@ class OrderAdmin(admin.ModelAdmin):
               'postcode', 'country', 'order_type', 'delivery_charge',
               'order_total', 'order_discount', 'grand_total',
               'create_date', 'expected_done_date', 'expected_done_time',
-              'stripe_pid',)
+              'order_note', 'stripe_pid',)
     list_display = ('order_number', 'full_name', 'email', 'phone_number',
                     'order_total', 'order_discount', 'grand_total',
                     'order_type', 'delivery_charge', 'create_date')

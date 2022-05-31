@@ -43,6 +43,7 @@ class Order(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     expected_done_date = models.DateField(null=True, blank=False)
     expected_done_time = models.TimeField(null=True, blank=False)
+    order_note = models.TextField(max_length=500, null=True, blank=True)
     stripe_pid = models.CharField(
         max_length=254, null=False, blank=False, default='')
 

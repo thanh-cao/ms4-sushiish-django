@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from cart.contexts import cart_contents
 
 from checkout.forms import OrderForm
-from .models import Order, OrderLineItem
+from .models import Order, OrderLineItem, OrderType
 from products.models import Product
 
 # Create your views here.
@@ -92,7 +92,11 @@ def checkout(request):
 
         if form.is_valid():
             order = form.save(commit=False)
-            order.order_type = order_info['order_type']
+            if order_info['order_type'] == 'delivery':
+                order.order_type = OrderType.DELIVERY
+            else:
+                order.order_type = OrderType.PICKUP
+            # order.order_type = order_info['order_type']
             order.order_note = order_info['order_note']
             order.expected_done_date = order_info['expected_done_date']
             order.expected_done_time = order_info['expected_done_time']
