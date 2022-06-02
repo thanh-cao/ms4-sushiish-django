@@ -91,6 +91,7 @@ def checkout(request):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         order_info = request.session.get('order_info')
+        pid = request.POST.get('client_secret').split('_secret')[0]
 
         if form.is_valid():
             order = form.save(commit=False)
@@ -102,6 +103,7 @@ def checkout(request):
             order.order_note = order_info['order_note']
             order.expected_done_date = order_info['expected_done_date']
             order.expected_done_time = order_info['expected_done_time']
+            order.stripe_pid = pid
             order.save()
 
             for item in cart_contents(request)['cart_items']:
@@ -116,6 +118,7 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('view_cart'))
             request.session['save_info'] = 'save-info' in request.POST
+            print(f'order is created. Order number is {order.order_number}')
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
     else:
@@ -146,6 +149,7 @@ def checkout_success(request, order_number):
         'order': order,
         'save_info': save_info,
     }
+    print(f'checkout success. Order number is {order.order_number}')
     return render(request, 'checkout/checkout-success.html', context)
 
 
@@ -155,6 +159,7 @@ def cache_checkout_data(request):
     This view caches the order info in the session
     '''
     try:
+        print('cache_checkout_data')
         stripe_pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(stripe_pid, metadata={
