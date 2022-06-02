@@ -16,7 +16,7 @@ def stripe_webhook(request):
     Stripe webhooks for the checkout app.
     """
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    webhook_secret = settings.STRIPE_WH_SECRET
+    webhook_secret = settings.STRIPE_WEBHOOK_SECRET
 
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']

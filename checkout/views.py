@@ -1,6 +1,8 @@
+import json
 import stripe
 from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from cart.contexts import cart_contents
 
@@ -145,3 +147,22 @@ def checkout_success(request, order_number):
         'save_info': save_info,
     }
     return render(request, 'checkout/checkout-success.html', context)
+
+
+@require_POST
+def cache_checkout_data(request):
+    '''
+    This view caches the order info in the session
+    '''
+    try:
+        stripe_pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(stripe_pid, metadata={
+            'cart': json.dumps(request.session.get('cart', {})),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+
+    except Exception as e:
+        return HttpResponse(content=e, status=400)
