@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block extra_title %}- shopping cart{% endblock %}
+
+{% block page_header %}
+{% include 'includes/main-nav.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="mb-5">
+    <section class="container product-listing position-relative top-0 mt-3">
+        <div class="container-fluid">
+            <a class="d-inline-block mb-3 text-decoration-none" href="{% url 'view_cart' %}">
+                <i class="fa-solid fa-circle-chevron-left fs-4"></i>
+                <span class="text-salmon fs-4">Back to cart</span>
+            </a>
+
+            <div class="row">
+                <div class="col-12 col-md-7 order-2 order-md-1">
+                    <div class="card product-card">
+                        <form id="payment-form" class="card-body" action="{% url 'checkout' %}" method="POST">
+                            {% csrf_token %}
+
+                            <fieldset class="mt-3">
+                                <legend class="fs-5 text-salmon">Details</legend>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.full_name }}
+                                    <label for="{{ order_form.full_name.id_for_label }}">
+                                        {{ order_form.full_name.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.email }}
+                                    <label for="{{ order_form.email.id_for_label }}">
+                                        {{ order_form.email.label }}
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <fieldset class="mt-3">
+                                <legend class="fs-5 text-salmon">Delivery Information</legend>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.phone_number }}
+                                    <label for="{{ order_form.phone.id_for_label }}">
+                                        {{ order_form.phone_number.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.street_address1 }}
+                                    <label for="{{ order_form.street_address1.id_for_label }}">
+                                        {{ order_form.street_address1.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.street_address2 }}
+                                    <label for="{{ order_form.street_address2.id_for_label }}">
+                                        {{ order_form.street_address2.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.town_or_city }}
+                                    <label for="{{ order_form.town_or_city.id_for_label }}">
+                                        {{ order_form.town_or_city.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.postcode }}
+                                    <label for="{{ order_form.postcode.id_for_label }}">
+                                        {{ order_form.postcode.label }}
+                                    </label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    {{ order_form.country }}
+                                    <label for="{{ order_form.country.id_for_label }}">
+                                        {{ order_form.country.label }}
+                                    </label>
+                                </div>
+                        
+                                <div class="text-muted">
+                                    {% if user.is_authenticated %}
+                                    <input class="form-check-input ml-2 mr-0" type="checkbox" id="id-save-info"
+                                        name="save-info">
+                                    <label class="form-check-label" for="id-save-info">Save this delivery information to
+                                        my profile</label>
+                                    {% else %}
+                                    <div>
+                                        <a class="text-info" href="{% url 'account_signup' %}">Create an account</a> or
+                                        <a class="text-info" href="{% url 'account_login' %}">login</a> to save this
+                                        information
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend class="text-salmon mt-3">Payment</legend>
+                                <!-- for stripe card element-->
+                                <div class="mb-3 form-control py-4 px-3" id="card-element"></div>
+                                <!-- stripe form error-->
+                                <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                            </fieldset>
+
+                            <div class="text-end px-3 py-2">
+                                <button type="submit" class="btn btn-secondary">
+                                    <i class="fa-solid fa-lock text-white mr-2"></i>
+                                    Complete order
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-5 order-1 order-md-2 mb-3">
+                    <div class="card shadow-avocado">
+                        <div class="px-3 pt-3 fw-bold fs-5">
+                            Order summary ({{ product_count }} item{% if product_count > 1 %}s{% endif %})</div>
+                        <div class="card-body d-flex flex-row">
+                            <div class="col-7">
+                                <div>Subtotal</div>
+                                <div>Delivery charge</div>
+                                <div class="fw-bold fs-5">Grand total</div>
+                            </div>
+                            <div class="col-5 text-end">
+                                <div>${{ order_total|floatformat:2 }}</div>
+                                <div>${{ delivery_charge|floatformat:2 }}</div>
+                                <div class="fw-bold fs-5">${{ grand_total|floatformat:2 }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'checkout/js/stripePayment.js' %}"></script>
+{% endblock %}

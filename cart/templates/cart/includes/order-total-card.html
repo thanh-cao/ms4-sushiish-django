@@ -1,20 +1,27 @@
 <div class="card background-avocado">
+    <div class="px-3 pt-3 fw-bold fs-5">Order summary ({{ product_count }} items)</div>
     <div class="card-body d-flex flex-row">
         <div class="col-7">
             <div>Subtotal</div>
+            {% if order_discount > 0%}
+            <div>Discount ({{ discount_percentage }}%)</div>
+            {% endif %}
             <div>Delivery charge</div>
             <div class="fw-bold fs-5">Grand total</div>
         </div>
         <div class="col-5 text-end">
-            <div>${{ order_total }}</div>
-            <div>${{ delivery_charge }}</div>
-            <div class="fw-bold fs-5">${{ grand_total }}</div>
+            <div id="order-total">${{ order_total|floatformat:2 }}</div>
+            {% if order_discount > 0%}
+            <div id="order-discount">- ${{ order_discount|floatformat:2 }}</div>
+            {% endif %}
+            <div id="delivery-charge">${{ delivery_charge|floatformat:2 }}</div>
+            <div id="grand-total" class="fw-bold fs-5">${{ grand_total|floatformat:2 }}</div>
         </div>
     </div>
     <div class="text-end px-3 py-2">
-        <a href="{#% url 'checkout' %#}" class="btn btn-primary btn-block">
+        <button id="checkout-btn" class="btn btn-primary">
             <i class="fa-solid fa-lock text-white mr-2"></i>
             Proceed to checkout
-        </a>
+        </>
     </div>
 </div>

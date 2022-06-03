@@ -1,3 +1,4 @@
+import datetime
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, reverse
 from .contexts import cart_contents
@@ -7,9 +8,29 @@ from .contexts import cart_contents
 
 def view_cart(request):
     '''
-    This view renders shopping cart
+    This view renders shopping cart and datetime values
+    for the input fields
     '''
-    return render(request, 'cart/cart.html')
+    today = datetime.date.today()
+    tomorrow = today + datetime.timedelta(days=1)
+    max_date = today + datetime.timedelta(days=30)
+    now = datetime.datetime.now().time()
+    min_time = datetime.time(hour=13, minute=15)
+    max_time = datetime.time(hour=21, minute=00)
+
+    set_now_time = now
+    if now < min_time or now > max_time:
+        set_now_time = min_time
+
+    context = {
+        'today': today.strftime(
+            '%Y-%m-%d') if now < max_time else tomorrow.strftime('%Y-%m-%d'),
+        'max_date': max_date.strftime('%Y-%m-%d'),
+        'now': set_now_time.strftime('%H:%M'),
+        'min_time': min_time.strftime('%H:%M'),
+        'max_time': max_time.strftime('%H:%M'),
+    }
+    return render(request, 'cart/cart.html', context)
 
 
 def add_to_cart(request, product_id):
