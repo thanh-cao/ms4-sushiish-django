@@ -43,8 +43,9 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
     const errorDiv = document.getElementById('card-errors');
     let stripeConfirmPaymentResult;
     cacheDataUrl = '/checkout/cache_checkout_data/';
+    
     const csfrToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    const saveInfo = Boolean(document.querySelector('input[name="save-info"]').checked);
+    const saveInfo = document.querySelector('input[name="save-info"]') ? Boolean(document.querySelector('input[name="save-info"]').checked) : false;
     const cacheData = new FormData();
     cacheData.append('csrfmiddlewaretoken', csfrToken);
     cacheData.append('save_info', saveInfo);
@@ -53,12 +54,10 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
     const formData = new FormData(event.target);
 
     try {
-
         const responseFromCache = await fetch(cacheDataUrl, {
             method: 'POST',
             body: cacheData,
         });
-        console.log(responseFromCache);
 
         if (responseFromCache.status === 200) {
             stripeConfirmPaymentResult = await stripe.confirmPayment({
@@ -93,14 +92,13 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
                 },
             });
         }
-        console.log(stripeConfirmPaymentResult);
 
         if (stripeConfirmPaymentResult.error) {
             const errorHtml = `
             <span class="icon" role="alert">
             <i class="fas fa-times"></i>
             </span>
-            <span>${result.error.message}</span>`;
+            <span>${stripeConfirmPaymentResult.error.message}</span>`;
 
             errorDiv.innerHTML = errorHtml;
         } else {
