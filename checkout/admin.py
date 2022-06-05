@@ -22,7 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_number', 'full_name', 'email', 'phone_number',
                     'order_total', 'order_discount', 'grand_total',
                     'order_type', 'delivery_charge', 'create_date')
-    order = ('-create_date', 'order_type',)
+    ordering = ('-create_date', 'order_type',)
     search_fields = ('order_number', 'full_name', 'email', 'phone_number',
                      'street_address1', 'street_address2', 'town_or_city',
                      'postcode', 'country', 'order_type', 'delivery_charge',

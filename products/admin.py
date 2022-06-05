@@ -4,6 +4,14 @@ from .models import Allergy, Product, Category
 # Register your models here.
 
 
-admin.site.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'price', 'category', 'description', 'image')
+    fields = ('id', 'name', 'price', 'category', 'description', 'image')
+    search_fields = ('name', 'price', 'category', 'description')
+    list_filter = ('category',)
+    ordering = ('id',)
+
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Category)
 admin.site.register(Allergy)

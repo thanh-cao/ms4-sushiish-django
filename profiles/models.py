@@ -53,5 +53,5 @@ class Address(models.Model):
     isDefault = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.street_address1 + ' ' + self.street_address2 + ', ' + \
+        return self.street_address1 + ', ' + \
             self.town_or_city + ', ' + self.postcode + ' ' + self.country
