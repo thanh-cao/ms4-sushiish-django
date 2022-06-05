@@ -41,6 +41,7 @@ class UserProfile(models.Model):
 
 class Address(models.Model):
     profile_id = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
     street_address2 = models.CharField(max_length=80, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
@@ -52,4 +53,5 @@ class Address(models.Model):
     isDefault = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.street_address1} {self.street_address2}, {self.town_or_city}, {self.postcode} {self.country}'
+        return self.street_address1 + ' ' + self.street_address2 + ', ' + \
+            self.town_or_city + ', ' + self.postcode + ' ' + self.country
