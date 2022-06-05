@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 
 class UserProfile(models.Model):
     profile_id = models.CharField(max_length=32, null=False, editable=False)
-    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def _generate_profile_id(self):
         '''
@@ -31,12 +31,12 @@ class UserProfile(models.Model):
         '''
         Save user profile with unique profile id using UUID
         '''
-        if not self.order_number:
-            self.order_number = self._generate_profile_id()
+        if not self.profile_id:
+            self.profile_id = self._generate_profile_id()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.user_id.username
+        return self.user.username
 
 
 class Address(models.Model):
@@ -52,5 +52,4 @@ class Address(models.Model):
     isDefault = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.street_address1
-
+        return f'{self.street_address1} {self.street_address2}, {self.town_or_city}, {self.postcode} {self.country}'
