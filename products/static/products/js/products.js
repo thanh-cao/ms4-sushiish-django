@@ -72,7 +72,7 @@ document.querySelectorAll('.allergy-checkbox').forEach(async checkbox => {
             productCard.innerHTML = `              
                     <a href="/products/${productId}" class="text-decoration-none text-black"
                         data-bs-toggle="offcanvas" data-product-url="/products/${productId}">
-                        <div class="card product-card">
+                        <div class="card product-card shadow-salmon">
                             <div class="card-body">
                                 <div class="product-title fs-5 text-salmon fw-bold">${product.name}</div>                            
                                 <div class="product-allergies my-2">

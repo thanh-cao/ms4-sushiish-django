@@ -142,33 +142,35 @@ svg:hover {
 
 .card {
   border: 1px solid transparent;
-  border-radius: 0.25rem;
-  box-shadow: var(--color-salmon) 0px 14px 28px,
-    var(--color-salmon) 0px 10px 10px;
+  border-radius: 10px;
 }
 
 .card.product-card {
   display: flex;
   flex-direction: row;
-  border-radius: 10px;
   margin-bottom: 2rem;
   width: 100%;
   min-height: 100px;
-  /* box-shadow: 1px 2px 6px var(--color-salmon) ; */
+}
+
+.shadow-salmon.extra-blur {
+  box-shadow: var(--color-salmon) 0px 14px 28px,
+    var(--color-salmon) 0px 10px 10px;
+}
+
+.shadow-salmon {
   box-shadow: var(--color-salmon) 0px 4px 6px -1px,
     var(--color-salmon) 0px 2px 4px -1px;
 }
 
-.card.shadow-avocado {
+.shadow-avocado {
   box-shadow: var(--color-avocado) 0px 4px 6px -1px,
     var(--color-avocado) 0px 2px 4px -1px;
 }
 
-.card.background-avocado {
+.background-avocado {
   color: #fff;
   background-color: var(--color-avocado);
-  /* box-shadow: rgb(0, 0, 0, 0.5) 0px 4px 6px -1px,
-    rgb(0, 0, 0, 0.5) 0px 2px 4px -1px; */
   box-shadow: var(--color-avocado) 0px 4px 6px -1px,
     var(--color-avocado) 0px 2px 4px -1px;
 }
