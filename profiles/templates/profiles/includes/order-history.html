@@ -1,0 +1,33 @@
+<div class="card shadow-avocado">
+    <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+        Order History
+    </div>
+    <div class="card-body">
+        {% if orders.all|length > 0 %}
+
+        {% for order in orders.all %}
+        <a href="{% url 'order_history' order.order_number %}" class="text-decoration-none text-black">
+            <div class="row mb-4">
+                <div class="col-5">
+                    <p class="mb-0 text-black fw-bold">#{{ order.order_number|truncatechars:7 }}</p>
+                </div>
+                <div class="col-4">
+                    <p class="mb-0 text-black">{{ order.create_date|date }}</p>
+                </div>
+                <div class="col-3 text-md-end">
+                    <p class="mb-0">
+                        ${{ order.grand_total|floatformat:2 }}
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+        {% else %}
+        <div class="max-w">
+            <i class="fa-solid fa-receipt text-muted display-5"></i>
+            <p class="text-muted">No orders found</p>
+        </div>
+        {% endif %}
+    </div>
+</div>

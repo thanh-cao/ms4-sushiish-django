@@ -1,0 +1,23 @@
+<div class="card shadow-avocado">
+    <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+        Saved Addresses
+    </div>
+    <div class="card-body">
+        {% for address in addresses %}
+        {% if address.isDefault %}
+        <div class="text-muted">Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
+        <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+        {% endif %}
+        {% endfor %}
+
+        {% for address in addresses %}
+        {% if not address.isDefault %}
+        <div class="text-muted mt-3">Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
+        <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div class="px-3 pb-3 text-avocado">
+        Add new address
+    </div>
+</div>

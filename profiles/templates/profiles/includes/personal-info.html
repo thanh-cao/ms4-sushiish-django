@@ -1,0 +1,18 @@
+<div class="card shadow-avocado">
+    <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+        Personal Information
+    </div>
+    <div class="card-body">
+        <div class="text-muted">Username:</div>
+        <div class="text-black">{{ profile.user.username }}</div>
+
+        <div class="text-muted mt-3">Full Name:</div>
+        {% if profile.user.first_name %}
+        <div class="text-black">{{ profile.user.first_name }} {{ user.last_name }}</div>
+        {% else %}
+        <div class="text-black">Not set</div>
+        {% endif %}
+        <div class="text-muted mt-3">Email:</div>
+        <div class="text-black">{{ profile.user.email }}</div>
+    </div>
+</div>

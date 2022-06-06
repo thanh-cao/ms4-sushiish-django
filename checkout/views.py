@@ -146,6 +146,7 @@ def checkout_success(request, order_number):
         del request.session['order_info']
 
     context = {
+        'page_type': 'success',
         'order': order,
         'save_info': save_info,
     }
