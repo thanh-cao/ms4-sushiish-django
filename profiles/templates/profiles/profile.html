@@ -1,21 +1,19 @@
 {% extends "base.html" %}
-{% load static %}
 
+{% load static %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
 {% endblock %}
 
+{% block extra_title %}- shopping cart{% endblock %}
+
 {% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
+{% include 'includes/main-nav.html' %}
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<main class="container pb-5">
     <div class="row">
         <div class="col">
             <hr>
@@ -23,5 +21,91 @@
             <hr>
         </div>
     </div>
-</div>
+
+    <section class="row">
+        <div class="col-12">
+            <div class="card shadow-avocado">
+                <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+                    Personal Information
+                </div>
+                <div class="card-body">
+                    <div class="text-muted">Username:</div>
+                    <div class="text-black">{{ profile.user.username }}</div>
+
+                    <div class="text-muted mt-3">Full Name:</div>
+                    {% if profile.user.first_name %}
+                    <div class="text-black">{{ profile.user.first_name }} {{ user.last_name }}</div>
+                    {% else %}
+                    <div class="text-black">Not set</div>
+                    {% endif %}
+                    <div class="text-muted mt-3">Email:</div>
+                    <div class="text-black">{{ profile.user.email }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-3">
+            <div class="card shadow-avocado">
+                <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+                    Saved Addresses
+                </div>
+                <div class="card-body">
+                    {% for address in addresses %}
+                    {% if address.isDefault %}
+                    <div class="text-muted">Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
+                    <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% for address in addresses %}
+                    {% if not address.isDefault %}
+                    <div class="text-muted mt-3">Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
+                    <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="px-3 pb-3 text-avocado">
+                    Add new address
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-3">
+            <div class="card shadow-avocado">
+                <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
+                    Order History
+                </div>
+                <div class="card-body">
+                    {% if orders.all|length > 0 %}
+
+                    {% for order in orders.all %}
+                    <a href="" class="text-decoration-none text-black">
+                        <div class="row mb-4">
+                            <div class="col-5">
+                                <p class="mb-0 text-black fw-bold">#{{ order.order_number|truncatechars:7 }}</p>
+                            </div>
+                            <div class="col-4">
+                                <p class="mb-0 text-black">{{ order.create_date|date }}</p>
+                            </div>
+                            <div class="col-3 text-md-end">
+                                <p class="mb-0">
+                                    ${{ order.grand_total|floatformat:2 }}
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+
+                    {% else %}
+                    <div class="max-w">
+                        <i class="fa-solid fa-receipt text-muted display-5"></i>
+                        <p class="text-muted">No orders found</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
 {% endblock %}
