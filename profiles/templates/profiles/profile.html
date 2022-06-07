@@ -23,16 +23,14 @@
     </div>
 
     <section class="row">
-        <div class="col-12">
+        <div class="col-12 col-md-7">
             {% include 'profiles/includes/personal-info.html' %}
-        </div>
-
-        <div class="col-12 mt-3">
             {% include 'profiles/includes/saved-addresses.html' %}
+            {% include 'profiles/includes/order-history.html' %}
         </div>
 
-        <div class="col-12 mt-3">
-            {% include 'profiles/includes/order-history.html' %}
+        <div id="form-container" class="col-12 col-md-5 mt-3 mt-md-0">
+            
         </div>
     </section>
 

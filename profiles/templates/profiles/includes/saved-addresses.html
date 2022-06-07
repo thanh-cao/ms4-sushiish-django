@@ -1,23 +1,41 @@
-<div class="card shadow-avocado">
+<div class="card shadow-avocado mb-3">
     <div class="px-3 pt-3 fw-bold fs-5 text-avocado">
         Saved Addresses
     </div>
     <div class="card-body">
         {% for address in addresses %}
         {% if address.isDefault %}
-        <div class="text-muted">Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
-        <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+        <div class="text-muted row align-items-center">
+            <div class="col-7">
+                Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:
+            </div>
+            <div class="col-3">
+                <button class="btn text-salmon create-or-update-address" data-address-id="{{ address.id }}">Edit</button>
+            </div>
+        </div>
+        <div class="text-black">
+            {{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}
+        </div>
         {% endif %}
         {% endfor %}
 
         {% for address in addresses %}
         {% if not address.isDefault %}
-        <div class="text-muted mt-3">Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:</div>
-        <div class="text-black">{{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}</div>
+        <div class="text-muted mt-3 row">
+            <div class="col-7">
+                Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:
+            </div>
+            <div class="col-3">
+                <button class="btn text-salmon create-or-update-address" data-address-id="{{ address.id }}">Edit</button>
+            </div>
+        </div>
+        <div class="text-black">
+            {{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}
+        </div>
         {% endif %}
         {% endfor %}
     </div>
-    <div class="px-3 pb-3 text-avocado">
-        Add new address
+    <div class="px-3 pb-3 text-start">
+        <button class="btn text-avocado create-or-update-address">Add new address</button>
     </div>
 </div>

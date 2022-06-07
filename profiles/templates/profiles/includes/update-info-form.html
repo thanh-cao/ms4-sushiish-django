@@ -1,0 +1,27 @@
+<form id="update-user-form" action="{% url 'profile' %}type=user" method="POST">
+    {% csrf_token %}
+    <div class="card shadow-salmon mb-3 px-3">
+        <div class="px-3 pt-3 fw-bold fs-5 text-salmon">
+            Update Personal Info
+        </div>
+        <div class="card-body">
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="first_name" name="first_name"
+                    value="{{ user.first_name }}">
+                <label for="first_name">First Name</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="last_name" name="last_name"
+                    value="{{ user.last_name }}">
+                <label for="last_name">Last Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="email" name="email" value="{{ user.email }}">
+                <label for="email">Email</label>
+            </div>
+            <div class="text-end">
+                <button class="btn btn-primary mt-3" role="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
