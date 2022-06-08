@@ -119,6 +119,22 @@ h3 {
   box-shadow: 0 0 0 0.25rem #963728;
 }
 
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--color-salmon);
+  border: 1px solid var(--color-salmon);
+  font-weight: 700;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  background-color: transparent;
+  color: var(--color-avocado);
+  border: 1px solid var(--color-avocado);
+  font-weight: 700;
+}
+
 /* ---- spacing, colors, and utilities ----- */
 main {
   margin-top: 80px;

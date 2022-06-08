@@ -1,4 +1,4 @@
-<form id="create-or-update-address-form" action="{% url 'profile' %}?type=address" method="POST">
+<form id="create-or-update-address-form" action="{% if address %}{% url 'update_address' address.id %}{% else %} {% url 'create_address' %}{% endif %}" method="POST">
     {% csrf_token %}
     <div class="card shadow-salmon mb-3 px-3">
         <div class="px-3 pt-3 fw-bold fs-5 text-salmon">
@@ -6,7 +6,7 @@
         </div>
         <div class="card-body">
             <div class="form-floating mb-2">
-                <input type="text" class="form-control" id="phone_numbe" name="phone_numbe"
+                <input type="text" class="form-control" id="phone_number" name="phone_number"
                     value="{{ address.phone_number }}">
                 <label for="phone_numbe">Phone Number</label>
             </div>
@@ -36,12 +36,13 @@
                 <label for="address_type">Address Type</label>
             </div>
             <div class="mb-2">
-                <input type="checkbox" id="isDefault" name="isDefault" value="{{ address.isDefault }}" >
+                <input type="checkbox" id="isDefault" name="isDefault" {% if address.isDefault %}checked{% endif %} >
                 <label for="isDefault">Set as default</label>
             </div>
 
-            <div class="text-end">
-                <button class="btn btn-primary mt-3" role="submit">Submit</button>
+            <div class="text-end mt-3">
+                <a href="{% url 'profile' %}" class="btn btn-outline-primary" role="button">Cancel</a>
+                <button class="btn btn-primary" role="submit">Submit</button>
             </div>
         </div>
     </div>

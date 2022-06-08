@@ -6,15 +6,16 @@
         {% for address in addresses %}
         {% if address.isDefault %}
         <div class="text-muted row align-items-center">
-            <div class="col-7">
+            <div class="col-8">
                 Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:
             </div>
-            <div class="col-3">
-                <button class="btn text-salmon create-or-update-address" data-address-id="{{ address.id }}">Edit</button>
-            </div>
+            <button class="col-3 btn text-salmon update-address" data-url="{% url 'update_address' address.id %}">
+                Edit
+            </button>
         </div>
         <div class="text-black">
-            {{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}
+            <div>{{ address }}</div>
+            <div>Phone: {{ address.phone_number }}</div>
         </div>
         {% endif %}
         {% endfor %}
@@ -22,20 +23,21 @@
         {% for address in addresses %}
         {% if not address.isDefault %}
         <div class="text-muted mt-3 row">
-            <div class="col-7">
+            <div class="col-8">
                 Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:
             </div>
-            <div class="col-3">
-                <button class="btn text-salmon create-or-update-address" data-address-id="{{ address.id }}">Edit</button>
-            </div>
+            <button class="col-3 btn text-salmon update-address" data-url="{% url 'update_address' address.id %}">
+                Edit
+            </button>
         </div>
         <div class="text-black">
-            {{ address.street_address1 }}{% if address.street_address2 %} {{ address.street_address2 }}{% endif %}, {{ address.town_or_city }}, {{ address.postcode }} {{ address.country }}
+            <div>{{ address }}</div>
+            <div>Phone: {{ address.phone_number }}</div>
         </div>
         {% endif %}
         {% endfor %}
     </div>
     <div class="px-3 pb-3 text-start">
-        <button class="btn text-avocado create-or-update-address">Add new address</button>
+        <button class="btn text-avocado update-address" data-url="{% url 'create_address' %}">Add new address</button>
     </div>
 </div>

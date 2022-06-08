@@ -1,4 +1,4 @@
-<form id="update-user-form" action="{% url 'profile' %}type=user" method="POST">
+<form id="update-user-form" action="{% url 'update_user_details' %}" method="POST">
     {% csrf_token %}
     <div class="card shadow-salmon mb-3 px-3">
         <div class="px-3 pt-3 fw-bold fs-5 text-salmon">
@@ -16,11 +16,12 @@
                 <label for="last_name">Last Name</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control" id="email" name="email" value="{{ user.email }}">
+                <input type="text" class="form-control" id="email" name="email" value="{{ user.email }}" required>
                 <label for="email">Email</label>
             </div>
-            <div class="text-end">
-                <button class="btn btn-primary mt-3" role="submit">Submit</button>
+            <div class="text-end mt-3">
+                <a href="{% url 'profile' %}" class="btn btn-outline-primary" role="button">Cancel</a>
+                <button class="btn btn-primary" role="submit">Submit</button>
             </div>
         </div>
     </div>
