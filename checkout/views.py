@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from cart.contexts import cart_contents
 
 from checkout.forms import OrderForm
+from profiles.forms import AddressForm
+from profiles.models import UserProfile
+from profiles.views import resetting_default_address
 from .models import Order, OrderLineItem, OrderType
 from products.models import Product
 
@@ -86,7 +89,9 @@ def update_order_info(request):
 def checkout(request):
     '''
     This view renders the checkout page and handles order form submission
-    after payment with Stripe is successful
+    after payment with Stripe is successful.
+    If user is logged in, check for a default address and use that in the
+    order form.
     '''
     if request.method == 'POST':
         form = OrderForm(request.POST)
@@ -99,7 +104,6 @@ def checkout(request):
                 order.order_type = OrderType.DELIVERY.name
             else:
                 order.order_type = OrderType.PICKUP.name
-            # order.order_type = order_info['order_type']
             order.order_note = order_info['order_note']
             order.expected_done_date = order_info['expected_done_date']
             order.expected_done_time = order_info['expected_done_time']
@@ -124,9 +128,36 @@ def checkout(request):
     else:
         cart = request.session.get('cart', {})
         if not cart:
+            # TODO: toast message
             return redirect('products')
 
-        order_form = OrderForm()
+        if request.user.is_authenticated:
+            try:
+                profile = UserProfile.objects.get(user=request.user)
+                address = profile.address_set.all().filter(isDefault=True)
+                print(f'address is {address}')
+                if address:
+                    address = address[0]
+                    order_form = OrderForm(initial={
+                        'full_name': profile.user.get_full_name(),
+                        'email': profile.user.email,
+                        'phone_number': address.phone_number,
+                        'street_address1': address.street_address1,
+                        'street_address2': address.street_address2 or ' ',
+                        'town_or_city': address.town_or_city,
+                        'postcode': address.postcode,
+                        'country': address.country,
+                    })
+                else:
+                    order_form = OrderForm(initial={
+                        'full_name': profile.user.get_full_name(),
+                        'email': profile.user.email,
+                    })
+            except UserProfile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
+
         context = {
             'order_form': order_form
         }
@@ -136,9 +167,37 @@ def checkout(request):
 def checkout_success(request, order_number):
     '''
     This view renders the checkout success page
+
+    If user is logged in and has selected to save info,
+    save the address info to the user's profile,
+    and save user's profile to the order.
+
+    After order is saved, clear the cart and order info from the session.
     '''
     save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+
+    if request.user.is_authenticated:
+        profile = get_object_or_404(UserProfile, user=request.user)
+        order.user_profile = profile
+        order.save()
+
+        if save_info:
+            profile_address_data = {
+                'phone_number': order.phone_number,
+                'street_address1': order.street_address1,
+                'street_address2': order.street_address2,
+                'town_or_city': order.town_or_city,
+                'postcode': order.postcode,
+                'country': order.country,
+                'isDefault': True,
+            }
+            address_form = AddressForm(profile_address_data)
+            if address_form.is_valid():
+                address = address_form.save(commit=False)
+                address.profile_id = profile
+                address.save()             
+                resetting_default_address(address, profile)
 
     if 'cart' in request.session:
         del request.session['cart']

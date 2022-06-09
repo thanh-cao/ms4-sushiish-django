@@ -43,13 +43,15 @@ class Address(models.Model):
     profile_id = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     street_address1 = models.CharField(max_length=80, null=False, blank=False)
-    street_address2 = models.CharField(max_length=80, null=True, blank=True)
+    street_address2 = models.CharField(max_length=80, null=True, blank=True,
+                                       default='')
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
     postcode = models.CharField(max_length=10, null=True, blank=False)
     # limit delivery in just a country since this is food delivery
     country = models.CharField(
         max_length=40, null=False, blank=False, default='Norway')
-    address_type = models.CharField(max_length=50, null=False, blank=False)
+    address_type = models.CharField(max_length=50, null=True, blank=True,
+                                    default='Home')
     isDefault = models.BooleanField(default=False)
 
     def __str__(self):

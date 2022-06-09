@@ -60,12 +60,10 @@ def create_address(request):
                 address.profile_id = profile
                 address.save()
                 if address.isDefault is True:
-                    # if newly added address is set as default,
+                    # if this address is set as default,
                     # set all other addresses to not default
-                    addresses = profile.address_set.all().exclude(id=address.id)
-                    for addr in addresses:
-                        addr.isDefault = False
-                        addr.save()
+                    resetting_default_address(address, profile)
+
                 return redirect('profile')
         except ValueError:
             pass
@@ -96,10 +94,8 @@ def update_address(request, address_id):
                 if address.isDefault is True:
                     # if currently editted address is set as default,
                     # set all other addresses to not default
-                    addresses = profile.address_set.all().exclude(id=address.id)
-                    for addr in addresses:
-                        addr.isDefault = False
-                        addr.save()
+                    resetting_default_address(address, profile)
+
                 return redirect('profile')
         except ValueError:
             pass
@@ -128,3 +124,14 @@ def order_history(request, order_number):
     }
 
     return render(request, 'checkout/checkout-success.html', context)
+
+
+def resetting_default_address(default_address, profile):
+    '''
+    This view resets the default address of the user
+    '''
+    addresses = profile.address_set.all().exclude(id=default_address.id)
+    if addresses.count() > 0:
+        for addr in addresses:
+            addr.isDefault = False
+            addr.save()
