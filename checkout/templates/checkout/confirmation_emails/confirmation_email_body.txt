@@ -1,0 +1,32 @@
+Hello {{ order.full_name }},
+
+Thank you for your order. This is a confirmation that we have received your order as below:
+
+Order:  {{ order.order_number }}
+Date: {{ order.create_date }}
+Order type: {{ order.order_type }}
+To be done by: {{ order.expected_done_date }}, {{ order.expected_done_time }}
+Phone: {{ order.phone_number }}
+{% if order_type == 'DELIVERY' %}
+Delivery address: {{ order.street_address1 }}, {{ order.street_address2 }}, {{ order.town_or_city }}, {{ order.postcode }}, {{ order.country }}
+{% endif %}
+
+Order details:
+{% for line in order.lines %}
+{{ line.product.name }} x {{ line.quantity }}
+{{ line.product.price }}
+
+{% endfor %}
+
+
+Order total: {{ order.total }}
+Delivery charge: {{ order.delivery_charge }}
+{% if order.order_discount %}
+Discount: {{ order.order_discount }}
+{% endif %}
+Grand total: {{ order.grand_total }}
+
+If you have any questions, please contact us at {{ sushiish_contact_email }}
+
+Regards,
+Suhiish Shop.

@@ -135,7 +135,6 @@ def checkout(request):
             try:
                 profile = UserProfile.objects.get(user=request.user)
                 address = profile.address_set.all().filter(isDefault=True)
-                print(f'address is {address}')
                 if address:
                     address = address[0]
                     order_form = OrderForm(initial={
