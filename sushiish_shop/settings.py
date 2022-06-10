@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'cart',
     'checkout',
     'profiles',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -95,8 +96,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
@@ -178,9 +177,48 @@ ORDER_DISCOUNT_PERCENTAGE = 10
 ORDER_DISCOUNT_THRESHOLD = 100
 DELIVERY_CHARGE = 5
 
+# AWS 3, static and media files storage
+if os.getenv('USE_AWS'):
+    # Cache control
+    AWS_S3_OBJECT_PARAMETERS = {
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94608000',
+    }
+    # AWS S3 settings
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_ACCESS_SECRET_KEY = os.getenv('AWS_ACCESS_SECRET_KEY')
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+    # Static files (CSS, JavaScript, Images) and media files
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+
+    # Override the default file storage to use S3
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,
+                                     STATICFILES_LOCATION)
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN,
+                                    MEDIAFILES_LOCATION)
+
+# Stripe configuration
 STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# Email configuration
+if os.getenv('DEBUG') == 'True':
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_USE_TLS = True
+    EMAIL_PORT = 587
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASS')
+    DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
