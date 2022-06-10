@@ -9,9 +9,12 @@
             <div class="col-8">
                 Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:
             </div>
-            <button class="col-3 btn text-salmon update-address" data-url="{% url 'update_address' address.id %}">
+            <button class="col-2 btn text-avocado update-address" data-url="{% url 'update_address' address.id %}">
                 Edit
             </button>
+            <a class="col-2 btn text-salmon delete-address" href="{% url 'delete_address' address.id %}">
+                Delete
+            </a>
         </div>
         <div class="text-black">
             <div>{{ address }}</div>
@@ -26,9 +29,12 @@
             <div class="col-8">
                 Address {{ forloop.counter }}{% if address.address_type %} ({{ address.address_type }}){% endif %}:
             </div>
-            <button class="col-3 btn text-salmon update-address" data-url="{% url 'update_address' address.id %}">
+            <button class="col-2 btn text-avocado update-address" data-url="{% url 'update_address' address.id %}">
                 Edit
             </button>
+            <a class="col-2 btn text-salmon delete-address" href="{% url 'delete_address' address.id %}">
+                Delete
+            </a>
         </div>
         <div class="text-black">
             <div>{{ address }}</div>

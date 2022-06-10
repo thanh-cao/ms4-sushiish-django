@@ -11,4 +11,6 @@ urlpatterns = [
          name='create_address'),
     path('update_address/<address_id>', views.update_address,
          name='update_address'),
+    path('delete_address/<address_id>', views.delete_address,
+         name='delete_address'),
 ]

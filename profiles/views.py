@@ -112,6 +112,20 @@ def update_address(request, address_id):
     return render(request, 'profiles/includes/address-form.html', context)
 
 
+def delete_address(request, address_id):
+    '''
+    Delete user's address
+    '''
+    address = get_object_or_404(Address, id=address_id)
+    profile = get_object_or_404(UserProfile, user=request.user)
+    if address.profile_id == profile:
+        address.delete()
+        return redirect('profile')
+    else:
+        # TODO: message toast error
+        return redirect('profile')
+
+
 def order_history(request, order_number):
     '''
     Render user's past order details
