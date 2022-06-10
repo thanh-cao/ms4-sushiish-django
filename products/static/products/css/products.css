@@ -99,30 +99,7 @@ section.product-listing-hero {
   padding: 5em 0;
 }
 
-.card.address-card {
-  /* From https://css.glass */
-  background: rgba(0, 0, 0, 0.36);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5.3px);
-  -webkit-backdrop-filter: blur(5.3px);
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  padding: 1rem 2rem;
-}
-
 /* ----- product card ----- */
-.card.product-card {
-  display: flex;
-  flex-direction: row;
-  border-radius: 10px;
-  margin-bottom: 2rem;
-  width: 100%;
-  min-height: 100px;
-  /* box-shadow: 1px 2px 6px var(--color-salmon) ; */
-  box-shadow: var(--color-salmon) 0px 4px 6px -1px,
-    var(--color-salmon) 0px 2px 4px -1px;
-}
-
 .card.product-card .card-body {
   width: 55%;
   overflow: hidden;

@@ -35,7 +35,7 @@
                     <ul class="dropdown-menu text-end text-md-start" aria-labelledby="navbarDropdown">
                         {% if request.user.is_authenticated %}
                         <li class="dropdown-item">
-                            <a href="">Profile</a>
+                            <a href="{% url 'profile' %}">Profile</a>
                         </li>
                         <li class="dropdown-item">
                             <a href="{% url 'account_logout' %}">Logout</a>
@@ -95,7 +95,7 @@
     <section id="catering" class="container-fluid g-0">
         <div class="row justify-content-center g-0">
             <div class="col-10 col-md-6">
-                <div class="card">
+                <div class="card shadow-salmon extra-blur">
                     <div class="card-body">
                         <h2 class="text-center display-4 text-avocado">Catering</h2>
                         <p class="card-text">From sushi bars to cooking stations of all things Asian, we have food for

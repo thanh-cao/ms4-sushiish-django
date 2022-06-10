@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['localhost', 'fc29-88-90-24-69.eu.ngrok.io', '127.0.0.1']
 
 # Application definition
 
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'checkout',
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -174,3 +175,4 @@ STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')

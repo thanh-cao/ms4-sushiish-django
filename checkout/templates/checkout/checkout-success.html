@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
-{% block extra_title %}- shopping cart{% endblock %}
+{% block extra_title %}- order was successfully created{% endblock %}
 
 {% block page_header %}
 {% include 'includes/main-nav.html' %}
@@ -18,14 +18,20 @@
         <div class="col">
             <hr>
             <h2 class="text-avocado display-5 mb-4">
+                {% if page_type == 'success' %}
                 <i class="fa-solid fa-heart text-salmon display-6" aria-hidden="true"></i> Thank You <i
                     class="fa-solid fa-heart text-salmon display-6" aria-hidden="true"></i>
+                {% elif page_type == 'history' %}
+                    Order History
+                {% endif %}
             </h2>
             <hr>
+            {% if page_type == 'success' %}
             <p class="text-black">
                 A confirmation email will be sent to <strong>{{ order.email }}</strong>. Your order
                 information is below.
             </p>
+            {% endif %}
         </div>
     </div>
 
@@ -182,9 +188,15 @@
                 </div>
 
                 <div class="my-3">
-                    <a href="{% url 'products' %}" class="btn btn-secondary btn-md">
+                    {% if page_type == 'history' %}
+                    <a href="{% url 'profile' %}" class="btn btn-secondary btn-md px-4">
+                        Back to profile
+                    </a>
+                    {% else%}
+                    <a href="{% url 'products' %}" class="btn btn-secondary btn-md px-4">
                         Back to shopping
                     </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block extra_title %}- my profile{% endblock %}
+
+{% block page_header %}
+{% include 'includes/main-nav.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="container pb-5">
+    <div class="row">
+        <div class="col">
+            <hr>
+            <h2 class="logo-font mb-4">My Profile</h2>
+            <hr>
+        </div>
+    </div>
+
+    <section class="row">
+        <div class="col-12 col-md-7">
+            {% include 'profiles/includes/personal-info.html' %}
+            {% include 'profiles/includes/saved-addresses.html' %}
+            {% include 'profiles/includes/order-history.html' %}
+        </div>
+
+        <div id="form-container" class="col-12 col-md-5 mt-3 mt-md-0">
+            
+        </div>
+    </section>
+
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'profiles/js/profile.js' %}"></script>
+{% endblock %}

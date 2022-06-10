@@ -1,0 +1,49 @@
+<form id="create-or-update-address-form" action="{% if address %}{% url 'update_address' address.id %}{% else %} {% url 'create_address' %}{% endif %}" method="POST">
+    {% csrf_token %}
+    <div class="card shadow-salmon mb-3 px-3">
+        <div class="px-3 pt-3 fw-bold fs-5 text-salmon">
+            Address
+        </div>
+        <div class="card-body">
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                    value="{{ address.phone_number }}">
+                <label for="phone_numbe">Phone Number</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="street_address1" name="street_address1"
+                    value="{{ address.street_address1 }}">
+                <label for="street_address1">Street Address 1</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="street_address2" name="street_address2" value="{{ address.street_address2 }}">
+                <label for="street_address2">Street Address 2</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="city" name="town_or_city" value="{{ address.town_or_city }}">
+                <label for="town_or_city">Town or City</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="postcode" name="postcode" value="{{ address.postcode }}">
+                <label for="postcode">Post Code</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="country" name="country" value="Norway" readonly>
+                <label for="country">Country</label>
+            </div>
+            <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="address_type" name="address_type" value="{{ address.address_type }}" >
+                <label for="address_type">Address Type</label>
+            </div>
+            <div class="mb-2">
+                <input type="checkbox" id="isDefault" name="isDefault" {% if address.isDefault %}checked{% endif %} >
+                <label for="isDefault">Set as default</label>
+            </div>
+
+            <div class="text-end mt-3">
+                <a href="{% url 'profile' %}" class="btn btn-outline-primary" role="button">Cancel</a>
+                <button class="btn btn-primary" role="submit">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
