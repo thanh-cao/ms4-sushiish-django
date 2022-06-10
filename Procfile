@@ -1,0 +1,1 @@
+web: gunicorn sushiish.wsgi:application

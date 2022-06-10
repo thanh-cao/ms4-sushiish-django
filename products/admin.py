@@ -6,7 +6,7 @@ from .models import Allergy, Product, Category
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'price', 'category', 'description', 'image')
-    fields = ('id', 'name', 'price', 'category', 'description', 'image')
+    fields = ('name', 'price', 'category', 'description', 'image')
     search_fields = ('name', 'price', 'category', 'description')
     list_filter = ('category',)
     ordering = ('id',)
