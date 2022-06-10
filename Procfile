@@ -1,1 +1,1 @@
-web: gunicorn sushiish.wsgi:application
+web: gunicorn sushiish_shop.wsgi:application
