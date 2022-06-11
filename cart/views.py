@@ -1,6 +1,9 @@
 import datetime
+from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import get_object_or_404, render, redirect, reverse
+
+from products.models import Product
 from .contexts import cart_contents
 
 # Create your views here.
@@ -40,11 +43,15 @@ def add_to_cart(request, product_id):
     '''
     quantity = int(request.POST.get('quantity'))
     cart = request.session.get('cart', {})
+    product = get_object_or_404(Product, pk=product_id)
 
     if product_id in list(cart.keys()):
         cart[product_id] += quantity
+        messages.success(
+            request, f'{product.name} quantity updated to {cart[product_id]}')
     else:
         cart[product_id] = quantity
+        messages.success(request, f'{product.name} added to cart')
 
     order_total = cart_contents(request)['order_total']
     request.session['cart'] = cart

@@ -190,3 +190,12 @@ svg:hover {
   box-shadow: var(--color-avocado) 0px 4px 6px -1px,
     var(--color-avocado) 0px 2px 4px -1px;
 }
+
+/* ---- bootstrap toast ----- */
+
+.message-container {
+  position: absolute;
+  right: 0;
+  z-index: 99999999999;
+  min-height: 200px;
+}
