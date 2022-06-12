@@ -24,15 +24,19 @@ const activateQuantityChange = () => {
 const changeQtyAddToCart = (type) => {
     let input = document.querySelector('input.input-number');
     let quantity = parseInt(input.value);
+    
     if (type === 'plus') {
-        if (quantity < input.getAttribute('max')) {
+        if (quantity < parseInt(input.getAttribute('max'))) {
             input.value = quantity + 1;
         }
+        checkToDisableButton(parseInt(input.value), parseInt(input.getAttribute('max')), parseInt(input.getAttribute('min')));
     } else if (type === 'minus') {
         if (quantity > 1) {
             input.value = quantity - 1;
         }
+        checkToDisableButton(parseInt(input.value), parseInt(input.getAttribute('max')), parseInt(input.getAttribute('min')));
     }
+
     calculateTotal(parseFloat(input.value));
 };
 
@@ -40,4 +44,18 @@ const calculateTotal = (quantity) => {
     let total = document.querySelector('.add-total');
     let price = parseFloat(document.querySelector('.offcanvas-body .price').innerText.split('$')[1]);
     total.innerText = (price * quantity).toFixed(2);
+};
+
+const checkToDisableButton = (quantity, max, min) => {
+    if (quantity === max) {
+        document.querySelector('.btn-quantity[data-type="plus"]').setAttribute('disabled', 'true');
+    } else {
+        document.querySelector('.btn-quantity[data-type="plus"]').removeAttribute('disabled');
+    }
+
+    if (quantity === min) {
+        document.querySelector('.btn-quantity[data-type="minus"]').setAttribute('disabled', 'true');
+    } else {
+        document.querySelector('.btn-quantity[data-type="minus"]').removeAttribute('disabled');
+    }
 };

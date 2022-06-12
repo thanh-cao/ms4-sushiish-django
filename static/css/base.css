@@ -137,7 +137,7 @@ h3 {
 
 /* ---- spacing, colors, and utilities ----- */
 main {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 .text-salmon {
@@ -145,6 +145,18 @@ main {
 }
 
 .text-avocado {
+  color: var(--color-avocado);
+}
+
+a.text-avocado:hover,
+a.text-avocado:focus,
+a.text-avocado:active {
+  color: var(--color-salmon);
+}
+
+a.text-salmon:hover,
+a.text-salmon:focus,
+a.text-salmon:active {
   color: var(--color-avocado);
 }
 
@@ -189,4 +201,36 @@ svg:hover {
   background-color: var(--color-avocado);
   box-shadow: var(--color-avocado) 0px 4px 6px -1px,
     var(--color-avocado) 0px 2px 4px -1px;
+}
+
+/* ---- bootstrap toast ----- */
+
+.message-container {
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  z-index: 99999999999;
+  min-height: 200px;
+}
+
+.border-success {
+  border-color: var(--color-avocado)!important;
+}
+
+.border-danger {
+  border-color: var(--color-salmon)!important;
+}
+
+.border-warning {
+  border-color: #ffc107!important;
+}
+
+.border-info {
+  border-color: #17a2b8!important;
+}
+
+.bag-notification-wrapper {
+  height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

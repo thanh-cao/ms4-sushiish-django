@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.serializers import serialize
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -20,6 +21,7 @@ def all_products(request):
         if 'search' in request.GET:
             search_query = request.GET['search']
             if not search_query:
+                messages.error(request, 'Please enter a search term')
                 return redirect(reverse('products'))
 
             queries = Q(name__icontains=search_query) | Q(

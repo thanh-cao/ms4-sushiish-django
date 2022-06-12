@@ -1,6 +1,7 @@
 import json
 import stripe
 from django.conf import settings
+from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -34,6 +35,10 @@ def get_stripe_keys(request):
             'enabled': True,
         }
     )
+
+    if not publishable_key:
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
 
     stripe_keys = {
         'publishable_key': publishable_key,
@@ -120,15 +125,22 @@ def checkout(request):
                     order_line_item.save()
                 except Product.DoesNotExist:
                     order.delete()
+                    err_msg = 'One of the products in your cart' + \
+                        ' doesn\'t exist anymore.'
+                    messages.error(
+                        request, err_msg)
                     return redirect(reverse('view_cart'))
+
             request.session['save_info'] = 'save-info' in request.POST
-            print(f'order is created. Order number is {order.order_number}')
             return redirect(reverse('checkout_success',
                                     args=[order.order_number]))
+        else:
+            messages.error(request, 'Please correct the errors in the form.')
+
     else:
         cart = request.session.get('cart', {})
         if not cart:
-            # TODO: toast message
+            messages.error(request, 'Your cart is empty')
             return redirect('products')
 
         if request.user.is_authenticated:
@@ -195,7 +207,7 @@ def checkout_success(request, order_number):
             if address_form.is_valid():
                 address = address_form.save(commit=False)
                 address.profile_id = profile
-                address.save()             
+                address.save()
                 resetting_default_address(address, profile)
 
     if 'cart' in request.session:

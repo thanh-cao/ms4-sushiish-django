@@ -31,7 +31,7 @@
                     {% endfor %}
 
                     <div class="text-end mb-2">
-                        <a href="" class="text-salmon text-decoration-none fw-bold">Clear cart</a>
+                        <a href="{% url 'remove_from_cart' 0 %}" class="text-salmon text-decoration-none fw-bold">Clear cart</a>
                     </div>
                     {% else %}
                     <div class="fs-5 mb-3">
