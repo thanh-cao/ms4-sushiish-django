@@ -137,7 +137,7 @@ h3 {
 
 /* ---- spacing, colors, and utilities ----- */
 main {
-  margin-top: 80px;
+  margin-top: 70px;
 }
 
 .text-salmon {
@@ -145,6 +145,18 @@ main {
 }
 
 .text-avocado {
+  color: var(--color-avocado);
+}
+
+a.text-avocado:hover,
+a.text-avocado:focus,
+a.text-avocado:active {
+  color: var(--color-salmon);
+}
+
+a.text-salmon:hover,
+a.text-salmon:focus,
+a.text-salmon:active {
   color: var(--color-avocado);
 }
 

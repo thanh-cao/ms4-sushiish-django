@@ -2,10 +2,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     activateQuantityChange();
     activateQuantityUpdate();
     activateRemoveFromCartButtons();
+
+    // handle selecting order type to be delivered or pickup
     document.querySelectorAll('input[name="order-type"]').forEach(input => {
         input.addEventListener('change', handleOrderTypeChange);
     });
-    document.querySelector('#checkout-btn').addEventListener('click', handleProceesToCheckout);
+
+    document.querySelectorAll('input[type="time"]').forEach(input => {
+        input.addEventListener('change', handleTimeChange);
+    });
+
+    // toggle add note field
+    document.querySelectorAll('.add-note-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.target.nextElementSibling.classList.toggle('d-none');
+        });
+    });
+
+    // handle processing order for checkout
+    document.querySelector('#checkout-btn').addEventListener('click', handleProceedToCheckout);
 });
 
 function activateQuantityChange() {
@@ -52,10 +68,8 @@ function activateQuantityChange() {
 function activateRemoveFromCartButtons() {
     document.querySelectorAll('.remove-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
-            console.log('remove from cart');
             e.preventDefault();
             let form = btn.parentElement;
-            console.log(form);
             let url = form.getAttribute('action');
             let method = form.getAttribute('method');
             let csfrToken = form.querySelector('input[name="csrfmiddlewaretoken"]').value;
@@ -92,20 +106,34 @@ async function handleOrderTypeChange(event) {
     data.append('order-type', value);
     data.append('csrfmiddlewaretoken', csfrToken);
     const url = '/checkout/update_order_type/';
-    
+
     const result = await fetch(url, {
         method: 'POST',
         body: data,
     }).then(response => response.json());
     const orderSummary = result.order_summary;
-    
+
     document.querySelector('#order-total').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
     document.querySelector('#delivery-charge').innerHTML = `$${parseFloat(orderSummary.delivery_charge).toFixed(2)}`;
     document.querySelector('#grand-total').innerHTML = `$${parseFloat(orderSummary.grand_total).toFixed(2)}`;
     orderSummary.order_discount > 0 ? document.querySelector('#order-discount').innerHTML = `- $${parseFloat(orderSummary.order_discount).toFixed(2)}` : null;
 }
 
-async function handleProceesToCheckout(event) {
+function handleTimeChange(e) {
+    const chosenTime = e.target.value;
+    const minTime = e.target.getAttribute('min');
+    const maxTime = e.target.getAttribute('max');
+    const errorDiv = e.target.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
+
+    if (chosenTime < minTime || chosenTime > maxTime) {
+        errorDiv.innerText = `Time must be between ${minTime} and ${maxTime}`;
+        e.target.value = chosenTime < minTime ? minTime : maxTime;
+    } else {
+        errorDiv.innerText = '';
+    }
+}
+
+async function handleProceedToCheckout(event) {
     event.preventDefault();
     const form = document.querySelector('#order-info-form');
     const url = form.getAttribute('action');
@@ -120,6 +148,8 @@ async function handleProceesToCheckout(event) {
     if (response.status === 200) {
         location.href = '/checkout/';
     } else if (response.status === 400) {
-        document.querySelector('#order-info-form .error-message').innerHTML = result.error;
+        document.querySelectorAll('#order-info-form .error-message').forEach(div => {
+            div.innerText = result.error;
+        });
     }
 }
