@@ -194,8 +194,31 @@ svg:hover {
 /* ---- bootstrap toast ----- */
 
 .message-container {
-  position: absolute;
-  right: 0;
+  position: fixed;
+  top: 70px;
+  right: 10px;
   z-index: 99999999999;
   min-height: 200px;
+}
+
+.border-success {
+  border-color: var(--color-avocado)!important;
+}
+
+.border-danger {
+  border-color: var(--color-salmon)!important;
+}
+
+.border-warning {
+  border-color: #ffc107!important;
+}
+
+.border-info {
+  border-color: #17a2b8!important;
+}
+
+.bag-notification-wrapper {
+  height: 100px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

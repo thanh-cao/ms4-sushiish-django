@@ -63,15 +63,15 @@
     {% endblock %}
 
     {% block extra_js %}
+    {% endblock %}
     <script type="text/javascript">
         // This is the javascript code to show bootstrap toast messages
         const toastDiv = document.querySelector('.toast');
         if (toastDiv) {
-            const toast = new bootstrap.Toast(toastdiv);
+            const toast = bootstrap.Toast.getOrCreateInstance(toastDiv);
             toast.show();
         }
     </script>
-    {% endblock %}
 </body>
 
 </html>
