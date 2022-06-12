@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from checkout.models import Order
 from profiles.forms import AddressForm, UserDetailsForm
@@ -34,9 +35,10 @@ def update_user_details(request):
                 user_form.save()
                 return redirect('profile')
         except ValueError:
+            messages.error(request, 'Error updating user details')
             pass
         except Exception as e:
-            print(e)  # TODO: message toast error
+            messages.error(request, e)
     else:
         user_form = UserDetailsForm(instance=request.user)
 
@@ -63,12 +65,13 @@ def create_address(request):
                     # if this address is set as default,
                     # set all other addresses to not default
                     resetting_default_address(address, profile)
-
+                messages.success(request, 'Address created successfully')
                 return redirect('profile')
         except ValueError:
+            messages.error(request, 'Error creating address')
             pass
         except Exception as e:
-            print(e)  # TODO: message toast error
+            messages.error(request, e)
     else:
         form = AddressForm()
 
@@ -95,12 +98,13 @@ def update_address(request, address_id):
                     # if currently editted address is set as default,
                     # set all other addresses to not default
                     resetting_default_address(address, profile)
-
+                messages.success(request, 'Address updated successfully')
                 return redirect('profile')
         except ValueError:
+            messages.error(request, 'Error updating address')
             pass
         except Exception as e:
-            print(e)  # TODO: message toast error
+            messages.error(request, e)
     else:
         form = AddressForm(instance=address)
 
@@ -120,9 +124,10 @@ def delete_address(request, address_id):
     profile = get_object_or_404(UserProfile, user=request.user)
     if address.profile_id == profile:
         address.delete()
+        messages.success(request, 'Address deleted successfully')
         return redirect('profile')
     else:
-        # TODO: message toast error
+        messages.error(request, 'Error deleting address')
         return redirect('profile')
 
 
