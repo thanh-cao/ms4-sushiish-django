@@ -38,9 +38,10 @@
 
     {% include 'products/includes/category-nav.html' %}
 
-    <section class="container product-listing position-relative top-0 mt-3">
+    <section class="container position-relative top-0 mt-3">
         {% include 'products/includes/allergy-filter.html' %}
-
+        
+        <div class="row product-listing-container">
         {% if search_query %}
             {% if products|length == 0 %}
             <div class="container-fluid text-center">
@@ -66,8 +67,9 @@
                 </div>
             </div>
             {% endif %}
+
         {% else %}
-            <div class="row product-listing-container">
+
                 {% for category in categories %}
                 <div id="category-{{ category.id }}" class="row category-section">
                     <div class="display-6 fw-bold text-avocado">
@@ -85,8 +87,9 @@
                     {% endfor %}
                 </div>
                 {% endfor %}
-            </div>
+                
         {% endif %}
+        </div>
     </section>
 
     {% include 'products/product_offcanvas.html' %}

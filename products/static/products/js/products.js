@@ -1,8 +1,11 @@
-// calculate price per total order item 
 document.addEventListener('DOMContentLoaded', async (e) => {
+    // initialize Bootstrap's offcanvas section
     let offCanvas = new bootstrap.Offcanvas(document.getElementById('product-offcanvas'));
     let offCanvasBody = document.querySelector('.offcanvas-body');
 
+    // Add event listener to each product card to load product details to offcanvas 
+    // upon click and display the details. Activate listeners for quantity change buttons
+    // and add to cart button.
     document.querySelectorAll('[data-bs-toggle="offcanvas"]').forEach(card => {
         card.addEventListener('click', async (e) => {
             e.preventDefault();
@@ -11,14 +14,23 @@ document.addEventListener('DOMContentLoaded', async (e) => {
             offCanvasBody.innerHTML = productDetailHtml;
             offCanvas.show();
 
-            activateQuantityChange();
-            activateAddToCartButton(() => offCanvas.hide());
+            activateQuantityChange(); // from quantityInput.js file
+            activateAddToCartButton(() => { 
+                offCanvas.hide();
+                location.reload();
+            });
         });
     });
 
+    // Event listener when Bootstrap's offcanvas is closed, to clear the offcanvas body content
     document.getElementById('product-offcanvas').addEventListener('hidden.bs.offcanvas', () => {
         offCanvasBody.innerHTML = '';
-    })
+    });
+
+    // Event lister for filtering product list by allergies
+    document.querySelectorAll('.allergy-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', handleAllergySelect);
+    });
 });
 
 function activateAddToCartButton(callback) {
@@ -39,58 +51,65 @@ function activateAddToCartButton(callback) {
     });
 }
 
-// Filter by allergy
-function filterProducts(productList, allergy) {
-    let filteredProducts = productList.filter(product => {
-        let productAllergies = product.fields.allergies;
-        return !productAllergies.includes(allergy);
+// functions below are used to filter product list by multiple allergies
+function generateSelectedAllergyFilterList() {
+    const selectedAllergies = document.querySelectorAll('input.allergy-checkbox:checked');
+    let allergies = [];
+    selectedAllergies.forEach(allergy => {
+        allergies.push(allergy.value);
+    });
+    return allergies;
+}
+
+function extractAllergiesFromProductCard(productCard) {
+    let allergies = [];
+    productCard.querySelectorAll('.allergy-tag').forEach(allergyTag => {
+        allergies.push(allergyTag.textContent);
+    });
+    return allergies;
+}
+
+function filterProductsByAllergies(productCardList, allergies) {
+    let filteredProducts = [];
+    let allergiesSet = new Set(allergies);
+    productCardList.forEach(productCard => {
+        let productAllergies = extractAllergiesFromProductCard(productCard);
+        let productAllergiesSet = new Set(productAllergies);
+        let intersection = new Set([...productAllergiesSet].filter(allergy => allergiesSet.has(allergy)));
+        if (intersection.size === 0) {
+            filteredProducts.push(productCard);
+        }
     });
     return filteredProducts;
 }
-document.querySelectorAll('.allergy-checkbox').forEach(async checkbox => {
-    const productList = await fetch('/products/json/').then(res => res.json());
-    checkbox.addEventListener('change', async () => {
-        let filteredProducts;
-        if (checkbox.checked) {
-            filteredProducts = filterProducts(productList, checkbox.value);
-        } else {
-            filteredProducts = productList;
-        }
-        const productListingContainer = document.querySelector('.product-listing-container');
-        productListingContainer.innerHTML = '';
+// function filterProductsByAllergies(productList, allergies) {
+//     let filteredProducts = [];
+//     let allergiesSet = new Set(allergies);
+//     productList.forEach(product => {
+//         let productAllergies = product.fields.allergies;
+//         let productAllergiesSet = new Set(productAllergies);
+//         let intersection = new Set([...productAllergiesSet].filter(allergy => allergiesSet.has(allergy)));
+//         if (intersection.size === 0) {
+//             filteredProducts.push(product);
+//         }
+//     });
+//     return filteredProducts;
+// }
 
-        filteredProducts.forEach(product => {
-            const productId = product.pk;
-            product = product.fields;
-            let productCard = document.createElement('div');
-            productCard.classList.add('col-12', 'col-md-6');
-
-            const productAllergiesHtml = product.allergies.length > 0 ? product.allergies.map(allergy => {
-                return `<span class="allergy-tag">${allergy}</span>`;
-            }).join('') : null;
-
-            productCard.innerHTML = `              
-                    <a href="/products/${productId}" class="text-decoration-none text-black"
-                        data-bs-toggle="offcanvas" data-product-url="/products/${productId}">
-                        <div class="card product-card shadow-salmon">
-                            <div class="card-body">
-                                <div class="product-title fs-5 text-salmon fw-bold">${product.name}</div>                            
-                                <div class="product-allergies my-2">
-                                    ${productAllergiesHtml ? productAllergiesHtml : ''}
-                                </div>                               
-                                <div class="product-text">${product.description}</div>
-                                <div class="price fw-bold">
-                                    $${parseFloat(product.price).toFixed(2)}
-                                </div>
-                            </div>
-                            <div class="product-img-container">
-                                <div class="product-img" style="background-image: url('/media/${product.image}')">
-                                </div>
-                            </div>
-                        </div>
-                    </a>         
-                `;
-            productListingContainer.appendChild(productCard);
-        });
+function writeProductCards(productCardList) {
+    const productListingContainer = document.querySelector('.product-listing-container');
+    productListingContainer.innerHTML = '<div class="row-cols-1 mb-3">Total products found: ' + productCardList.length + '</div>';
+    productCardList.forEach(productCard => {
+        productListingContainer.appendChild(productCard);
     });
-});
+}
+
+async function handleAllergySelect() {
+    let allergies = generateSelectedAllergyFilterList();
+    if (allergies.length === 0) {
+        return location.reload();
+    }
+    const productCardList = document.querySelectorAll('.col-12.col-md-6.product');
+    const filteredProducts = filterProductsByAllergies(productCardList, allergies);
+    writeProductCards(filteredProducts);
+}
