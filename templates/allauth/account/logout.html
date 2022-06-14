@@ -4,8 +4,10 @@
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
-{% block content %}
-<h1>{% trans "Sign Out" %}</h1>
+{% block inner_content %}
+<hr>
+<h2 class="text-avocado display-4">{% trans "Sign Out" %}</h2>
+<hr>
 
 <p>{% trans 'Are you sure you want to sign out?' %}</p>
 
@@ -14,7 +16,8 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
+  <a class="btn btn-outline-avocado" href="{% url 'products' %}">Back to shopping</a>
+  <button class="btn btn-avocado" type="submit">{% trans 'Sign Out' %}</button>
 </form>
 
 
