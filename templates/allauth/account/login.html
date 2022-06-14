@@ -14,8 +14,8 @@
 
 {% if socialaccount_providers %}
 <p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+  for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
 <div class="socialaccount_ballot">
 
@@ -31,19 +31,41 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
 {% else %}
 <p>{% blocktrans %}If you have not created an account yet, then please
-<a class="text-decoration-none text-salmon" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+  <a class="text-decoration-none text-salmon" href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
+</p>
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+
+  <div class="form-floating mb-3 w-75">
+    <input class="form-control" type="{{ form.login.field.widget.input_type }}" id="{{ form.login.id_for_label }}" name="{{ form.login.html_name }}">
+    <label for="{{ form.login.id_for_label }}">Username or email</label>
+    {% if form.login.errors %}
+    <div class="text-salmon">{{ form.login.errors }}</div>
+    {% endif %}
+  </div>
+
+  <div class="form-floating mb-3 w-75">
+    <input class="form-control" type="{{ form.password.field.widget.input_type }}" id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}">
+    <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+    <div class="text-salmon">{{ form.password.errors }}</div>
+  </div>
+
+  <div class="form-check mb-3 w-75">
+    <input class="form-check-input" type="{{ form.remember.field.widget.input_type }}" id="{{ form.remember.id_for_label }}" name="{{ form.remember.html_name }}>
+    <label class="form-check-label" for="{{ form.remember.id_for_label }}">{{ form.remember.label }}</label>
+  </div>
+
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <a class="btn btn-outline-avocado" href="{% url 'home' %}">Home</a>
   <button class="btn btn-avocado" type="submit">{% trans "Sign In" %}</button>
   <div class="mt-3">
-    <a class="text-decoration-none text-salmon" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+    <a class="text-decoration-none text-salmon" href="{% url 'account_reset_password' %}">
+      {% trans "Forgot Password?"%}
+    </a>
   </div>
 </form>
 
