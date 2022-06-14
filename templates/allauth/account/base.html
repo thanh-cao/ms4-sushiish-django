@@ -1,1 +1,21 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% include 'includes/index-nav.html' %}
+{% endblock %}
+
+{% block content %}
+<main class="p-5">
+    <div class="container header-container">
+        <div class="row">
+            <div class="col-8">
+                <div class="allauth-form-inner-content">
+                    {% block inner_content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

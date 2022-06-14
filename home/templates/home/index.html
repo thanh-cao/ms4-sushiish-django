@@ -5,56 +5,7 @@
 {% endblock %}
 
 {% block page_header %}
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand ms-md-5" href="{% url 'home' %}">Sushiish</a>
-        <!-- TODO: add link to order now -->
-        <a href="{% url 'products' %}" class="btn btn-primary d-block d-md-none ms-auto me-3" role="button">Order Now</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
-            aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon">
-                <i class="fa-solid fa-bars"></i>
-            </span>
-        </button>
-        <div class="collapse navbar-collapse" id="sushiish-navbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#catering">Catering</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact Us</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Account
-                    </a>
-                    <ul class="dropdown-menu text-end text-md-start" aria-labelledby="navbarDropdown">
-                        {% if request.user.is_authenticated %}
-                        <li class="dropdown-item">
-                            <a href="{% url 'profile' %}">Profile</a>
-                        </li>
-                        <li class="dropdown-item">
-                            <a href="{% url 'account_logout' %}">Logout</a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a class="dropdown-item" href="{% url 'account_login' %}">Log In</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="{% url 'account_signup' %}">Register</a>
-                        </li>
-                        {% endif %}
-                    </ul>
-                </li>
-            </ul>
-            <a href="{% url 'products' %}" class="btn btn-primary d-none d-md-block" role="button">Order Now</a>
-        </div>
-    </div>
-</nav>
+{% include 'includes/index-nav.html' %}
 {% endblock %}
 
 {% block content %}
@@ -64,7 +15,7 @@
             <div class="container d-flex flex-column align-items-center align-items-md-start">
                 <div class="text-center">
                     <h1 class="hero-text text-center">Sushiish<br>be<br>rolling</h1>
-                    <a class="btn btn-primary btn-lg" href="#about" role="button">Learn More</a>
+                    <a class="btn btn-salmon btn-lg" href="#about" role="button">Learn More</a>
                 </div>
             </div>
         </div>
@@ -82,7 +33,7 @@
                         We are a family-owned business that specializes in sushi and other Japanese cuisine.
                     </p>
                     <!-- TODO: add link to order now -->
-                    <a class="btn btn-primary btn-lg" href="">Order now</a>
+                    <a class="btn btn-salmon btn-lg" href="">Order now</a>
                 </div>
                 <div class="col-12 col-md-6 offset-md-1 d-none d-md-block">
                     <img src="{{ MEDIA_URL }}homepage-sushi-plates.jpg" alt="a photo og 6 different types of makis"
@@ -104,7 +55,7 @@
                             a tailormade menu for your events.
                         </p>
                         <div class="text-center">
-                            <a class="btn btn-primary px-4" href="#contact">Contact Us</a>
+                            <a class="btn btn-salmon px-4" href="#contact">Contact Us</a>
                         </div>
                     </div>
                 </div>
@@ -135,7 +86,7 @@
                         <textarea class="form-control" id="message" rows="5" aria-label="Message"
                             placeholder="Message &#42;" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-secondary px-5">Send</button>
+                    <button type="submit" class="btn btn-lg btn-avocado px-5">Send</button>
                 </form>
             </div>
             <div class="col-md-4 offset-lg-1 d-none d-md-block">

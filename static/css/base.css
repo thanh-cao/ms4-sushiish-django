@@ -87,51 +87,67 @@ h3 {
   color: var(--color-salmon);
 }
 
-.btn-primary {
+.btn-salmon {
   background-color: var(--color-salmon);
   color: #fff;
   border: none;
   font-weight: 700;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active {
+.btn-salmon:hover,
+.btn-salmon:focus,
+.btn-salmon:active {
   background-color: var(--color-avocado);
   border: var(--color-avocado);
   color: #fff;
   box-shadow: 0 0 0 0.25rem #097167;
 }
 
-.btn-secondary {
+.btn-avocado {
   background-color: var(--color-avocado);
   color: #fff;
   border: none;
   font-weight: 700;
 }
 
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active {
+.btn-avocado:hover,
+.btn-avocado:focus,
+.btn-avocado:active {
   background-color: var(--color-salmon);
   border: var(--color-salmon);
   color: #fff;
   box-shadow: 0 0 0 0.25rem #963728;
 }
 
-.btn-outline-primary {
+.btn-outline-salmon {
   background-color: transparent;
   color: var(--color-salmon);
   border: 1px solid var(--color-salmon);
   font-weight: 700;
 }
 
-.btn-outline-primary:hover,
-.btn-outline-primary:focus,
-.btn-outline-primary:active {
+.btn-outline-salmon:hover,
+.btn-outline-salmon:focus,
+.btn-outline-salmon:active {
   background-color: transparent;
   color: var(--color-avocado);
   border: 1px solid var(--color-avocado);
+  font-weight: 700;
+}
+
+.btn-outline-avocado {
+  background-color: transparent;
+  color: var(--color-avocado);
+  border: 1px solid var(--color-avocado);
+  font-weight: 700;
+}
+
+.btn-outline-avocado:hover,
+.btn-outline-avocado:focus,
+.btn-outline-avocado:active {
+  background-color: transparent;
+  color: var(--color-salmon);
+  border: 1px solid var(--color-salmon);
   font-weight: 700;
 }
 
