@@ -96,6 +96,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+# Configurations for allAuth
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -103,7 +104,10 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/products/'
+LOGOUT_REDIRECT_URL = '/accounts/login'
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/products/'
 ACCOUNT_FORMS = {'signup': 'sushiish_shop.forms.CustomSignupForm'}
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Sushiish Shop'
 
 WSGI_APPLICATION = 'sushiish_shop.wsgi.application'
 
@@ -211,7 +215,6 @@ STRIPE_CURRENCY = 'usd'
 STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = os.getenv('STRIPE_WEBHOOK_SECRET')
-ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Email configuration
 if os.getenv('DEBUG') == 'True':
@@ -223,5 +226,5 @@ else:
     EMAIL_PORT = 587
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASS')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
     DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
