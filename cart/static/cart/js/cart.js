@@ -8,16 +8,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         input.addEventListener('change', handleOrderTypeChange);
     });
 
-    document.querySelectorAll('input[type="time"]').forEach(input => {
-        input.addEventListener('change', handleTimeChange);
-    });
+    document.querySelector('input[type="time"]').addEventListener('change', handleTimeChange);
 
     // toggle add note field
-    document.querySelectorAll('.add-note-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.target.nextElementSibling.classList.toggle('d-none');
-        });
+    document.querySelector('.add-note-btn').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.target.nextElementSibling.classList.toggle('d-none');
     });
 
     // handle processing order for checkout

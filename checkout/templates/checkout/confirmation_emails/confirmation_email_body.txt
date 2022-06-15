@@ -2,7 +2,7 @@ Hello {{ order.full_name }},
 
 Thank you for your order. This is a confirmation that we have received your order as below:
 
-Order:  {{ order.order_number }}
+Order ID:  {{ order.order_number }}
 Date: {{ order.create_date }}
 Order type: {{ order.order_type }}
 To be done by: {{ order.expected_done_date }}, {{ order.expected_done_time }}
@@ -12,19 +12,19 @@ Delivery address: {{ order.street_address1 }}, {{ order.street_address2 }}, {{ o
 {% endif %}
 
 Order details:
-{% for line in order.lines %}
-{{ line.product.name }} x {{ line.quantity }}
-{{ line.product.price }}
+{% for item in order.lineitems.all %}
+{{ item.product_id.name }} x {{ item.quantity }}
+${{ item.order_item_total }}
 
 {% endfor %}
 
 
-Order total: {{ order.total }}
-Delivery charge: {{ order.delivery_charge }}
+Order total: ${{ order.order_total }}
+Delivery charge: ${{ order.delivery_charge }}
 {% if order.order_discount %}
-Discount: {{ order.order_discount }}
+Discount: ${{ order.order_discount }}
 {% endif %}
-Grand total: {{ order.grand_total }}
+Grand total: ${{ order.grand_total }}
 
 If you have any questions, please contact us at {{ sushiish_contact_email }}
 
