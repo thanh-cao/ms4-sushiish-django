@@ -32,8 +32,7 @@
                         We offer a wide range of sushi and other Japanese cuisine.
                         We are a family-owned business that specializes in sushi and other Japanese cuisine.
                     </p>
-                    <!-- TODO: add link to order now -->
-                    <a class="btn btn-salmon btn-lg" href="">Order now</a>
+                    <a class="btn btn-salmon btn-lg" href="{% url 'products' %}">Order now</a>
                 </div>
                 <div class="col-12 col-md-6 offset-md-1 d-none d-md-block">
                     <img src="{{ MEDIA_URL }}homepage-sushi-plates.jpg" alt="a photo og 6 different types of makis"
@@ -67,24 +66,30 @@
         <div class="row g-0">
             <div class="col-12 col-md-7 px-5">
                 <h2 class="display-4 text-white">Contact Us</h2>
-                <form>
-                    <div class="mb-3">
+                <form id="contact-form" action="{% url 'contact_us' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="name" aria-label="Full name"
-                            placeholder="Name &#42;" required>
+                            placeholder="Name &#42;" name="full_name" required>
+                        <label for="name">Full name *</label>
                     </div>
-                    <div class="mb-3">
-                        <input type="phone" class="form-control" id="phone" aria-label="Phone number"
-                            placeholder="Phone &#42;" required>
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control" id="phone" aria-label="Phone number"
+                            placeholder="Phone &#42;" name="phone" required>
+                        <label for="phone">Phone *</label>
                     </div>
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            aria-label="Email address" placeholder="Email &#42;" required>
-                        <div id="emailHelp" class="form-text text-white">We'll never share your email with anyone else.
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            aria-label="Email address" name="email" placeholder="Email &#42;" required>
+                        <label for="email">Email *</label>
+                        <div id="emailHelp" class="form-text text-white">
+                            We'll never share your email with anyone else.
                         </div>
                     </div>
                     <div class="mb-3">
+                        <label for="message" class="visually-hidden">Message</label>
                         <textarea class="form-control" id="message" rows="5" aria-label="Message"
-                            placeholder="Message &#42;" required></textarea>
+                            placeholder="Message &#42;" name="message" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-lg btn-avocado px-5">Send</button>
                 </form>
@@ -103,7 +108,7 @@
     </section>
 
     <footer>
-        <div class="container text-center w-75">
+        <div class="container text-center w-50">
             <h3 class="row justify-content-center">Sushiish AS</h3>
             <div class="row">
                 <div class="col-4"></div>
@@ -133,7 +138,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
     </footer>
 
 </main>
@@ -151,6 +156,22 @@
             navlink.addEventListener('click', () => {
                 document.querySelector('.navbar-collapse').classList.remove('show')
             });
+        }
+    });
+
+    document.querySelector('#contact-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const url = form.getAttribute('action');
+        const response = await fetch(url, {
+            method: 'POST',
+            body: formData,
+        });
+        if (response.status === 200) {
+            form.innerHTML = '<div class="alert alert-light text-avocado">Message sent successfully!</div>';
+        } else {
+            form.innerHTML = '<div class="alert alert-light text-salmon">Error sending message!</div>';
         }
     });
 
