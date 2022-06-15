@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from checkout.models import Order, OrderLineItem
+from products.models import Product
 from profiles.forms import AddressForm
 from profiles.models import UserProfile
 from profiles.views import resetting_default_address
@@ -130,14 +131,15 @@ class StripeWebhook_Handler:
                     town_or_city=shipping_details.address.city,
                     street_address1=shipping_details.address.line1,
                     street_address2=shipping_details.address.line2,
-                    county=shipping_details.address.state,
                     stripe_pid=pid,
                 )
-                for item in json.loads(cart).items():
+                for item_id, quantity in json.loads(cart).items():
+                    print(item_id, quantity)
+                    product = Product.objects.get(id=item_id)
                     order_line_item = OrderLineItem(
                         order_number=order,
-                        product_id=item['product'],
-                        quantity=item['quantity'],
+                        product_id=product,
+                        quantity=quantity,
                     )
                     order_line_item.save()
 

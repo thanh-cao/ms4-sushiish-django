@@ -108,10 +108,20 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
                 const checkoutUrl = paymentForm.getAttribute('action');
                 formData.append('client_secret', stripeKeys.client_secret);
 
-                await fetch(checkoutUrl, {
+                const response = await fetch(checkoutUrl, {
                     method: 'POST',
                     body: formData,
                 });
+                if (response.status === 200) {
+                    const result = await response.json();
+                    location.replace(`/checkout/success/${result.order_number}`);
+                } else {
+                    errorDiv.innerHTML = `
+                    <span class="icon" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span>Something went wrong. Please try again.</span>`;
+                }
             }
         }
     } catch (error) {
