@@ -44,3 +44,13 @@ def contact_us(request):
         return HttpResponse(status=200)
     except Exception as e:
         return HttpResponse(e, status=400)
+
+
+def error_404(request, exception):
+    '''Render 404 page'''
+    return render(request, '404.html')
+
+
+def error_500(request):
+    '''Render 500 page'''
+    return render(request, '500.html')
