@@ -11,9 +11,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelector('input[type="time"]').addEventListener('change', handleTimeChange);
 
     // toggle add note field
+    const orderNoteTextArea = document.querySelector('textarea[name="order-note"]');
+    if (orderNoteTextArea.value.trim().length > 0) {
+        orderNoteTextArea.parentElement.classList.remove('d-none');
+    }
     document.querySelector('.add-note-btn').addEventListener('click', (e) => {
         e.preventDefault();
-        e.target.nextElementSibling.classList.toggle('d-none');
+        orderNoteTextArea.parentElement.classList.toggle('d-none');
     });
 
     // handle processing order for checkout
