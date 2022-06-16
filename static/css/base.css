@@ -12,12 +12,6 @@ body {
   position: relative;
 }
 
-@media (min-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-}
-
 /* ----- navbar and header ----- */
 .navbar-light .navbar-brand,
 .brand-text {
@@ -275,4 +269,16 @@ input[type="checkbox"]:checked {
   height: 100px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+/* ---- media queries ----- */
+
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+
+  .container {
+    max-width: 960px;
+  }
 }
