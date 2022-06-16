@@ -70,7 +70,7 @@ def update_order_info(request):
     and sends a json back to the client
     '''
     order_info = request.session.get('order_info', {})
-    order_type = request.POST.get('order-type')
+    order_type = order_info['order_type']
     order_note = request.POST.get('order-note')
     expected_date = request.POST.get('expected-done-date')
     expected_time = request.POST.get('expected-done-time')
@@ -132,8 +132,8 @@ def checkout(request):
                     return redirect(reverse('view_cart'))
 
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('checkout_success',
-                                    args=[order.order_number]))
+            order_number = JsonResponse({'order_number': order.order_number})
+            return HttpResponse(status=200, content=order_number)
         else:
             messages.error(request, 'Please correct the errors in the form.')
 
@@ -220,7 +220,6 @@ def checkout_success(request, order_number):
         'order': order,
         'save_info': save_info,
     }
-    print(f'checkout success. Order number is {order.order_number}')
     return render(request, 'checkout/checkout-success.html', context)
 
 
@@ -230,7 +229,6 @@ def cache_checkout_data(request):
     This view caches the order info in the session
     '''
     try:
-        print('cache_checkout_data')
         stripe_pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(stripe_pid, metadata={

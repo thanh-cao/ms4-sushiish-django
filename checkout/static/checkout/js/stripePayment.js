@@ -38,8 +38,22 @@ async function mountStripeElement(stripeKeys) {
     cardElement.mount('#card-element');
 }
 
+function displayLoadingOverlay(value) {
+    const loadingOverlay = document.querySelector('#loading-overlay');
+
+    if (value) {
+        loadingOverlay.style.visibility = 'visible';
+        loadingOverlay.style.opacity = '0.7';
+    } else {
+        loadingOverlay.style.visibility = 'hidden';
+        loadingOverlay.style.opacity = '0';
+    }
+}
+
 async function handlePaymentFormSubmit(event, stripeKeys) {
     event.preventDefault();
+    displayLoadingOverlay(true);
+
     const errorDiv = document.getElementById('card-errors');
     let stripeConfirmPaymentResult;
     cacheDataUrl = '/checkout/cache_checkout_data/';
@@ -94,6 +108,8 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
         }
 
         if (stripeConfirmPaymentResult.error) {
+            displayLoadingOverlay(false);
+
             const errorHtml = `
             <span class="icon" role="alert">
             <i class="fas fa-times"></i>
@@ -108,13 +124,27 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
                 const checkoutUrl = paymentForm.getAttribute('action');
                 formData.append('client_secret', stripeKeys.client_secret);
 
-                await fetch(checkoutUrl, {
+                const response = await fetch(checkoutUrl, {
                     method: 'POST',
                     body: formData,
                 });
+                if (response.status === 200) {
+                    displayLoadingOverlay(false);
+                    const result = await response.json();
+                    location.replace(`/checkout/success/${result.order_number}`);
+                } else {
+                    displayLoadingOverlay(false);
+
+                    errorDiv.innerHTML = `
+                    <span class="icon" role="alert">
+                    <i class="fas fa-times"></i>
+                    </span>
+                    <span>Something went wrong. Please try again.</span>`;
+                }
             }
         }
     } catch (error) {
+        displayLoadingOverlay(false);
         const errorHtml = `
             <span class="icon" role="alert">
             <i class="fas fa-times"></i>
