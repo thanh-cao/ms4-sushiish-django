@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from checkout.models import Order
 from profiles.forms import AddressForm, UserDetailsForm
@@ -8,6 +9,7 @@ from profiles.models import Address, UserProfile
 # Create your views here.
 
 
+@login_required
 def profile(request):
     '''
     View to render user's profile page with all their info
@@ -24,6 +26,7 @@ def profile(request):
     return render(request, 'profiles/profile.html', context)
 
 
+@login_required
 def update_user_details(request):
     '''
     Update user details
@@ -49,6 +52,7 @@ def update_user_details(request):
     return render(request, 'profiles/includes/update-info-form.html', context)
 
 
+@login_required
 def create_address(request):
     '''
     Create a new address for the user
@@ -82,6 +86,7 @@ def create_address(request):
     return render(request, 'profiles/includes/address-form.html', context)
 
 
+@login_required
 def update_address(request, address_id):
     '''
     Update user's address
@@ -116,6 +121,7 @@ def update_address(request, address_id):
     return render(request, 'profiles/includes/address-form.html', context)
 
 
+@login_required
 def delete_address(request, address_id):
     '''
     Delete user's address
@@ -131,6 +137,7 @@ def delete_address(request, address_id):
         return redirect('profile')
 
 
+@login_required
 def order_history(request, order_number):
     '''
     Render user's past order details
