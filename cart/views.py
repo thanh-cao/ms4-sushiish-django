@@ -9,29 +9,86 @@ from .contexts import cart_contents
 # Create your views here.
 
 
+def get_earliest_possible_done_by():
+    '''
+    This function returns the earliest possible time for the order to be done.
+    Earliest possible time is calculated by now time plus 30mins so that
+    kitchen has enough time to prepare the order. If earliest possible
+    time is after closing time, then earliest possible time is set to
+    opening time tomorrow. If earliest possible time is before opening
+    time, then earliest possible time is set to opening time today.
+
+    Possible pickup/delivery times are between 13:15 and 21:00, which is
+    15 mins after opening time to give enough time for kitchen to prepare
+    the order in the opening hours.
+    '''
+    earliest_possible = datetime.datetime.now() \
+        + datetime.timedelta(minutes=30)
+    opening_time = datetime.time(hour=13, minute=15)
+    closing_time = datetime.time(hour=21, minute=00)
+    today = datetime.date.today()
+    opening_time_datetime = datetime.datetime.combine(today, opening_time)
+    closing_time_datetime = datetime.datetime.combine(today, closing_time)
+
+    if earliest_possible < opening_time_datetime:
+        earliest_possible = opening_time_datetime
+    elif earliest_possible > closing_time_datetime:
+        earliest_possible = opening_time_datetime + datetime.timedelta(days=1)
+
+    return earliest_possible
+
+
+def get_prefilled_datetime_input(request):
+    '''
+    This function returns datetime values to be prefilled in the input fields.
+    The value returned is the earliest possible time for the order to be done
+    or the time stored in session, previously set by the user if it is after
+    the earliest possible time.
+    '''
+    earliest_possible = get_earliest_possible_done_by()
+    prefilled_datetime_input = earliest_possible
+
+    order_info = request.session.get('order_info', {})
+
+    if order_info:
+        saved_in_session_done_time = order_info['expected_done_time'] if \
+            order_info['expected_done_time'] else None
+        saved_in_session_done_date = order_info['expected_done_date'] if \
+            order_info['expected_done_date'] else None
+
+        if saved_in_session_done_time and saved_in_session_done_date:
+            time = datetime.datetime.strptime(
+                saved_in_session_done_time, '%H:%M').time()
+            date = datetime.datetime.strptime(
+                saved_in_session_done_date, '%Y-%m-%d')
+            saved_expected_done_by = datetime.datetime.combine(date, time)
+
+            if saved_expected_done_by > earliest_possible:
+                prefilled_datetime_input = saved_expected_done_by
+    return prefilled_datetime_input
+
+
 def view_cart(request):
     '''
     This view renders shopping cart and datetime values
     for the input fields
     '''
     today = datetime.date.today()
-    tomorrow = today + datetime.timedelta(days=1)
     max_date = today + datetime.timedelta(days=30)
-    now = datetime.datetime.now().time()
-    min_time = datetime.time(hour=13, minute=15)
-    max_time = datetime.time(hour=21, minute=00)
 
-    set_now_time = now
-    if now < min_time or now > max_time:
-        set_now_time = min_time
+    opening_time = datetime.time(hour=13, minute=15)
+    closing_time = datetime.time(hour=21, minute=00)
+
+    prefilled_datetime_input = get_prefilled_datetime_input(request)
+    print(prefilled_datetime_input)
 
     context = {
-        'today': today.strftime(
-            '%Y-%m-%d') if now < max_time else tomorrow.strftime('%Y-%m-%d'),
+        'today': today.strftime('%Y-%m-%d'),
+        'set_date_input': prefilled_datetime_input.strftime('%Y-%m-%d'),
         'max_date': max_date.strftime('%Y-%m-%d'),
-        'now': set_now_time.strftime('%H:%M'),
-        'min_time': min_time.strftime('%H:%M'),
-        'max_time': max_time.strftime('%H:%M'),
+        'set_time_input': prefilled_datetime_input.strftime('%H:%M'),
+        'opening_time': opening_time.strftime('%H:%M'),
+        'closing_time': closing_time.strftime('%H:%M'),
     }
     return render(request, 'cart/cart.html', context)
 

@@ -1,11 +1,13 @@
 import json
 import stripe
+import datetime
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from cart.contexts import cart_contents
+from cart.views import get_earliest_possible_done_by
 
 from checkout.forms import OrderForm
 from profiles.forms import AddressForm
@@ -70,7 +72,7 @@ def update_order_info(request):
     and sends a json back to the client
     '''
     order_info = request.session.get('order_info', {})
-    order_type = order_info['order_type']
+    order_type = request.POST.get('order-type')
     order_note = request.POST.get('order-note')
     expected_date = request.POST.get('expected-done-date')
     expected_time = request.POST.get('expected-done-time')
@@ -79,6 +81,20 @@ def update_order_info(request):
         error_message = JsonResponse(
             {'error': 'Please fill out all required fields'})
         return HttpResponse(status=400, content=error_message)
+    else:
+        time = datetime.datetime.strptime(
+            expected_time, '%H:%M').time()
+        date = datetime.datetime.strptime(
+            expected_date, '%Y-%m-%d').date()
+        selected_done_date = datetime.datetime.combine(date, time)
+        earliest_possible_done_by = get_earliest_possible_done_by()
+        if selected_done_date + datetime.timedelta(minutes=10) \
+                < earliest_possible_done_by:
+            error_message = JsonResponse(
+                {'error': 'Earliest possible time is ' +
+                          str(earliest_possible_done_by.strftime(
+                              '%H:%M %d-%m-%Y'))})
+            return HttpResponse(status=400, content=error_message)
 
     order_info = {
         'order_type': order_type,
