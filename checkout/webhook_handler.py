@@ -80,7 +80,6 @@ class StripeWebhook_Handler:
                     'town_or_city': shipping_details.address.city,
                     'postcode': shipping_details.address.postal_code,
                     'country': shipping_details.address.country,
-                    'country_area': shipping_details.address.country_area,
                     'isDefault': True,
                 }
 
@@ -116,7 +115,8 @@ class StripeWebhook_Handler:
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received: {event["type"]}'
+                        + ' | SUCCESS: Verified order already in database',
                 status=200)
         else:
             order = None
@@ -152,7 +152,8 @@ class StripeWebhook_Handler:
 
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'Webhook received: {event["type"]}'
+                    + ' | SUCCESS: Created order in webhook',
             status=200)
 
     def handle_payment_failure(self, event):
