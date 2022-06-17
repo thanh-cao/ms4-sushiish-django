@@ -26,10 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = bool(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['localhost', 'fc29-88-90-24-69.eu.ngrok.io',
-                 '127.0.0.1', 'sushiish.herokuapp.com']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 # Application definition
 
