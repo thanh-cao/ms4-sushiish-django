@@ -4,6 +4,7 @@
     </div>
     <div>
         <ul class="navbar-nav flex-row align-items-center">
+            {% if products %}
             <li class="nav-item list-inline-item me-3">
                 <form class="form" method="GET" action="{% url 'products' %}" class="d-none d-lg-block">
                     <div class="input-group w-100">
@@ -41,6 +42,17 @@
                     </form>
                 </div>
             </li>
+            {% else %}
+            <li class="nav-item list-inline-item">
+                <a class="nav-link text-center" href="{% url 'products' %}">
+                    <i class="fa-solid fa-utensils fa-lg" aria-hidden="true"></i>
+                    <span class="visually-hidden">Menu</span>
+                    <p class="mb-0" id="order-total">
+                        Menu
+                    </p>
+                </a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown list-inline-item me-3">
                 <a class="nav-link text-center" href="#" id="account-dropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
