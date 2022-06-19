@@ -72,6 +72,7 @@ body {
 .dropdown-menu[data-bs-popper] {
   left: auto;
 }
+
 /* ----- headings, buttons ----- */
 h1,
 h2,
@@ -272,6 +273,69 @@ input[type="checkbox"]:checked {
 }
 
 /* ---- media queries ----- */
+
+@media (max-width: 280px) {
+  /* This media query for xs screen like Galaxy Fold with breakpoint at 280px */
+  main {
+    margin-top: 100px;
+  }
+
+  .col-xs-12 {
+    width: 100%;
+  }
+
+  .col-xs-6 {
+    width: 50%;
+  }
+
+  .col-xs-4 {
+    width: 33.33333333%;
+  }
+
+  .col-xs-3 {
+    width: 25%;
+  }
+
+  .text-xs-start {
+    text-align: left;
+  }
+
+  .text-xs-center {
+    text-align: center;
+  }
+
+  .d-xs-none {
+    display: none;
+  }
+
+  .d-xs-block {
+    display: block;
+  }
+
+  .fs-3 {
+    font-size: 1rem;
+  }
+
+  .justify-content-xs-start {
+    justify-content: flex-start!important;
+  }
+
+  .justify-content-xs-center {
+    justify-content: center!important;
+  }
+
+  .dropdown-menu[data-bs-popper].dropdown-center {
+    left: -50px;
+  }
+
+  .dropdown-menu[data-bs-popper].dropdown-center .dropdown-item {
+    text-align: center;
+  }
+
+  .toast {
+    width: 260px;
+  }
+}
 
 @media (min-width: 768px) {
   body {

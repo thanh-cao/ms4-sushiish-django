@@ -24,7 +24,7 @@
 
 .hero-text {
     font-family: 'Caveat Brush', cursive;
-    font-size: 7em;
+    font-size: 7rem;
     font-weight: 700;
     color: var(--color-salmon);
 }
@@ -32,7 +32,7 @@
 section#about {
     position:relative;
     background-color: var(--color-avocado);
-    padding: 5em 0;
+    padding: 5rem 0;
 }
 
 .wave-overlay {
@@ -41,7 +41,7 @@ section#about {
     transform: scaleY(-1);
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background: url('../../../../media/wave-overlay.png') bottom center / contain no-repeat;
 }
@@ -58,11 +58,21 @@ section#catering {
 
 section#contact {
     background-color: var(--color-salmon);
-    padding: 3em 0;
+    padding: 3rem 0;
 }
 
 footer {
-    padding: 2em 0;
+    padding: 2rem 0;
+}
+
+@media (max-width: 280px) {
+    main {
+        margin-top: 70px;
+    }
+    
+    .hero-text {
+        font-size: 5rem;
+    }
 }
 
 @media (min-width: 768px) {

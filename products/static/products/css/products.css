@@ -151,7 +151,7 @@ section.product-listing-hero {
 
 /* ----- product detail offcanvas ----- */
 .offcanvas-footer {
-  height: 20%;
+  height: 30%;
   border-top: var(--color-salmon) 1px solid;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
@@ -181,5 +181,15 @@ input[type="text"].input-number {
     float: none;
     padding-left: 5rem;
     padding-right: 5rem;
+  }
+}
+
+@media (max-width: 280px) {
+  .category-nav-fixed {
+    top: 110px;
+  }
+
+  .offcanvas-footer {
+    height: 40%;
   }
 }

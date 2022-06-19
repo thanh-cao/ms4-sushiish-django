@@ -1,14 +1,14 @@
 <nav class="navbar navbar-light bg-light fixed-top py-1 justify-content-around align-items-start">
-    <div>
-        <a class="navbar-brand" href="{% url 'home' %}">Sushiish</a>
+    <div class="text-center col-xs-12">
+        <a class="navbar-brand mx-auto" href="{% url 'home' %}">Sushiish</a>
     </div>
-    <div>
-        <ul class="navbar-nav flex-row align-items-center">
+    <div class="col-xs-12">
+        <ul class="navbar-nav flex-row align-items-center justify-content-xs-center">
             <!-- if user is on product page, show search bar
                 otherwise, show menu link to go to product listing -->
             {% if products %}
             <li class="nav-item list-inline-item me-3">
-                <form class="form" method="GET" action="{% url 'products' %}" class="d-none d-lg-block">
+                <form method="GET" action="{% url 'products' %}" class="form d-none d-lg-block">
                     <div class="input-group w-100">
                         <input class="form-control border border-black" type="text" name="search"
                             placeholder="Search dish names or ingredients">
@@ -61,7 +61,7 @@
                     <i class="fas fa-user fa-lg" aria-hidden="true"></i>
                     <div class="dropdown-toggle">Account</div>
                 </a>
-                <ul class="dropdown-menu position-absolute end-0 text-end" aria-labelledby="account-dropdown">
+                <ul class="dropdown-menu dropdown-center position-absolute end-0 text-end" aria-labelledby="account-dropdown">
                     {% if request.user.is_authenticated %}
                     <li class="dropdown-item">
                         <a href="{% url 'profile' %}">Profile</a>

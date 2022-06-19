@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand ms-md-5" href="{% url 'home' %}">Sushiish</a>
-        <a href="{% url 'products' %}" class="btn btn-salmon d-block d-md-none ms-auto me-3" role="button">Order Now</a>
+        <a href="{% url 'products' %}" class="btn btn-salmon d-xs-none d-sm-block d-md-none ms-auto me-3" role="button">Order Now</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sushiish-navbar"
             aria-controls="sushiish-navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
@@ -41,6 +41,9 @@
                         </li>
                         {% endif %}
                     </ul>
+                </li>
+                <li class="nav-item d-xs-block d-sm-none">
+                    <a href="{% url 'products' %}" class="btn btn-salmon ms-auto" role="button">Order Now</a>
                 </li>
             </ul>
             <a href="{% url 'products' %}" class="btn btn-salmon d-none d-md-block" role="button">Order Now</a>
