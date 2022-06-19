@@ -71,6 +71,9 @@ def create_address(request):
                     resetting_default_address(address, profile)
                 messages.success(request, 'Address created successfully')
                 return redirect('profile')
+            elif form.errors:
+                messages.error(request, form.errors)
+                return redirect('profile')
         except ValueError:
             messages.error(request, 'Error creating address')
             pass
@@ -82,7 +85,6 @@ def create_address(request):
     context = {
         'address_form': form,
     }
-
     return render(request, 'profiles/includes/address-form.html', context)
 
 

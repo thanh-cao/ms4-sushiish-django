@@ -1,4 +1,6 @@
 from django import forms
+
+from checkout.forms import validate_phone_number
 from .models import Address
 from django.contrib.auth.models import User
 
@@ -39,7 +41,7 @@ class AddressForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        placeholders = {
+        labels = {
             'phone_number': 'Phone Number',
             'street_address1': 'Street Address 1',
             'street_address2': 'Street Address 2',
@@ -53,8 +55,7 @@ class AddressForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             self.fields[field].label = True
-            placeholder = placeholders[field]
-            self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].label = placeholder
+            self.fields[field].label = labels[field]
 
         self.fields['country'].widget.attrs['readonly'] = True
+        self.fields['phone_number'].validators.append(validate_phone_number)
