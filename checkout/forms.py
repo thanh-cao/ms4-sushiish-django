@@ -2,6 +2,12 @@ from django import forms
 from .models import Order
 
 
+def validate_phone_number(value):
+    if not value.isdigit():
+        raise forms.ValidationError('Phone number must be digits only')
+    return value
+
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -32,3 +38,4 @@ class OrderForm(forms.ModelForm):
             self.fields[field].label = placeholder
 
         self.fields['country'].widget.attrs['readonly'] = True
+        self.fields['phone_number'].validators.append(validate_phone_number)
