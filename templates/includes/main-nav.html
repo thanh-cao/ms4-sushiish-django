@@ -4,6 +4,8 @@
     </div>
     <div>
         <ul class="navbar-nav flex-row align-items-center">
+            <!-- if user is on product page, show search bar
+                otherwise, show menu link to go to product listing -->
             {% if products %}
             <li class="nav-item list-inline-item me-3">
                 <form class="form" method="GET" action="{% url 'products' %}" class="d-none d-lg-block">
