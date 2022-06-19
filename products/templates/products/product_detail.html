@@ -15,15 +15,15 @@
         {% endif %}
     </div>
 </div>
-<div class="offcanvas-footer h-25 mt-auto">
+<div class="offcanvas-footer mt-auto">
     <form class="add-to-cart" action="{% url 'add_to_cart' product.id %}" method="POST">
         {% csrf_token %}
         <div class="px-4 pt-3 mb-4 row g-0 align-items-center">
-            <div class="text-salmon fs-2 fw-bold col-6">
+            <div class="text-salmon fs-2 fw-bold col-xs-12 col-6 text-xs-center">
                 Quantity
             </div>
-            <div class="col-6">
-                <div class="input-group align-items-center justify-content-end">
+            <div class="col-xs-12 col-6">
+                <div class="input-group align-items-center justify-content-xs-center justify-content-end">
                     <div class="input-group-prepend">
                         <button class="btn btn-quantity" type="button" data-type="minus"
                             data-field="quantity">

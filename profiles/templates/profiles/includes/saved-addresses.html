@@ -9,10 +9,10 @@
             <div class="col-xs-12 col-7">
                 Default Address{% if address.address_type %} ({{ address.address_type }}){% endif %}:
             </div>
-            <a role="button" class="col-xs-6 col-2 btn text-avocado update-address" data-url="{% url 'update_address' address.id %}">
+            <a role="button" class="col-xs-6 col-2 text-xs-start btn text-avocado update-address" data-url="{% url 'update_address' address.id %}">
                 Edit
             </a>
-            <a role="button" class="col-xs-6 col-3 btn text-salmon delete-address" href="{% url 'delete_address' address.id %}">
+            <a role="button" class="col-xs-6 col-3 text-xs-start btn text-salmon delete-address" href="{% url 'delete_address' address.id %}">
                 Delete
             </a>
         </div>

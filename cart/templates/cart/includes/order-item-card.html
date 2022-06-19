@@ -1,8 +1,8 @@
 <div class="card product-card shadow-salmon mb-2">
     <div class="card-body">
         <div class="row">
-            <div class="product-title fs-6 fw-bold col-9">{{forloop.counter }}. {{ product.product.name }}</div>
-            <div class="col-3 fs-6 fw-bold text-avocado">
+            <div class="product-title fs-6 fw-bold col-xs-12 col-8">{{forloop.counter }}. {{ product.product.name }}</div>
+            <div class="col-xs-12 col-4 fs-6 fw-bold text-avocado">
                 ${{ product.order_item_total}}
             </div>
         </div>
@@ -10,10 +10,10 @@
         <div class="product-text my-2">{{ product.product.description }}</div>
 
         <div class="row g-0 align-items-center">
-            <div class="col-5">
+            <div class="col-xs-12 col-5">
                 <form id="update-form-{{ product.id }}" action="{% url 'adjust_cart' product.id %}" method="POST">
                     {% csrf_token %}
-                    <div class="input-group align-items-center justify-content-start">
+                    <div class="input-group align-items-center justify-content-start justify-content-xs-center">
                         <div class="input-group-prepend">
                             <button class="btn btn-quantity" type="button" data-type="minus"
                                 data-item_id="{{ product.id }}" id="decrement-qty_{{ product.id }}">
@@ -37,7 +37,7 @@
                 </form>
             </div>
 
-            <button class="btn col text-avocado update-quantity-btn" data-form_id="update-form-{{ product.id }}">Update</button>
+            <a role="button" class="btn col text-avocado update-quantity-btn" data-form_id="update-form-{{ product.id }}">Update</a>
 
             <div class="col text-salmon">
                 <form class="remove-from-cart" action="{% url 'remove_from_cart' product.id %}" method="POST">
