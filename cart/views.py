@@ -1,4 +1,4 @@
-import datetime
+from datetime import date, time, datetime, timedelta
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect, reverse
@@ -22,18 +22,18 @@ def get_earliest_possible_done_by():
     15 mins after opening time to give enough time for kitchen to prepare
     the order in the opening hours.
     '''
-    earliest_possible = datetime.datetime.now() \
-        + datetime.timedelta(minutes=30)
-    opening_time = datetime.time(hour=13, minute=15)
-    closing_time = datetime.time(hour=21, minute=00)
-    today = datetime.date.today()
-    opening_time_datetime = datetime.datetime.combine(today, opening_time)
-    closing_time_datetime = datetime.datetime.combine(today, closing_time)
+    earliest_possible = datetime.now() \
+        + timedelta(minutes=30)
+    opening_time = time(hour=13, minute=15)
+    closing_time = time(hour=21, minute=00)
+    today = date.today()
+    opening_time_datetime = datetime.combine(today, opening_time)
+    closing_time_datetime = datetime.combine(today, closing_time)
 
     if earliest_possible < opening_time_datetime:
         earliest_possible = opening_time_datetime
     elif earliest_possible > closing_time_datetime:
-        earliest_possible = opening_time_datetime + datetime.timedelta(days=1)
+        earliest_possible = opening_time_datetime + timedelta(days=1)
 
     return earliest_possible
 
@@ -49,21 +49,19 @@ def get_prefilled_datetime_input(request):
     prefilled_datetime_input = earliest_possible
 
     order_info = request.session.get('order_info', {})
-
+    saved_in_session_done_time = None
+    saved_in_session_done_date = None
     if order_info:
-        saved_in_session_done_time = order_info['expected_done_time'] if \
-            order_info['expected_done_time'] else None
-        saved_in_session_done_date = order_info['expected_done_date'] if \
-            order_info['expected_done_date'] else None
+        saved_in_session_done_time = order_info['expected_done_time']
+        saved_in_session_done_date = order_info['expected_done_date']
 
         if saved_in_session_done_time and saved_in_session_done_date:
-            time = datetime.datetime.strptime(
-                saved_in_session_done_time, '%H:%M').time()
-            date = datetime.datetime.strptime(
-                saved_in_session_done_date, '%Y-%m-%d')
-            saved_expected_done_by = datetime.datetime.combine(date, time)
+            time = datetime.strptime(
+                            saved_in_session_done_time, '%H:%M').time()
+            date = datetime.strptime(saved_in_session_done_date, '%Y-%m-%d')
+            saved_expected_done_by = datetime.combine(date, time)
 
-            if saved_expected_done_by > earliest_possible:
+            if saved_expected_done_by >= earliest_possible:
                 prefilled_datetime_input = saved_expected_done_by
     return prefilled_datetime_input
 
@@ -73,14 +71,13 @@ def view_cart(request):
     This view renders shopping cart and datetime values
     for the input fields
     '''
-    today = datetime.date.today()
-    max_date = today + datetime.timedelta(days=30)
+    today = date.today()
+    max_date = today + timedelta(days=30)
 
-    opening_time = datetime.time(hour=13, minute=15)
-    closing_time = datetime.time(hour=21, minute=00)
+    opening_time = time(hour=13, minute=15)
+    closing_time = time(hour=21, minute=00)
 
     prefilled_datetime_input = get_prefilled_datetime_input(request)
-    print(prefilled_datetime_input)
 
     context = {
         'today': today.strftime('%Y-%m-%d'),
@@ -143,6 +140,7 @@ def remove_from_cart(request, product_id):
     try:
         if product_id == '0':
             request.session['cart'] = {}
+            request.session['order_info'] = {}
             messages.success(request, 'Your cart is now empty')
             return redirect(reverse('view_cart'))
         else:
