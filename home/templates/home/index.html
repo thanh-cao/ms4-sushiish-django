@@ -74,9 +74,12 @@
                         <label for="name">Full name *</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="tel" class="form-control" id="phone" aria-label="Phone number"
-                            placeholder="Phone &#42;" name="phone" required>
+                        <input type="tel" class="form-control" id="phone" aria-describedby="phoneHelp"
+                            placeholder="Phone &#42;" pattern="[0-9]{8}" name="phone" required>
                         <label for="phone">Phone *</label>
+                        <div id="phoneHelp" class="form-text text-white">
+                            Phone number must be 8 digits excluding country code.
+                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
@@ -145,10 +148,13 @@
 
 {% block extra_js %}
 <script>
-    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+    // scrollspy for navbar when scrolling to indicate active section
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: 'about',
         offset: 100,
     });
+
+    // close bootstrap's hamburger menu after clicking on a link
     document.querySelectorAll('.navbar-nav>li>a').forEach(navlink => {
         if (!navlink.classList.contains('dropdown-toggle')) {
             navlink.addEventListener('click', () => {
@@ -157,6 +163,19 @@
         }
     });
 
+    // close bootstrap's hamburger menu when clicking outside of the toggler and menu dropdown
+    document.addEventListener('click', function (event) {
+        const hamburgerToggler = document.querySelector('.navbar-toggler');
+        if (hamburgerToggler) {
+            const isHamburgerToggler = hamburgerToggler.contains(event.target);
+            const isHamburgerMenu = document.querySelector('.navbar-collapse').contains(event.target);
+            if (!isHamburgerToggler && !isHamburgerMenu) {
+                document.querySelector('.navbar-collapse').classList.remove('show');
+            }
+        }
+    });
+
+    // handle contact form
     document.querySelector('#contact-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.target;
