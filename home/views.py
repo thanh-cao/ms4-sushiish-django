@@ -5,13 +5,33 @@ from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from home.models import ContactForm
+from profiles.models import Address, UserProfile
 
 # Create your views here.
 
 
 def index(request):
-    '''Render landing page'''
-    return render(request, 'home/index.html')
+    '''
+    Render landing page.
+    If user is logged in, get user's information to
+    prefill the contact form
+    '''
+    if request.user.is_authenticated:
+        current_user = request.user
+        all_addressess = UserProfile.objects.get(
+            user=current_user).address_set.all()
+        if all_addressess.count() > 0:
+            default_address = all_addressess.filter(isDefault=True).first()
+            if default_address is None:
+                default_address = all_addressess.first()
+            current_user.phone_number = default_address.phone_number
+
+        context = {
+            'current_user': current_user,
+        }
+        return render(request, 'home/index.html', context)
+    else:
+        return render(request, 'home/index.html')
 
 
 @require_POST
