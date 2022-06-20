@@ -38,10 +38,6 @@ def get_stripe_keys(request):
         }
     )
 
-    if not publishable_key:
-        messages.warning(request, 'Stripe public key is missing. \
-            Did you forget to set it in your environment?')
-
     stripe_keys = {
         'publishable_key': publishable_key,
         'client_secret': intent.client_secret,
@@ -184,7 +180,10 @@ def checkout(request):
                 order_form = OrderForm()
         else:
             order_form = OrderForm()
-
+        
+        if not settings.STRIPE_PUBLISHABLE_KEY:
+            messages.warning(request, 'Stripe public key is missing. \
+                    Did you forget to set it in your environment?')
         context = {
             'order_form': order_form
         }

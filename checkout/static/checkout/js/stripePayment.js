@@ -3,9 +3,13 @@ let elements;
 
 document.addEventListener('DOMContentLoaded', async () => {
     const stripeKeys = await getStripeKeys();
-    stripe = Stripe(stripeKeys.publishable_key);
-    await mountStripeElement(stripeKeys);
-    document.querySelector('#payment-form').addEventListener('submit', (event) => handlePaymentFormSubmit(event, stripeKeys));
+    if (stripeKeys.publishable_key) {
+        stripe = Stripe(stripeKeys.publishable_key);
+        await mountStripeElement(stripeKeys);
+        document.querySelector('#payment-form').addEventListener('submit', (event) => handlePaymentFormSubmit(event, stripeKeys));
+    } else {
+        document.querySelector('button[type="submit"]').disabled = true;
+    }
 });
 
 async function getStripeKeys() {
@@ -57,7 +61,7 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
     const errorDiv = document.getElementById('card-errors');
     let stripeConfirmPaymentResult;
     cacheDataUrl = '/checkout/cache_checkout_data/';
-    
+
     const csfrToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
     const saveInfo = document.querySelector('input[name="save-info"]') ? Boolean(document.querySelector('input[name="save-info"]').checked) : false;
     const cacheData = new FormData();
