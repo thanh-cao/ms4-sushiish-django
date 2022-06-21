@@ -1,6 +1,13 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 #loading-overlay {
   visibility: hidden;
-  background-image: url('https://media.giphy.com/media/3og0IJD4VvwWc7ZepO/giphy.gif');
+  background-image: url("https://media.giphy.com/media/3og0IJD4VvwWc7ZepO/giphy.gif");
   background-size: auto;
   background-repeat: repeat;
   background-position: center;
@@ -11,12 +18,20 @@
   height: 100%;
   opacity: 0;
   z-index: 9999;
+  -webkit-transition: visibility 0s, opacity 0.5s linear;
+  -o-transition: visibility 0s, opacity 0.5s linear;
   transition: visibility 0s, opacity 0.5s linear;
 }
 
 .loading-spinner {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   height: 100%;
 }

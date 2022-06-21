@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 /* ----- category navigation ----- */
 .category-nav-wrapper {
   position: relative;
@@ -9,6 +16,7 @@
 }
 
 .category-nav {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   white-space: nowrap;
   overflow-x: scroll;
@@ -29,8 +37,11 @@
   font-weight: 700;
   color: rgba(0, 0, 0, 0.55);
   text-decoration: none;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid transparent;
 }
@@ -40,12 +51,17 @@
 .category-nav .nav-item .nav-link:active:not(.active) {
   border: 1px solid var(--color-avocado);
   color: var(--color-avocado);
+  -webkit-transition: border-color 0.2s ease-in-out;
+  -o-transition: border-color 0.2s ease-in-out;
   transition: border-color 0.2s ease-in-out;
 }
 
 .nav-pills .nav-link.active {
   background-color: var(--color-avocado);
   color: white;
+  -webkit-transition: background-color 0.2s ease-in-out,
+    -webkit-transform 0.2s ease-in-out;
+  -o-transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
@@ -53,6 +69,8 @@
   display: none;
   position: absolute;
   top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   left: 5%;
   font-size: 1.5rem;
@@ -62,6 +80,8 @@
   display: none;
   position: absolute;
   top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   right: 5%;
   font-size: 1.5rem;
@@ -75,11 +95,17 @@
 
 .category-nav_contents {
   float: left;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out;
+  transition: -webkit-transform 0.2s ease-in-out;
+  -o-transition: transform 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
   position: relative;
 }
 
 .category-nav_contents-no-transition {
+  -webkit-transition: none;
+  -o-transition: none;
   transition: none;
 }
 
@@ -104,7 +130,12 @@ section.product-listing-hero {
   width: 55%;
   overflow: hidden;
   padding: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -115,6 +146,7 @@ section.product-listing-hero {
   -webkit-box-orient: vertical;
   display: block;
   display: -webkit-box;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   -webkit-line-clamp: 3;
 }
@@ -155,6 +187,7 @@ section.product-listing-hero {
   border-top: var(--color-salmon) 1px solid;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+  -webkit-box-shadow: 0px -2px 8px var(--color-salmon);
   box-shadow: 0px -2px 8px var(--color-salmon);
 }
 
@@ -163,6 +196,8 @@ input[type="text"].input-number {
   font-size: 1.5rem;
   font-weight: 700;
   padding: 0;
+  -webkit-box-flex: 0;
+  -ms-flex-positive: 0;
   flex-grow: 0;
   background-color: var(--color-avocado);
   color: #fff;
