@@ -34,12 +34,14 @@
                                     <label for="{{ order_form.full_name.id_for_label }}">
                                         {{ order_form.full_name.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-floating mb-3">
                                     {{ order_form.email }}
                                     <label for="{{ order_form.email.id_for_label }}">
                                         {{ order_form.email.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                             </fieldset>
 
@@ -50,12 +52,17 @@
                                     <label for="{{ order_form.phone.id_for_label }}">
                                         {{ order_form.phone_number.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
+                                    <div id="phoneHelp" class="form-text">
+                                        Phone number must be 8 digits excluding country code.
+                                    </div>
                                 </div>
                                 <div class="form-floating mb-3">
                                     {{ order_form.street_address1 }}
                                     <label for="{{ order_form.street_address1.id_for_label }}">
                                         {{ order_form.street_address1.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-floating mb-3">
                                     {{ order_form.street_address2 }}
@@ -68,18 +75,21 @@
                                     <label for="{{ order_form.town_or_city.id_for_label }}">
                                         {{ order_form.town_or_city.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-floating mb-3">
                                     {{ order_form.postcode }}
                                     <label for="{{ order_form.postcode.id_for_label }}">
                                         {{ order_form.postcode.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                                 <div class="form-floating mb-3">
                                     {{ order_form.country }}
                                     <label for="{{ order_form.country.id_for_label }}">
                                         {{ order_form.country.label }}
                                     </label>
+                                    <div class="invalid-feedback"></div>
                                 </div>
                         
                                 <div class="text-muted">
