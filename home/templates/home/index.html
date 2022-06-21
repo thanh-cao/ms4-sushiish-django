@@ -158,7 +158,7 @@
     document.querySelectorAll('.navbar-nav>li>a').forEach(navlink => {
         if (!navlink.classList.contains('dropdown-toggle')) {
             navlink.addEventListener('click', () => {
-                document.querySelector('.navbar-collapse').classList.remove('show')
+                document.querySelector('.navbar-collapse').classList.remove('show');
             });
         }
     });

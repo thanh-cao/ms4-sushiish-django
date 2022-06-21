@@ -10,12 +10,14 @@
             <li class="nav-item list-inline-item me-3">
                 <form method="GET" action="{% url 'products' %}" class="form d-none d-lg-block">
                     <div class="input-group w-100">
-                        <input class="form-control border border-black" type="text" name="search"
+                        <input class="form-control border border-black" id="search-input" type="text" name="search"
                             placeholder="Search dish names or ingredients">
+                        <label for="search-input" class="visually-hidden">Search dish names or ingredients</label>
                         <div class="input-group-append">
                             <button class="form-control form-control btn btn-black border border-black" type="submit">
                                 <span class="icon">
-                                    <i class="fas fa-search"></i>
+                                    <i class="fas fa-search" aria-hidden="true"></i>
+                                    <span class="visually-hidden">Submit search</span>
                                 </span>
                             </button>
                         </div>
@@ -30,13 +32,15 @@
                     aria-labelledby="search-dropdown">
                     <form class="form" method="GET" action="{% url 'products' %}">
                         <div class="input-group w-100">
-                            <input class="form-control border border-black" type="text" name="search"
+                            <input class="form-control border border-black" id="search-input-mobile" type="text" name="search"
                                 placeholder="Search dish names or ingredients">
+                            <label for="search-input-mobile" class="visually-hidden">Search dish names or ingredients</label>
                             <div class="input-group-append">
                                 <button class="form-control form-control btn btn-black border border-black"
                                     type="submit">
                                     <span class="icon">
-                                        <i class="fas fa-search"></i>
+                                        <i class="fas fa-search" aria-hidden="true"></i>
+                                        <span class="visually-hidden">Submit search</span>
                                     </span>
                                 </button>
                             </div>
@@ -49,7 +53,7 @@
                 <a class="nav-link text-center" href="{% url 'products' %}">
                     <i class="fa-solid fa-utensils fa-lg" aria-hidden="true"></i>
                     <span class="visually-hidden">Menu</span>
-                    <p class="mb-0" id="order-total">
+                    <p class="mb-0">
                         Menu
                     </p>
                 </a>

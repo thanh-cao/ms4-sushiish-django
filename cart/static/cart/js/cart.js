@@ -3,25 +3,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     activateQuantityUpdate();
     activateRemoveFromCartButtons();
 
-    // handle selecting order type to be delivered or pickup
-    document.querySelectorAll('input[name="order-type"]').forEach(input => {
-        input.addEventListener('change', handleOrderTypeChange);
-    });
+    if (document.querySelector('form#order-info-form')) {
+        // handle selecting order type to be delivered or pickup
+        document.querySelectorAll('input[name="order-type"]').forEach(input => {
+            input.addEventListener('change', handleOrderTypeChange);
+        });
 
-    document.querySelector('input[type="time"]').addEventListener('change', handleTimeChange);
+        document.querySelector('input[type="time"]').addEventListener('change', handleTimeChange);
 
-    // toggle add note field
-    const orderNoteTextArea = document.querySelector('textarea[name="order-note"]');
-    if (orderNoteTextArea.value.trim().length > 0) {
-        orderNoteTextArea.parentElement.classList.remove('d-none');
+        // toggle add note field
+        const orderNoteTextArea = document.querySelector('textarea[name="order-note"]');
+        if (orderNoteTextArea.value.trim().length > 0) {
+            orderNoteTextArea.parentElement.classList.remove('d-none');
+        }
+        document.querySelector('.add-note-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            orderNoteTextArea.parentElement.classList.toggle('d-none');
+        });
+
+        // handle processing order for checkout
+        document.querySelector('#checkout-btn').addEventListener('click', handleProceedToCheckout);
     }
-    document.querySelector('.add-note-btn').addEventListener('click', (e) => {
-        e.preventDefault();
-        orderNoteTextArea.parentElement.classList.toggle('d-none');
-    });
-
-    // handle processing order for checkout
-    document.querySelector('#checkout-btn').addEventListener('click', handleProceedToCheckout);
 });
 
 function activateQuantityChange() {
@@ -63,7 +65,7 @@ function activateQuantityChange() {
             }
         });
     });
-};
+}
 
 function activateRemoveFromCartButtons() {
     document.querySelectorAll('.remove-btn').forEach(btn => {
@@ -96,7 +98,7 @@ function activateQuantityUpdate() {
             quantityForm.submit();
         });
     });
-};
+}
 
 async function handleOrderTypeChange(event) {
     event.preventDefault();
@@ -113,10 +115,9 @@ async function handleOrderTypeChange(event) {
     }).then(response => response.json());
     const orderSummary = result.order_summary;
 
-    document.querySelector('#order-total').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
+    document.querySelector('#order-total-cart').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
     document.querySelector('#delivery-charge').innerHTML = `$${parseFloat(orderSummary.delivery_charge).toFixed(2)}`;
     document.querySelector('#grand-total').innerHTML = `$${parseFloat(orderSummary.grand_total).toFixed(2)}`;
-    orderSummary.order_discount > 0 ? document.querySelector('#order-discount').innerHTML = `- $${parseFloat(orderSummary.order_discount).toFixed(2)}` : null;
 }
 
 function handleTimeChange(e) {

@@ -16,7 +16,7 @@
         class="container-fluid product-listing-hero d-flex justify-content-center align-items-center overflow-hidden">
         <div class="card shadow-salmon extra-blur px-4 py-3">
             <div class="card-body">
-                <div class="brand-text text-center mb-2">Sushiish</div>
+                <h2 class="brand-text text-center mb-2">Sushiish</h2>
                 <div class="display-inline">
                     <i class="fa-solid fa-phone text-avocado me-2"></i>
                     <span class="visually-hidden">Phone number</span>
@@ -73,9 +73,9 @@
                 {% for category in categories %}
                 <div class="col-12">
                     <div id="category-{{ category.id }}" class="row category-section">
-                        <div class="display-6 fw-bold text-avocado">
+                        <h2 class="display-4 fw-bold text-avocado">
                             {{ category.friendly_name }}</>
-                        </div>
+                        </h2>
                         <div class="text-muted mb-3">
                             {% if category.description %}
                                 {{ category.description }}

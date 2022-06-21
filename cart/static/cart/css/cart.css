@@ -1,8 +1,17 @@
-input[type="text"].input-number {
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
+input[type="number"].input-number {
   text-align: center;
   font-size: 1rem;
   font-weight: 700;
   padding: 0;
+  -webkit-box-flex: 0;
+  -ms-flex-positive: 0;
   flex-grow: 0;
   background-color: var(--color-avocado);
   color: #fff;
@@ -42,4 +51,10 @@ input:checked + label.shipping-tag {
 
 input[type="time"]:invalid {
   border: 1px solid var(--color-salmon);
+}
+
+input[type='number']::-webkit-inner-spin-button, 
+input[type='number']::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
 }

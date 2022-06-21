@@ -1,82 +1,97 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .jumbotron {
-    height: 80vh;
-    width: 100%;
-    background: url('../../../../media/homepage-hero.jpeg') center center / cover no-repeat;
-    background-attachment: fixed;
-    position: relative;
-    display: flex;
-    align-items: center;
+  height: 80vh;
+  width: 100%;
+  background: url("../../../../media/homepage-hero.jpeg") center center / cover no-repeat;
+  background-attachment: fixed;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .jumbotron:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .jumbotron .container {
-    z-index: 1;
+  z-index: 1;
 }
 
 .hero-text {
-    font-family: 'Caveat Brush', cursive;
-    font-size: 7rem;
-    font-weight: 700;
-    color: var(--color-salmon);
+  font-family: "Caveat Brush", cursive;
+  font-size: 7rem;
+  font-weight: 700;
+  color: var(--color-salmon);
 }
 
 section#about {
-    position:relative;
-    background-color: var(--color-avocado);
-    padding: 5rem 0;
+  position: relative;
+  background-color: var(--color-avocado);
+  padding: 5rem 0;
 }
 
 .wave-overlay {
-    content: '';
-    position: absolute;
-    transform: scaleY(-1);
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-    background: url('../../../../media/wave-overlay.png') bottom center / contain no-repeat;
+  content: "";
+  position: absolute;
+  -webkit-transform: scaleY(-1);
+  -ms-transform: scaleY(-1);
+  transform: scaleY(-1);
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  background: url("../../../../media/wave-overlay.png") bottom center / contain
+    no-repeat;
 }
 
-.wave-overlay+.container {
-    position: relative;
-    z-index: 1;
+.wave-overlay + .container {
+  position: relative;
+  z-index: 1;
 }
 
 section#catering {
-    background: url('../../../../media/homepage-catering.jpeg') bottom center / cover no-repeat;
-    padding: 10rem 0;
+  background: url("../../../../media/homepage-catering.jpeg") bottom center /
+    cover no-repeat;
+  padding: 10rem 0;
 }
 
 section#contact {
-    background-color: var(--color-salmon);
-    padding: 3rem 0;
+  background-color: var(--color-salmon);
+  padding: 3rem 0;
 }
 
 footer {
-    padding: 2rem 0;
+  padding: 2rem 0;
 }
 
 @media (max-width: 280px) {
-    main {
-        margin-top: 70px;
-    }
-    
-    .hero-text {
-        font-size: 5rem;
-    }
+  main {
+    margin-top: 70px;
+  }
+
+  .hero-text {
+    font-size: 5rem;
+  }
 }
 
 @media (min-width: 768px) {
-    section#catering {
-        padding: 15rem 0;
-    }
+  section#catering {
+    padding: 15rem 0;
+  }
 }

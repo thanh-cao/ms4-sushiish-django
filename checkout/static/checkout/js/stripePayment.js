@@ -105,7 +105,7 @@ async function handlePaymentFormSubmit(event, stripeKeys) {
         const paymentForm = document.querySelector('#payment-form');
         const errorDiv = document.getElementById('card-errors');
         let stripeConfirmPaymentResult;
-        cacheDataUrl = '/checkout/cache_checkout_data/';
+        const cacheDataUrl = '/checkout/cache_checkout_data/';
 
         const csfrToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
         const saveInfo = document.querySelector('input[name="save-info"]') ? Boolean(document.querySelector('input[name="save-info"]').checked) : false;
