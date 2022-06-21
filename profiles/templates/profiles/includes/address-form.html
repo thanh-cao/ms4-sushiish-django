@@ -26,7 +26,7 @@
             </div>
             <div class="form-floating mb-2">
                 {{ address_form.postcode }}
-                <label for=" {{ address_form.postcode.id_for_label }}"> {{ address_form.postcode.label }}*</label>
+                <label for="{{ address_form.postcode.id_for_label }}"> {{ address_form.postcode.label }}*</label>
             </div>
             <div class="form-floating mb-2">
                 {{ address_form.country }}
@@ -37,7 +37,7 @@
                 <label for="{{ address_form.address_type.id_for_label }}">{{ address_form.address_type.label }}</label>
             </div>
             <div class="mb-2">
-                <input type="checkbox" id="isDefault" name="isDefault" {% if address.isDefault %}checked{% endif %} >
+                <input type="checkbox" id="{{ address_form.isDefault.id_for_label }}" name="isDefault" {% if address.isDefault %}checked{% endif %} >
                 <label for="{{ address_form.isDefault.id_for_label }}">{{ address_form.isDefault.label }}</label>
             </div>
 
