@@ -49,15 +49,15 @@ def get_prefilled_datetime_input(request):
     prefilled_datetime_input = earliest_possible
 
     order_info = request.session.get('order_info', {})
-    saved_in_session_done_time = None
-    saved_in_session_done_date = None
     if order_info:
-        saved_in_session_done_time = order_info['expected_done_time']
-        saved_in_session_done_date = order_info['expected_done_date']
+        saved_in_session_done_time = order_info['expected_done_time'] \
+            if 'expected_done_time' in order_info else None
+        saved_in_session_done_date = order_info['expected_done_date'] \
+            if 'expected_done_date' in order_info else None
 
         if saved_in_session_done_time and saved_in_session_done_date:
             time = datetime.strptime(
-                            saved_in_session_done_time, '%H:%M').time()
+                saved_in_session_done_time, '%H:%M').time()
             date = datetime.strptime(saved_in_session_done_date, '%Y-%m-%d')
             saved_expected_done_by = datetime.combine(date, time)
 

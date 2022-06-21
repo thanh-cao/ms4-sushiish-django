@@ -70,7 +70,8 @@ class Order(models.Model):
                 settings.ORDER_DISCOUNT_PERCENTAGE / 100
         if self.order_type == OrderType.DELIVERY.name:
             self.delivery_charge = settings.DELIVERY_CHARGE
-        self.grand_total = self.order_total + self.delivery_charge - self.order_discount
+        self.grand_total = self.order_total + self.delivery_charge \
+            - self.order_discount
         self.save()
 
     def save(self, *args, **kwargs):
@@ -105,4 +106,5 @@ class OrderLineItem(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.product_id.name} from order {self.order_number.order_number}'
+        return f'{self.product_id.name} from order ' \
+            + f'{self.order_number.order_number}'
