@@ -70,17 +70,20 @@
                     {% csrf_token %}
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="name" aria-label="Full name"
-                            placeholder="Name &#42;" name="full_name" required>
+                            placeholder="Name &#42;" name="full_name" {% if current_user %} value="{{ current_user.first_name }} {{ current_user.last_name }}" {% endif %} required>
                         <label for="name">Full name *</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="tel" class="form-control" id="phone" aria-label="Phone number"
-                            placeholder="Phone &#42;" name="phone" required>
+                        <input type="tel" class="form-control" id="phone" aria-describedby="phoneHelp"
+                            placeholder="Phone &#42;" pattern="[0-9]{8}" name="phone" {% if current_user %} value="{{ current_user.phone_number }}" {% endif %} required>
                         <label for="phone">Phone *</label>
+                        <div id="phoneHelp" class="form-text text-white">
+                            Phone number must be 8 digits excluding country code.
+                        </div>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
-                            aria-label="Email address" name="email" placeholder="Email &#42;" required>
+                            aria-label="Email address" name="email" placeholder="Email &#42;" {% if current_user %} value="{{ current_user.email }}" {% endif %} required>
                         <label for="email">Email *</label>
                         <div id="emailHelp" class="form-text text-white">
                             We'll never share your email with anyone else.
@@ -101,7 +104,7 @@
                     <p><u>Phone:</u> 40 50 60 70</p>
                     <p><u>Email:</u> contact@sushiish.com</p>
                     <p><u>Address:</u> Rolling Road 26, 3030 Oslo</p>
-                    <p><u>Pickup hours:</u> 13:00 - 21:00</p>
+                    <p><u>Pickup hours:</u> 13:15 - 21:00</p>
                 </div>
             </div>
         </div>
@@ -145,10 +148,13 @@
 
 {% block extra_js %}
 <script>
-    var scrollSpy = new bootstrap.ScrollSpy(document.body, {
+    // scrollspy for navbar when scrolling to indicate active section
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: 'about',
         offset: 100,
     });
+
+    // close bootstrap's hamburger menu after clicking on a link
     document.querySelectorAll('.navbar-nav>li>a').forEach(navlink => {
         if (!navlink.classList.contains('dropdown-toggle')) {
             navlink.addEventListener('click', () => {
@@ -157,6 +163,19 @@
         }
     });
 
+    // close bootstrap's hamburger menu when clicking outside of the toggler and menu dropdown
+    document.addEventListener('click', function (event) {
+        const hamburgerToggler = document.querySelector('.navbar-toggler');
+        if (hamburgerToggler) {
+            const isHamburgerToggler = hamburgerToggler.contains(event.target);
+            const isHamburgerMenu = document.querySelector('.navbar-collapse').contains(event.target);
+            if (!isHamburgerToggler && !isHamburgerMenu) {
+                document.querySelector('.navbar-collapse').classList.remove('show');
+            }
+        }
+    });
+
+    // handle contact form
     document.querySelector('#contact-form').addEventListener('submit', async e => {
         e.preventDefault();
         const form = e.target;

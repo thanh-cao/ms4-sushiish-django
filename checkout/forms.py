@@ -38,4 +38,8 @@ class OrderForm(forms.ModelForm):
             self.fields[field].label = placeholder
 
         self.fields['country'].widget.attrs['readonly'] = True
-        self.fields['phone_number'].validators.append(validate_phone_number)
+
+        phone_number_field = self.fields['phone_number']
+        phone_number_field.validators.append(validate_phone_number)
+        phone_number_field.widget.attrs['pattern'] = '[0-9]{8}'
+        phone_number_field.widget.attrs['aria-describedby'] = 'phoneHelp'

@@ -38,10 +38,6 @@ def get_stripe_keys(request):
         }
     )
 
-    if not publishable_key:
-        messages.warning(request, 'Stripe public key is missing. \
-            Did you forget to set it in your environment?')
-
     stripe_keys = {
         'publishable_key': publishable_key,
         'client_secret': intent.client_secret,
@@ -185,6 +181,9 @@ def checkout(request):
         else:
             order_form = OrderForm()
 
+        if not settings.STRIPE_PUBLISHABLE_KEY:
+            messages.warning(request, 'Stripe public key is missing. \
+                    Did you forget to set it in your environment?')
         context = {
             'order_form': order_form
         }
@@ -255,4 +254,6 @@ def cache_checkout_data(request):
         return HttpResponse(status=200)
 
     except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)

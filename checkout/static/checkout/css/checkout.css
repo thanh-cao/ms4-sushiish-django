@@ -3,6 +3,7 @@
   background-image: url('https://media.giphy.com/media/3og0IJD4VvwWc7ZepO/giphy.gif');
   background-size: auto;
   background-repeat: repeat;
+  background-position: center;
   position: fixed;
   top: 0;
   left: 0;

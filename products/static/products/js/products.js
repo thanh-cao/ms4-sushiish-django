@@ -1,3 +1,5 @@
+const productCardList = document.querySelectorAll('.col-12.col-md-6.product');
+
 document.addEventListener('DOMContentLoaded', async (e) => {
     // initialize Bootstrap's offcanvas section
     let offCanvas = new bootstrap.Offcanvas(document.getElementById('product-offcanvas'));
@@ -82,19 +84,6 @@ function filterProductsByAllergies(productCardList, allergies) {
     });
     return filteredProducts;
 }
-// function filterProductsByAllergies(productList, allergies) {
-//     let filteredProducts = [];
-//     let allergiesSet = new Set(allergies);
-//     productList.forEach(product => {
-//         let productAllergies = product.fields.allergies;
-//         let productAllergiesSet = new Set(productAllergies);
-//         let intersection = new Set([...productAllergiesSet].filter(allergy => allergiesSet.has(allergy)));
-//         if (intersection.size === 0) {
-//             filteredProducts.push(product);
-//         }
-//     });
-//     return filteredProducts;
-// }
 
 function writeProductCards(productCardList) {
     const productListingContainer = document.querySelector('.product-listing-container');
@@ -109,7 +98,6 @@ async function handleAllergySelect() {
     if (allergies.length === 0) {
         return location.reload();
     }
-    const productCardList = document.querySelectorAll('.col-12.col-md-6.product');
     const filteredProducts = filterProductsByAllergies(productCardList, allergies);
     writeProductCards(filteredProducts);
 }

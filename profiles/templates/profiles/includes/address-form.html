@@ -8,6 +8,9 @@
             <div class="form-floating mb-2">
                 {{ address_form.phone_number }}
                 <label for="{{ address_form.phone_number.id_for_label }}">{{ address_form.phone_number.label }}</label>
+                <div id="phoneHelp" class="form-text">
+                    Phone number must be 8 digits excluding country code.
+                </div>
             </div>
             <div class="form-floating mb-2">
                 {{ address_form.street_address1 }}
