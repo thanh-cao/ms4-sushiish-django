@@ -21,7 +21,7 @@
             <div class="row g-0 align-items-center text-center mb-3">
                 <label for="expected-done-date" class="col-4 fw-bold fs-5">Date *</label>
                 <div class="col-8">
-                    <input type="date" class="form-control" name="expected-done-date" value="{{ set_date_input }}"
+                    <input type="date" class="form-control" id="expected-done-date" name="expected-done-date" value="{{ set_date_input }}"
                         min="{{ today }}" max="{{ max_date }}" required>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <div class="row g-0 align-items-center text-center mb-3">
                 <label for="expected-done-time" class="col-4 fw-bold fs-5">Time *</label>
                 <div class="col-8">
-                    <input type="time" class="form-control" name="expected-done-time" value="{{ set_time_input }}"
+                    <input type="time" class="form-control" id="expected-done-time" name="expected-done-time" value="{{ set_time_input }}"
                         min="{{ opening_time }}" max="{{ closing_time }}" required>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 * Browsers: last 4 version
 */
 
-input[type="text"].input-number {
+input[type="number"].input-number {
   text-align: center;
   font-size: 1rem;
   font-weight: 700;

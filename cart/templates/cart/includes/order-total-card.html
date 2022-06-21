@@ -10,7 +10,7 @@
             <div class="fw-bold fs-5">Grand total</div>
         </div>
         <div class="col-5 text-end">
-            <div id="order-total">${{ order_total|floatformat:2 }}</div>
+            <div id="order-total-cart">${{ order_total|floatformat:2 }}</div>
             {% if order_discount > 0%}
             <div id="order-discount">- ${{ order_discount|floatformat:2 }}</div>
             {% endif %}

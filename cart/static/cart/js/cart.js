@@ -115,7 +115,7 @@ async function handleOrderTypeChange(event) {
     }).then(response => response.json());
     const orderSummary = result.order_summary;
 
-    document.querySelector('#order-total').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
+    document.querySelector('#order-total-cart').innerHTML = `$${parseFloat(orderSummary.order_total).toFixed(2)}`;
     document.querySelector('#delivery-charge').innerHTML = `$${parseFloat(orderSummary.delivery_charge).toFixed(2)}`;
     document.querySelector('#grand-total').innerHTML = `$${parseFloat(orderSummary.grand_total).toFixed(2)}`;
 }
