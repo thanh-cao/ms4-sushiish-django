@@ -5,7 +5,10 @@ This is project milestone 4 for Code Institute Full-stack development program: F
 The purpose of this project is to create an e-commerce shop for a small sushi take-away shop called Sushiish, which allows their customer to be able to pre-order food for pick up or delivery with the ability to pay orders online with Stripe payments in order to reduce the waiting time for customers, and the workload for employees. While Sushiish is a fictional sushi business, its inspiration, menu, and media assets are taken from my own business: a take-away shop selling sushi and wok.
 
 ## Showcase
+![Showcase](readme-assets/responsiveness.png)
+*Responsiveness of Sushiish*
 
+Link to live site: [Sushiish Shop](http://sushiish.herokuapp.com/)
 
 ## Table of Contents
   - [User Experience (UX)](#user-experience-ux)
@@ -73,33 +76,37 @@ Covid-19 era has made online ordering and delivery an important feature and sour
 1. Content requirements
 * Introduction of the shop to give visitors an idea of what this shop is selling
 * List of: product categories / products (grouped by categories)
-* Detailed information of each product: ingredients, allergies (if any), price, additional options for product.
+* Detailed information of each product: ingredients, allergies (if any), price, image of the dish.
 * Shopping cart:
   * what products have been added to cart - quantity - total price
   * Total amount of the whole shopping cart and delivery charge (if delivery).
 * Account information:
   * My profile
+  * My saved addresses
   * My purchase history
 
 2. Functionality requirements
 * User account:
-  * Sign up / Log in
+  * Sign up / Log in / Log out
   * Edit profile: personal information / delivery address
+  * Purchase history
 * Online shop:
   * Product filtering by categories
   * Product filtering by allergies
   * Search for a product by name or description
-  * Product showcase page with thumbnails images
+  * Product showcase page with thumbnail images
   * Product's details page with full image and more descriptions
-* Shopping cart, create an order and payment::
+* Shopping cart, create an order and payment:
   * View / Edit existing product's quantity / Delete existing product on shopping cart
   * Secured online payment with card through Stripe API
   * Order confirmation email
 * Toast messages to inform users if their actions have succeeded or failed
 * Admin and store management:
   * CRUD functionalities for product categories
+  * CRUD functionalities for allergies
   * CRUD functionalities for products
   * CRUD functionalities for users
+  * CRUD functionalities for orders
 
 ### Structure
 #### Information Architecture
@@ -108,19 +115,32 @@ Covid-19 era has made online ordering and delivery an important feature and sour
 The main goal of this project is to generate sales, it is important to keep it as simple as possible so users can easily navigate themselves within the shop and go to checkout and pay seamlessly without much trouble. Therefore the information architecture of this site is very simple: a landing page where users get an impression what type of site this is. Here, users should easily see the 3 main possible navigations: 
 * product listing page (menu) where users can filter the products by categories (appetizers, sashimi & maki, maki, sushi combo)
 * account page for logged in user (or navigation to sign up / login page if not logged in)
-* shopping basket, which further leads to checkout page where users can fill in information for pickup or delivery and pay securely with their card.
+* shopping cart, which further leads to checkout page where users can fill in information for pickup or delivery and pay securely with their card.
 #### Database design
-![ER Modelling](readme-assets/structure-er-modelling.png)*ER Modelling*
+![ER Modelling](readme-assets/structure-er-modelling.png)
+*ER Modelling*
+
+After the information architecture is generated, the database design is also very simple. The database is initially designed to store the following information:
+* Product categories
+* Products
+* Orders
+* Order items
+* User profiles
+* Users (based on Django's allAuth)
+
+During the development phase, the database is adjusted upon further research and rethinking the best practice to handle data. The adjusted modelling is shown in the following diagram with expansion of Allergy table, Address table, and Contact Form table.
+![ER Modelling Adjusted](readme-assets/structure-er-modelling-adjusted.png)
+*ER Modelling Adjusted*
 
 ### Skeleton
 #### Design
 * CSS framework chosen for this project is [Bootstrap v5.1](https://getbootstrap.com/). This framework is chosen for its clean, simple and clear response UI design, which is easy for novice users to navigate and interact with data and database.
 
-* Color: the color scheme for Sushiish is taken from the ingredients of one of the most popular and classic maki roll: salmon avocado roll. Salmon (pinkish shade #FF7E6B) is the main color for primary action and attention while avocado (light green shade #44B5AA) will have a playfull role as highlight element, all on a rice (white #FFFFFF) background.
+* Color: the color scheme for Sushiish is taken from the ingredients of one of the most popular and classic maki roll: salmon avocado roll. Salmon (pinkish shade #FF7E6B), avocado (light green shade #44B5AA), all on a rice (white #FFFFFF) background.
 ![Sushiish color schemes](readme-assets/skeleton-color-schemes.png)*Sushiish color schemes*
   
 * Font:
-  * [Caveat](https://fonts.google.com/specimen/Caveat) is chosen as the font for the logo and being used for hero texts / headlines.
+  * [Caveat Brush](https://fonts.google.com/specimen/Caveat+Brush?query=caveat) is chosen as the font for the logo and being used for hero texts / headlines.
   * [PT Sans](https://fonts.google.com/specimen/PT+Sans) is used for normal text through the website. The text hiery is determined by the use of color and boldness.
   
 #### Wireframes
@@ -128,18 +148,24 @@ The main goal of this project is to generate sales, it is important to keep it a
 * Wireframes for desktop: [View here](readme-assets/wireframes-desktop.png)
 Tablet design will be similar to desktop design with minor differences in order to fit better with the screen property of a tablet such as columns or padding, etc.
 #### Design changes
-
+The initially design was followed closely during development. There were only some minor changes such as the ordering of certain card elements of information piece which I decided to adjust during development phase to fit with screen size and the readability of the text better.
 ## Features
 ### Existing Features
 Features that have been implemented can be found at [FEATURES.md](FEATURES.md).
 
 ### Future Implementations
-
+This project is a work in progress. The MVP being released now has all the basic functionalities needed for a user to order food for self pickup or delivery and pay securely with their card through Stripe API. Site owner has also access to all the data through Django's default admin panel. The next phase will be to add more features to the site which enhances the buying experience for the user and give site owner a better user experience and control over the online shop.
+The following features are planned to be implemented:
+* A better designed admin dashboard for site owner to manage the webshop and its data
+* Site owner can limit delivery area and/or setting different delivery fees for certain areas
+* Product can have more added options for customization such as size, sauce options, extras etc.
+* Implement order status tracking for users
+* A more complicated discount system: discount for certain products/categories, discount campaigns, discount codes, discount for specific customers, etc.
 ## Technologies Used
 ### Languages
 * [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) - build up layout and content of the application.
 * [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) - add custom styling and override Bootstrap stylings to fit with the theme of the website.
-* [JavaScript](https://www.javascript.com/) - to add interactive functionailities to the app
+* [JavaScript](https://www.javascript.com/) - to add interactive functionailities to the app.
 * [Python](https://www.python.org/) - to build backend functionalities handling data, database interaction, and CRUD functionalities.
   
 ### Programs and Tools
@@ -147,35 +173,35 @@ Features that have been implemented can be found at [FEATURES.md](FEATURES.md).
 * [Visual Studio Code](https://code.visualstudio.com/) - the code editor being used to build the project.
 * [LucidChart](https://www.lucidchart.com/) - to create database diagram.
 * [PicResize](https://picresize.com/) - to resize large images.
-* [Glassmorphism CSS Generator](https://ui.glass/generator/) - to generate glassmorphism effects for registration and login page.
 * [Chrome DevTools](https://developer.chrome.com/docs/devtools/) - used heavily for debugging during development and testing process.
 * [Git](https://git-scm.com/) - the built-in Git feature in VS Code was used for version control and push to github.
 * [Github](https://github.com/) - Github is used to store project's code remotely. 
 * [Google Fonts](https://fonts.google.com/) - to import the desired fonts for this project
-* [Bootstrap Icons](https://icons.getbootstrap.com/) - implement icons for navigation menu, forms, actions.
+* [FontAwesome](https://fontawesome.com/) - implement icons for navigation menu, actions, etc.
+* [CSS Scan](https://getcssscan.com/css-box-shadow-examples) - to create box shadow for elements
 * [Autoprefixer CSS online](https://autoprefixer.github.io/) - to parse CSS and add vendor prefixes.
 * [Heroku](https://www.heroku.com/) - platform being used to deploy the application
 * [Stripe](https://stripe.com/) - for handling online payments.
-* [Postgresql](https://www.postgresql.org/) - database
+* [Postgresql](https://www.postgresql.org/) - database used for storing data built in as a service by Heroku.
 * [Amazon Web Services (AWS)](https://aws.amazon.com/) - to host media and static files on the the cloud.
 * [W3C Markup Validator](https://validator.w3.org/), [W3C CSS Validator](https://jigsaw.w3.org/css-validator/), [JSHint](https://jshint.com/), [PEP8 online](https://pep8online.com/), [Lighthouse](https://developers.google.com/web/tools/lighthouse/),  - to validate the code syntax and to check the code quality for HTML markup, CSS, JavaScript, Python, and the site overall performance.
 
-### Frameworks and Libraries
+### Frameworks, Libraries, APIs
 * [Bootstrap v5.1](https://getbootstrap.com/) - the responsive front-end framework to build the layout and style the app.
 * [Django](https://www.djangoproject.com/) - the core framework that this e-commerce project is built with.
+* [Stripe API](https://stripe.com/) - the payment gateway used for handling online payments.
 ## Testing
 Testing can be found in its own section [TESTING.md](TESTING.md)
 
 ## Deployment
 ### Development
 1. Environement:
-The project was developed using VS Code editor and its integrated version control feature to commit gits, which are then pushed to GitHub in order to store the codes remotely. The project is hosted on Heroku and can be accessed at [http://ms4-sushiish.herokuapp.com/](http://ms4-sushiish.herokuapp.com/).
+The project was developed using VS Code editor and its integrated version control feature to commit gits, which are then pushed to GitHub in order to store the codes remotely. The project is hosted on Heroku and can be accessed at [http://sushiish.herokuapp.com/](http://sushiish.herokuapp.com/).
 
 2. Project management and development workflow:
 * Project management: In order to keep track of my own progression and to-dos, I created [a basic kanban project boards](https://github.com/thanh-cao/ms4-sushiish-django/projects) on GitHub. Based on project's user stories, requirements and wireframes, I scope out the tasks accordingly to 3 phases: To do, In progress, and Done.
 * Creating issues as a way to keep a list of small things to build / to do / to fix as I go along with developing the big features.
 * Branches: I created a branch for each feature, develop on the respective branch, and pushed them to GitHub.
-* Git commit conventional message following [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ### Forking the project
 1. Log in to GitHub and navigate to this project's respository: [ms4-sushiish-django](https://github.com/thanh-cao/ms4-sushiish-django).
@@ -197,14 +223,23 @@ Follow these steps to clone this project:
    * Create a .env file in the project's directory called `sushiish_shop`.
    * Add the following code to the file:
     ``` Python
-    STRIPE_PUBLIC_KEY='insert_your_stripe_public_key'
+    STRIPE_PUBLISHABLE_KEY='insert_your_stripe_public_key'
     STRIPE_SECRET_KEY='insert_your_stripe_secret_key'
-    STRIPE_WH_SECRET='insert_your_stripe_wh_key'
+    STRIPE_WEBHOOK_SECRET='insert_your_stripe_wh_key'
     SECRET_KEY='insert_your_very_secret_key'
+
+    DATABASE_URL='postgres://user:password@host:port/dbname'  # insert your own database URL for deploying to Heroku
+
     AWS_ACCESS_KEY_ID='insert_your_aws_access_key'
     AWS_SECRET_ACCESS_KEY='insert_your_aws_secret_access_key'
+    AWS_STORAGE_BUCKET_NAME='insert_your_aws_bucket_name'
+    AWS_S3_REGION_NAME='insert_your_aws_region_name'
+    USE_AWS=True  # set to True if you want to use AWS for storage otherwise set to False to use local storage
+
+    DEFAULT_FROM_EMAIL='a_default_send_from_email'
     EMAIL_HOST_USER='your_email_address_for_sending emails_to_users'
-    EMAIL_HOST_PASS='email_password_generated_by_gmail'
+    EMAIL_HOST_PASSWORD='email_password_generated_by_gmail_app'
+    ALLOWED_HOSTS=['insert_your_domain_name']
     DEBUG=True  # set to False when deploying to Heroku
     ```
     
@@ -221,26 +256,59 @@ Follow these steps to clone this project:
     ```
     pip freeze > requirements.txt
     ```
-    * The currently available `Procfile` file contains the command `web: gunicorn sushiish.wsgi:application`. It is used to determine which command to run when the app is started on Heroku. If you develop the project further with a different commands to run the app, make adjustment to `Procfile` file accordingly.
+    * The currently available `Procfile` file contains the command `web: gunicorn sushiish_shop.wsgi:application`. It is used to determine which command to run when the app is started on Heroku. If you develop the project further with a different commands to run the app, make adjustment to `Procfile` file accordingly.
     * Push your changes to `requirements.txt` and `Procfile` to GitHub if any.
 
 ### Deployment to Heroku
+#### Set up Heroku environment
 1. Log in to [Heroku](https://www.heroku.com/)
 2. On top right corner of the screen, locate the `New` button and the choose `Create new app`.
 3. Give a unique name to the app, choose appropriate region, and click `Create`.
-4. Access your app dashboard and click on `Deploy`.
-5. Under `Deployment method`, choose GitHub and coonect to the respective repository.
-6. Enable automatic deployment and click `Deploy`.
-7. Set up environment on Heroku by going to `Settings` tab.
-8. On `Config Vars` section, click `Reveal Config Vars`
-9. Based on `env.py` file, add all the environment variables to the `Config Vars` section.
-10. On top right coner of the app's dashboard, locate the button `Open app`. You will be able to see you deployed app with link to live site.
+4. Access Resources tab, under add-ons, type in Postgres and select the Heroku Postgres option in order to add the Postgres addon to the app.
+5. Access your app dashboard and click on `Deploy`.
+6. Set up environment on Heroku by going to `Settings` tab.
+7. On `Config Vars` section, click `Reveal Config Vars`.
+8. Based on `.env` file, add all the environment variables to the `Config Vars` section. At this stage, set `DISABLE_COLLECTSTATIC` to `True` to temporarily disable the collectstatic command until AWS is configured.
+9. Under `Deployment method`, choose GitHub and coonect to the respective repository.
+10. Enable automatic deployment and click `Deploy`.
+11. On top right coner of the app's dashboard, locate the button `Open app`. You will be able to see you deployed app with link to live site.
+12. Update allowed hosts to the domain name of your herokuapp.
+
+#### Load Postgres database on Heroku
+1. In your IDE evironment, set up the project to use Postgres database on Heroku.
+2. Migrate the database to the latest version and create super user access with the following command in terminal:
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py createsuperuser  # which will ask you for username and password
+```
+3. Upload the fixtures to the database by running the following command in terminal and make sure that products are loaded last.
+```
+python3 manage.py loaddata categories
+python3 manage.py loaddata allergies
+python3 manage.py loaddata products
+```
+
+#### Configure AWS to host the static files
+1. In AWS, create a bucket and upload the static files and media files to the bucket.
+2. Configure your bucket with appropriate permissions and CORS rules.
+3. Create IAM user and create a policy for the user to allow access to the bucket.
+4. In your IDE, set up the project to use AWS for storage with the respective environment variables for AWS.
+5. Execute `python3 manage.py collectstatic` to upload static files to the AWS S3 Bucket.
+6. Upload product photos from media folder manually to the AWS S3 Bucket.
+7. Remove DISABLE_COLLECTSTATIC variable from Heroku Config Vars.
 
 ## Credits
 ### Code
-
+* This project follows Code Institute's walkthrough project Boutique Ado to build a Django web application.
+* Tutorial on how to create a nice horizontally scrolled ticket for category filtering navigation bar from [benfrain.com](https://benfrain.com/a-horizontal-scrolling-navigation-pattern-for-touch-and-mouse-with-moving-current-indicator/).
+* Intensive reading of Django's documentation and a lot of Google search leading to [StackOverflow](https://stackoverflow.com), [GeeksForGeeks](https://www.geeksforgeeks.org/), [dev.to](https://dev.to/), [CSS Tricks](https://css-tricks.com/) etc., which helps me to understand the concepts better and fine-tune my codes and logic.
 ### Content
-The content throughout this page is written by me and/or adapted from my own business [Hy's Løren](https://www.hysstreetfood.no/).
+*The content throughout this page is written by me and/or adapted from my own business [Hy's Løren](https://www.hysstreetfood.no/).
+*Sushi icon for favicon is taken from [Sushi icon](https://icons8.com/icon/lLRjiBFwQ9Sx/sushi) by [Icons8](https://icons8.com/).
 
 ### Media
 Photos of food and drinks are copyrights from my own business [Hy's Løren](https://www.hysstreetfood.no/).
+
+### Acknowledgements
+A big thanks for my mentor Narender Singh for the constructive code review sessions and for the help in debugging my own logic, thinking, and codes, which has helped me to learn more about anything coding related from the very first project until this last one.
