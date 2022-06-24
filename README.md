@@ -137,7 +137,8 @@ During the development phase, the database is adjusted upon further research and
 * CSS framework chosen for this project is [Bootstrap v5.1](https://getbootstrap.com/). This framework is chosen for its clean, simple and clear response UI design, which is easy for novice users to navigate and interact with data and database.
 
 * Color: the color scheme for Sushiish is taken from the ingredients of one of the most popular and classic maki roll: salmon avocado roll. Salmon (pinkish shade #FF7E6B), avocado (light green shade #44B5AA), all on a rice (white #FFFFFF) background.
-![Sushiish color schemes](readme-assets/skeleton-color-schemes.png)*Sushiish color schemes*
+![Sushiish color schemes](readme-assets/skeleton-color-schemes.png)
+*Sushiish color schemes*
   
 * Font:
   * [Caveat Brush](https://fonts.google.com/specimen/Caveat+Brush?query=caveat) is chosen as the font for the logo and being used for hero texts / headlines.
@@ -304,8 +305,8 @@ python3 manage.py loaddata products
 * Tutorial on how to create a nice horizontally scrolled ticket for category filtering navigation bar from [benfrain.com](https://benfrain.com/a-horizontal-scrolling-navigation-pattern-for-touch-and-mouse-with-moving-current-indicator/).
 * Intensive reading of Django's documentation and a lot of Google search leading to [StackOverflow](https://stackoverflow.com), [GeeksForGeeks](https://www.geeksforgeeks.org/), [dev.to](https://dev.to/), [CSS Tricks](https://css-tricks.com/) etc., which helps me to understand the concepts better and fine-tune my codes and logic.
 ### Content
-*The content throughout this page is written by me and/or adapted from my own business [Hy's Løren](https://www.hysstreetfood.no/).
-*Sushi icon for favicon is taken from [Sushi icon](https://icons8.com/icon/lLRjiBFwQ9Sx/sushi) by [Icons8](https://icons8.com/).
+* The content throughout this page is written by me and/or adapted from my own business [Hy's Løren](https://www.hysstreetfood.no/).
+* Sushi icon for favicon is taken from [Sushi icon](https://icons8.com/icon/lLRjiBFwQ9Sx/sushi) by [Icons8](https://icons8.com/).
 
 ### Media
 Photos of food and drinks are copyrights from my own business [Hy's Løren](https://www.hysstreetfood.no/).
