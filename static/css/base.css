@@ -385,4 +385,14 @@ input[type="checkbox"]:checked {
   .container {
     max-width: 960px;
   }
+
+  .message-container {
+    right: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .message-container {
+    right: 130px;
+  }
 }
