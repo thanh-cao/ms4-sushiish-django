@@ -35,6 +35,91 @@ This section documents the testing phase of the Sushiish application covering re
   ![PEP8 Online](readme-assets/testing/testing-pep8-settingspy.png)
 
 ## User stories testing
+### 1. As a new visitor and a site user, I want to...
+  * ...know what the website is about upon landing the site.
+    * When visitors land on the index page, they can see a hero text with a background image of a maki sushi which clearly indicate that this website is about sushi.
+    * Landing page also has other sections which further give more context to the website such as catering service and introduction to Sushiish.
+  ![Landing page](readme-assets/features/landing-hero-section.png)
+  ![Landing page sections](readme-assets/features/landing-sections.png)
+
+  * ...be able to navigate through the website smoothly.
+    * The navigation bars, both on the index page and online shop section, are designed to be clear with texts, simple and focused, so that visitors can easily go to checkout and place an order with ease. The navigation bars are also responsive and adaptable to different screen sizes so that they don't suddenly expand and be obstructive to the screen property.
+    ![Index navigation](readme-assets/features/index-nav-desktop.png)
+*Index navigation desktop*
+    ![Index navigation](readme-assets/features/index-nav-mobile.png)
+*Index navigation mobile screen with hamburger dropdown*
+    
+  * ...be able to sign up / log in / log out in order to order take-away.
+    * Sushiish utilizes `django-allAuth`, a tested and secured authentication system. The system is designed to be easy to use and easy to maintain, with a lot of features such as email verification, password reset, and more.
+    ![Sign up](readme-assets/features/allAuth-signup.png)
+    ![Sign in](readme-assets/features/allAuth-signin.png)
+    ![Sign out](readme-assets/features/allAuth-signout.png)
+  
+  * ...have a personalized profile page where I can add my delivery information and see my previous purchase history.
+    * User's profile page is only accessible by verified logged in user. The page contains a form to add/edit user's details, address information and a list of previous orders which belong to the respective user.
+    ![Personalized profile page](readme-assets/features/profile-user.png)
+    ![Profile page - saved address](readme-assets/features/profile-saved-addresses.png)
+    ![Profile page - order history](readme-assets/features/profile-order-history.png)
+
+### 2. As a shopper during the dish selection phase, I want to...
+  * ...be able to see all the dishes available to buy and filter the dishes based on their categories.
+    * Visitors can choose to see all the dishes available at Sushiish. Or they can choose to filter the menu by its category. The category is designed to be scrolled horizontally and is responsve to different screen size with arrow on mobile screen to indicate the user that there is more the sides. The category filter is also fixed upon scrolling so that users can just easily change category at any point.
+    ![Dish categories](readme-assets/features/products-category-filter.png)
+
+  * ...exclude the dishes based on certain allergies.
+    * There are currently 10 allergies which are also some of the most common allergies. The user can choose to exclude the dishes which contain the allergies they are allergic to.
+    ![Allergy filter](readme-assets/features/products-allergy-filter.png)
+
+  * ...search for a dish based on name or descriptions (ingredients).
+    * Visitors can search for a dish by its name or description (ingredients). The search box is also responsive and adaptable to different screen sizes.
+    ![Search bar desktop](readme-assets/features/responsive-navbar-desktop.png)
+*Desktop screen navbar with full search box*
+    ![Search bar mobile](readme-assets/features/responsive-navbar-mobile.png)
+*Mobile screen navbar with only search icon which hides/displays search box upon click*
+
+  * ...view product's detailed information.
+    * Detailed information of a dish can be found upon clicking the product card on product listing page. The details are displayed with an offcanvas on the right hand side of the screen. On dekstop, the offcanvas takes up a small portion of the screen while on mobile, it takes up the entire screen. Offcanvas can be closed by clicking outside of the canvas area or the close button.
+    ![Offcanvas desktop](readme-assets/features/product-offcanvas-dekstop.png)
+    ![Offcanvas mobile](readme-assets/features/product-offcanvas-mobile.png)
+  
+  * ...able to see the total amout of my current purchase at any time.
+    * On the navigation bar, a cart icon is always visible with the total amount of the current purchase. Upon successfully added to cart, the total amount is dynamically updated and a toast message appears to inform buyers of the successful addition to cart.
+    ![Navigation bar with cart](readme-assets/features/online-shop-nav-1.png)
+    ![Toast success message add to](readme-assets/features/product-add-to-cart.png)
+
+### 3. As a shopper during checking out phase, I want to...
+  * ...view all the dishes I have added to my order.
+    * Upon clicking cart icon on navigation page, buyer is directed to their current shopping cart where they have a complete overview of all the items that have been added to cart as well as the total amount of the current purchase and/or order discount/delivery charge.
+    ![Shopping cart](readme-assets/features/cart-page.png)
+
+  * ...easily adjust quantity of a product currently in my order / delete a product
+    * For each item in the shopping cart, there is buttons where buyer can easily update the quantity of that specific item or delete it from the shopping cart. There is also a text button `Clear cart` at the bottom of all the order items, which will clear the entire shopping cart.
+    ![Order item in shopping cart](readme-assets/features/cart-order-item.png)
+
+  * ...be able to add a note to the kitchen or delivery.
+  * ...choose time I expect to pick up the food or have it delivered.
+    * On shopping cart page, there is a card showing order information where user can choose to either pickup or delivery, choose the date and time they expect the order to be done, and add a note to the kitchen or delivery.
+    ![Order info cart](readme-assets/features/order-info-card.png)
+
+  * ...easily enter personal information / delivery information / payment information.
+  * ...pay for orders with my card in a safe and secured matter.
+    * Checkout page contains a form where user can enter their personal information, delivery information and payment information. They are built with clean and simple design so that they are easy to use and navigate. The form is also responsive and adaptable to different screen sizes.
+    * Payment is handled by Stripe API which is a popular and secured payment system. Webhooks are also set up as a safety measure so that the payment is processed and the order is placed once the payment is successful.
+    ![Checkout form](readme-assets/features/checkout-buyer-details.png)
+    ![Payment form](readme-assets/features/checkout-payment.png)
+    
+  * ...receive a confirmation from the shop that I have successfully or failed to create an order or pay.
+    * Upon successfully paying the order, buyer is redirected to a success page where they can see once again the order details and the payment information. A confirmation email is also sent to the buyer.
+    ![Success page](readme-assets/features/checkout-success.png)
+    ![Success email](readme-assets/features/checkout-success-email.png)
+
+### 4. As the shop owner, I want to:
+  * ...be able to add more dishes to the menu.
+  * ...be able to edit current dishes.
+  * ...delete a dish out of the menu.
+    * Django admin dashboard is set up with all CRUD possibility to manage and manipulate the database, including menu/product listing. With more time, a better admin dashboard with nicer user experience could have been implemented.
+    ![Django admin dashboard](readme-assets/features/admin-dashboard.png)
+    ![Admin product listing](readme-assets/features/admin-product-listing.png)
 
 ## Further functionality and logic testing
 1. Form validations:
@@ -54,3 +139,4 @@ This section documents the testing phase of the Sushiish application covering re
 
 ## Further possible improvements
 * Further refactoring could have been done to improve clean code and readability. This was done only to small extend due to the time constraint.
+* A more custom designed page for admin dashboard could have been implemented in order to give shop owners a much better user experience in controlling and maintaining the database.
