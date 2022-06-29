@@ -133,7 +133,6 @@ class StripeWebhook_Handler:
                     stripe_pid=pid,
                 )
                 for item_id, quantity in json.loads(cart).items():
-                    print(item_id, quantity)
                     product = Product.objects.get(id=item_id)
                     order_line_item = OrderLineItem(
                         order_number=order,

@@ -5,7 +5,7 @@ from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from home.models import ContactForm
-from profiles.models import Address, UserProfile
+from profiles.models import UserProfile
 
 # Create your views here.
 

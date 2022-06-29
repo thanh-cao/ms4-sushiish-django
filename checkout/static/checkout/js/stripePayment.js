@@ -60,7 +60,6 @@ function displayLoadingOverlay(value) {
 function validateField(field, validation, message) {
     const feedbackDiv = field.parentElement.querySelector('.invalid-feedback');
     if (!validation) {
-        console.log('validation failed');
         feedbackDiv.textContent = message;
         feedbackDiv.style.display = 'block';
         document.querySelector('#card-errors').innerHTML = 'Please check the all the fields and try again.';

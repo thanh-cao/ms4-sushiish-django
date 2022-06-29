@@ -94,7 +94,6 @@ function activateQuantityUpdate() {
             e.preventDefault();
             let target = btn.getAttribute('data-form_id');
             let quantityForm = document.querySelector(`form#${target}`);
-            console.log(quantityForm);
             quantityForm.submit();
         });
     });
