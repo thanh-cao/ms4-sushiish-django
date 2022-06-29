@@ -118,6 +118,8 @@ This section documents the testing phase of the Sushiish application covering re
   * ...be able to edit current dishes.
   * ...delete a dish out of the menu.
     * Django admin dashboard is set up with all CRUD possibility to manage and manipulate the database, including menu/product listing. With more time, a better admin dashboard with nicer user experience could have been implemented.
+    * Link access to admin is only visible for logged in users who are also super user, under Profile dropdown.
+    ![Navlink to admin](readme-assets/features/navlink-admin.png)
     ![Django admin dashboard](readme-assets/features/admin-dashboard.png)
     ![Admin product listing](readme-assets/features/admin-product-listing.png)
 

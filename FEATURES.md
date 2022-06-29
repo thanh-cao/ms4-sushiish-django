@@ -103,7 +103,8 @@ A note in terms of localization: Sushiish is a take away shop located in Oslo, N
 ![Order history](readme-assets/features/profile-order-history.png)
 
 ## 8. Django admin page
-* Django has a really powerful built-in admin page which allows users to manage all the data tables available in the databse.
+* Django has a really powerful built-in admin page which allows users to manage all the data tables available in the databse. Link access to admin is only visible for logged in users who are also super user, under Profile dropdown.
+![Navlink to admin](readme-assets/features/navlink-admin.png)
 ![Django admin dashboard](readme-assets/features/admin-dashboard.png)
 
 * Some of the admin views for certain tables are adjusted to display all the neccessary fields in the listing page. Some fields are set to not be able to be editted, such as at the Product table/view, some of the fields that cannot be edited are: create_date and all the price-related fields.

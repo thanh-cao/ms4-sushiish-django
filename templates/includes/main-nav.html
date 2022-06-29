@@ -67,6 +67,11 @@
                 </a>
                 <ul class="dropdown-menu dropdown-center position-absolute end-0 text-end" aria-labelledby="account-dropdown">
                     {% if request.user.is_authenticated %}
+                        {% if request.user.is_superuser %}
+                            <li class="dropdown-item">
+                                <a href="{% url 'admin:index' %}">Admin</a>
+                            </li>
+                        {% endif %}
                     <li class="dropdown-item">
                         <a href="{% url 'profile' %}">Profile</a>
                     </li>

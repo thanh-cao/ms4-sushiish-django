@@ -7,7 +7,7 @@ Date: {{ order.create_date }}
 Order type: {{ order.order_type }}
 To be done by: {{ order.expected_done_date }}, {{ order.expected_done_time }}
 Phone: {{ order.phone_number }}
-{% if order_type == 'DELIVERY' %}
+{% if order.order_type == 'DELIVERY' %}
 Delivery address: {{ order.street_address1 }}, {{ order.street_address2 }}, {{ order.town_or_city }}, {{ order.postcode }}, {{ order.country }}
 {% endif %}
 
